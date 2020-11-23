@@ -13,4 +13,8 @@ public class Player {
     int wisdom;
     int charisma;
     boolean Alive;
+
+    public void getRacialBonus(){
+
+    }
 }
