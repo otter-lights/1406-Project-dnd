@@ -18,10 +18,29 @@ public class Player {
     int charisma;
     boolean Alive;
     int[] money = new int[3]; // depends on class
+    ArrayList<Item> inventory;
 
     public Player(){
 
     }
+    // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
+    // For now I am ignoring the decrease in speed that comes with higher weights, potentially added at a later date.
+    public void addToInventory(Item newItem){
+        int weight = 0;
+        for(Item i: inventory){
+            weight += i.getWeight();
+        }
+        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*strength){
+            inventory.add(newItem);
+        }
+        else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*strength)/2){
+            inventory.add(newItem);
+        }
+        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*strength){
+            inventory.add(newItem);
+        }
+    }
+
 
     public void getRacialBonus(){
 
