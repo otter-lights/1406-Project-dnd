@@ -38,6 +38,7 @@ public class Player {
     private void doRolls(){
         int[] abilityScores = new int[6];
         Random rand = new Random();
+        //have to roll a six-sided die 4 times per ability and sum the top 3 rolls
         for (int i = 0; i < abilityScores.length; i++){
             ArrayList<Integer> rolls = new ArrayList<>();
             for (int n = 0; n < 4; n++){
@@ -47,7 +48,12 @@ public class Player {
             abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
         }
         //ignoring class primary stat
-
+        strength = abilityScores[0];
+        dexterity = abilityScores[1];
+        constiution = abilityScores[2];
+        intelligence = abilityScores[3];
+        wisdom = abilityScores[4];
+        charisma = abilityScores[5];
     }
 
 
