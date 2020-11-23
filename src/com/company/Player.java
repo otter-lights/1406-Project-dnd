@@ -2,6 +2,7 @@ package com.company;
 import java.util.Random;
 import java.util.stream.Stream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Player {
     String alignment;
@@ -36,6 +37,16 @@ public class Player {
 
     private void doRolls(){
         int[] abilityScores = new int[6];
+        Random rand = new Random();
+        for (int i = 0; i < abilityScores.length; i++){
+            ArrayList<Integer> rolls = new ArrayList<>();
+            for (int n = 0; n < 4; n++){
+                rolls.add(rand.nextInt(6) + 1);
+            }
+            rolls.remove(Collections.min(rolls));
+            abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
+        }
+
     }
 
 
