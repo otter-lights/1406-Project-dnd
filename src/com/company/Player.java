@@ -2,7 +2,7 @@ package com.company;
 
 public class Player {
     String alignment;
-    int curHP;
+    int currentHP;
     int maxHP;
     int experience;
     Race playerRace;
