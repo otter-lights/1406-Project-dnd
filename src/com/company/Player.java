@@ -46,6 +46,7 @@ public class Player {
             rolls.remove(Collections.min(rolls));
             abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
         }
+        //ignoring class primary stat
 
     }
 
