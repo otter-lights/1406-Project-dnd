@@ -1,4 +1,7 @@
 package com.company;
+import java.util.Random;
+import java.util.stream.Stream;
+import java.util.ArrayList;
 
 public class Player {
     String alignment;
@@ -32,7 +35,7 @@ public class Player {
     }
 
     private void doRolls(){
-
+        int[] abilityScores = new int[6];
     }
 
 
