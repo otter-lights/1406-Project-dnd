@@ -22,36 +22,7 @@ public class Player {
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
     public Player(String chosenRace){
-        if(chosenRace.equals("Gnome")){
-            playerRace = new Gnome();
-        }
-        else if(chosenRace.equals("Halfling")){
-            playerRace = new Halfling();
-        }
-        else if(chosenRace.equals("Dwarf")){
-            playerRace = new Dwarf();
-        }
-        else if(chosenRace.equals("Dragonborn")){
-            playerRace = new Dragonborn();
-        }
-        else if(chosenRace.equals("Elf")){
-            playerRace = new Elf();
-        }
-        else if(chosenRace.equals("HalfElf")){
-            playerRace = new HalfElf();
-        }
-        else if(chosenRace.equals("HalfOrc")){
-            playerRace = new HalfOrc();
-        }
-        else if(chosenRace.equals("Human")){
-            playerRace = new Human();
-        }
-        else if(chosenRace.equals("Tiefling")){
-            playerRace = new Tiefling();
-        }
-        else{
-            System.out.println("Invaild Race");
-        }
+
     }
 
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
