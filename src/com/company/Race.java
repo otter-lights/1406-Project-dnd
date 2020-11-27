@@ -8,7 +8,9 @@ abstract public class Race {
     int baseSpeed;
     //this will be a 6 int array containing the base ability score increases for each race.
     // Order is {Strength, Dex, Con, Int, Wis, Charisma}
-    int[] abilityIncrease = new int[6];
+
+    //changed type to integer so not set values are null
+    Integer[] abilityIncrease = new Integer[6];
     boolean darkvision;
     public Race(String chosenRace){
         if(chosenRace.equals("Gnome")){
@@ -125,5 +127,5 @@ abstract public class Race {
     public String getSize(){
         return size;
     }
-    public int[] getAbilityIncrease() { return abilityIncrease; }
+    public Integer[] getAbilityIncrease() { return abilityIncrease; }
 }

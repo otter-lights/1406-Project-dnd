@@ -13,12 +13,12 @@ public class Player {
 
     //i think it would be better to have these in an array (stats)
     //it would make setting them up easier
-    /*int strength;
-    int dexterity;
-    int constitution;
-    int intelligence;
-    int wisdom;
-    int charisma;*/
+    /*int strength;   0
+    int dexterity;    1
+    int constitution; 2
+    int intelligence; 3
+    int wisdom;       4
+    int charisma;     5   */
     int[] stats = new int[6];
     boolean Alive;
     int[] money = new int[3]; // depends on class
@@ -37,24 +37,24 @@ public class Player {
         for(Item i: inventory){
             weight += i.getWeight();
         }
-        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*strength){
+        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*stats[0]){
             inventory.add(newItem);
         }
-        else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*strength)/2){
+        else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*stats[0])/2){
             inventory.add(newItem);
         }
-        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*strength){
+        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*stats[0]){
             inventory.add(newItem);
         }
     }
 
 
     public void getRacialBonus(){
-        int[] racialBonus = Arrays.copyOf(playerRace.getAbilityIncrease(), 6);
+        //will have to test all of the stuff we set up!
+        Integer[] racialBonus = Arrays.copyOf(playerRace.getAbilityIncrease(), 6);
         for(int i = 0; i < 6; i++){
-            //are the not set numbers equal to null??
             if (racialBonus[i] != null){
-
+                stats[i] += racialBonus[i];
             }
         }
     }
