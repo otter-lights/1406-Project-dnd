@@ -10,12 +10,16 @@ public class Player {
     int maxHP;
     int experience;
     Race playerRace;
-    int strength;
+
+    //i think it would be better to have these in an array (stats)
+    //it would make setting them up easier
+    /*int strength;
     int dexterity;
     int constitution;
     int intelligence;
     int wisdom;
-    int charisma;
+    int charisma;*/
+    int[] stats = new int[6];
     boolean Alive;
     int[] money = new int[3]; // depends on class
     ArrayList<Item> inventory;
@@ -48,7 +52,7 @@ public class Player {
     public void getRacialBonus(){
         int[] racialBonus = Arrays.copyOf(playerRace.getAbilityIncrease(), 6);
         for(Integer bonus: racialBonus){
-
+            //are the not set numbers equal to null??
         }
     }
 
@@ -73,12 +77,9 @@ public class Player {
             abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
         }
         //ignoring class primary stat
-        strength = abilityScores[0];
-        dexterity = abilityScores[1];
-        constitution = abilityScores[2];
-        intelligence = abilityScores[3];
-        wisdom = abilityScores[4];
-        charisma = abilityScores[5];
+        for (int i = 0; i < 6; i++){
+            stats[i] = abilityScores[i];
+        }
     }
 
 
