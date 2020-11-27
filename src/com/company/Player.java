@@ -51,8 +51,11 @@ public class Player {
 
     public void getRacialBonus(){
         int[] racialBonus = Arrays.copyOf(playerRace.getAbilityIncrease(), 6);
-        for(Integer bonus: racialBonus){
+        for(int i = 0; i < 6; i++){
             //are the not set numbers equal to null??
+            if (racialBonus[i] != null){
+
+            }
         }
     }
 
