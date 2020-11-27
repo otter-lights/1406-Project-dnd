@@ -19,7 +19,7 @@ public class Player {
     int intelligence; //3
     int wisdom;       //4
     int charisma;     //5
-    int[] stats = new int[6];
+    int[] abilityScores = new int[6];
     boolean Alive;
     int[] money = new int[3]; // depends on class
     ArrayList<Item> inventory;
@@ -38,13 +38,13 @@ public class Player {
         for(Item i: inventory){
             weight += i.getWeight();
         }
-        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*stats[0]){
+        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*abilityScores[0]){
             inventory.add(newItem);
         }
-        else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*stats[0])/2){
+        else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*abilityScores[0])/2){
             inventory.add(newItem);
         }
-        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*stats[0]){
+        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*abilityScores[0]){
             inventory.add(newItem);
         }
     }
@@ -58,7 +58,6 @@ public class Player {
     }
 
     private void rollAbilityScores(){
-        int[] abilityScores = new int[6];
         int[] abilityIncrease = playerRace.getAbilityIncrease();
         Random rand = new Random();
         //have to roll a six-sided die 4 times per ability and sum the top 3 rolls
@@ -68,23 +67,22 @@ public class Player {
                 rolls.add(rand.nextInt(6) + 1);
             }
             rolls.remove(Collections.min(rolls));
-            //abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
 
             //this is an option if you want to store the stats in an array
             //it adds the ability increase in this main loop
-            stats[i] = rolls.stream().mapToInt(Integer::intValue).sum() + abilityIncrease[i];
+            abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum() + abilityIncrease[i];
         }
         //ignoring class primary stat, adding bonus from race class
 
         //if above method is okay this can be removed v
         //or if u want the variables to be separate and not in an array
         //we can set them here :)
-        strength = abilityScores[0] + playerRace.getStrength();
+        /*strength = abilityScores[0] + playerRace.getStrength();
         dexterity = abilityScores[1] + playerRace.getDexterity();
         constitution = abilityScores[2] + playerRace.getConstitution();
         intelligence = abilityScores[3] + playerRace.getIntelligence();
         wisdom = abilityScores[4] + playerRace.getWisdom();
-        charisma = abilityScores[5] + playerRace.getCharisma();
+        charisma = abilityScores[5] + playerRace.getCharisma();*/
     }
 
 
