@@ -12,7 +12,6 @@ public class Race {
     // Order is {Strength, Dex, Con, Int, Wis, Charisma}
     int[] abilityIncrease = new int[6];
 
-
     public Race(String chosenRace){
         if(chosenRace.equals("Gnome")){
             //Rock Gnome Stats
@@ -128,6 +127,7 @@ public class Race {
     public String getSize(){
         return size;
     }
+  
     //Strength, Dex, Con, Int, Wis, Charisma
     public int getStrength(){
         return abilityIncrease[0];
@@ -147,6 +147,5 @@ public class Race {
     public int getCharisma(){
         return abilityIncrease[5];
     }
-
 
 }

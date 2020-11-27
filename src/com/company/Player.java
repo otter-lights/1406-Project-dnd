@@ -2,6 +2,7 @@ package com.company;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Arrays;
 
 public class Player {
     String alignment;
@@ -9,12 +10,16 @@ public class Player {
     int maxHP;
     int experience;
     Race playerRace;
-    int strength;
-    int dexterity;
-    int constitution;
-    int intelligence;
-    int wisdom;
-    int charisma;
+
+    //i think it would be better to have these in an array (stats)
+    //it would make setting them up easier
+    /*int strength;   0
+    int dexterity;    1
+    int constitution; 2
+    int intelligence; 3
+    int wisdom;       4
+    int charisma;     5   */
+    int[] stats = new int[6];
     boolean Alive;
     int[] money = new int[3]; // depends on class
     ArrayList<Item> inventory;
@@ -33,13 +38,13 @@ public class Player {
         for(Item i: inventory){
             weight += i.getWeight();
         }
-        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*strength){
+        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*stats[0]){
             inventory.add(newItem);
         }
-        else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*strength)/2){
+        else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*stats[0])/2){
             inventory.add(newItem);
         }
-        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*strength){
+        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*stats[0]){
             inventory.add(newItem);
         }
     }
