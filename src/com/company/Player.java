@@ -13,12 +13,12 @@ public class Player {
 
     //i think it would be better to have these in an array (stats)
     //it would make setting them up easier
-    /*int strength;   0
-    int dexterity;    1
-    int constitution; 2
-    int intelligence; 3
-    int wisdom;       4
-    int charisma;     5   */
+    int strength;     //0
+    int dexterity;    //1
+    int constitution; //2
+    int intelligence; //3
+    int wisdom;       //4
+    int charisma;     //5
     int[] stats = new int[6];
     boolean Alive;
     int[] money = new int[3]; // depends on class
