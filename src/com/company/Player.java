@@ -2,6 +2,7 @@ package com.company;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Arrays;
 
 public class Player {
     String alignment;
@@ -45,7 +46,10 @@ public class Player {
 
 
     public void getRacialBonus(){
+        int[] racialBonus = Arrays.copyOf(playerRace.getAbilityIncrease(), 6);
+        for(Integer bonus: racialBonus){
 
+        }
     }
 
     public void getStartingEquipment(){

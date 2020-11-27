@@ -125,5 +125,5 @@ abstract public class Race {
     public String getSize(){
         return size;
     }
-
+    public int[] getAbilityIncrease() { return abilityIncrease; }
 }
