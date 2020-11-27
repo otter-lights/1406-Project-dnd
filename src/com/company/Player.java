@@ -67,9 +67,16 @@ public class Player {
                 rolls.add(rand.nextInt(6) + 1);
             }
             rolls.remove(Collections.min(rolls));
-            abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
+            //abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
+             stats[i] = rolls.stream().mapToInt(Integer::intValue).sum();
         }
         //ignoring class primary stat, adding bonus from race class
+
+        //this is an option if you want to store the stats in an array
+        int[] abilityIncrease = playerRace.getAbilityIncrease();
+        for (int i = 0; i < 6; i++){
+            stats[i] += abilityIncrease[i];
+        }
         strength = abilityScores[0] + playerRace.getStrength();
         dexterity = abilityScores[1] + playerRace.getDexterity();
         constitution = abilityScores[2] + playerRace.getConstitution();
