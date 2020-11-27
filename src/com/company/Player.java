@@ -59,24 +59,26 @@ public class Player {
 
     private void rollAbilityScores(){
         int[] abilityScores = new int[6];
+        int[] abilityIncrease = playerRace.getAbilityIncrease();
         Random rand = new Random();
         //have to roll a six-sided die 4 times per ability and sum the top 3 rolls
-        for (int i = 0; i < abilityScores.length; i++){
+        for (int i = 0; i < 6; i++){
             ArrayList<Integer> rolls = new ArrayList<>();
             for (int n = 0; n < 4; n++){
                 rolls.add(rand.nextInt(6) + 1);
             }
             rolls.remove(Collections.min(rolls));
             //abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
-             stats[i] = rolls.stream().mapToInt(Integer::intValue).sum();
+
+            //this is an option if you want to store the stats in an array
+            //it adds the ability increase in this main loop
+            stats[i] = rolls.stream().mapToInt(Integer::intValue).sum() + abilityIncrease[i];
         }
         //ignoring class primary stat, adding bonus from race class
 
-        //this is an option if you want to store the stats in an array
-        int[] abilityIncrease = playerRace.getAbilityIncrease();
-        for (int i = 0; i < 6; i++){
-            stats[i] += abilityIncrease[i];
-        }
+        //if above method is okay this can be removed v
+        //or if u want the variables to be separate and not in an array
+        //we can set them here :)
         strength = abilityScores[0] + playerRace.getStrength();
         dexterity = abilityScores[1] + playerRace.getDexterity();
         constitution = abilityScores[2] + playerRace.getConstitution();
