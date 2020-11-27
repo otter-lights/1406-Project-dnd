@@ -27,7 +27,8 @@ public class Player {
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
     public Player(String chosenRace){
-
+        playerRace = new Race(chosenRace);
+        rollAbilityScores();
     }
 
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
@@ -48,17 +49,6 @@ public class Player {
         }
     }
 
-
-    public void getRacialBonus(){
-        //will have to test all of the stuff we set up!
-        Integer[] racialBonus = Arrays.copyOf(playerRace.getAbilityIncrease(), 6);
-        for(int i = 0; i < 6; i++){
-            if (racialBonus[i] != null){
-                stats[i] += racialBonus[i];
-            }
-        }
-    }
-
     public void getStartingEquipment(){
         //depends on class
     }
@@ -67,7 +57,7 @@ public class Player {
         //depends on class
     }
 
-    private void doRolls(){
+    private void rollAbilityScores(){
         int[] abilityScores = new int[6];
         Random rand = new Random();
         //have to roll a six-sided die 4 times per ability and sum the top 3 rolls
@@ -79,10 +69,13 @@ public class Player {
             rolls.remove(Collections.min(rolls));
             abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum();
         }
-        //ignoring class primary stat
-        for (int i = 0; i < 6; i++){
-            stats[i] = abilityScores[i];
-        }
+        //ignoring class primary stat, adding bonus from race class
+        strength = abilityScores[0] + playerRace.getStrength();
+        dexterity = abilityScores[1] + playerRace.getDexterity();
+        constitution = abilityScores[2] + playerRace.getConstitution();
+        intelligence = abilityScores[3] + playerRace.getIntelligence();
+        wisdom = abilityScores[4] + playerRace.getWisdom();
+        charisma = abilityScores[5] + playerRace.getCharisma();
     }
 
 
