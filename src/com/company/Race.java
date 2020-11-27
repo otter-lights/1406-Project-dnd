@@ -3,13 +3,16 @@ import java.util.Random;
 import java.util.ArrayList;
 
 
-abstract public class Race {
+public class Race {
     String size;
     int baseSpeed;
+    boolean darkvision;
+
     //this will be a 6 int array containing the base ability score increases for each race.
     // Order is {Strength, Dex, Con, Int, Wis, Charisma}
     int[] abilityIncrease = new int[6];
-    boolean darkvision;
+
+
     public Race(String chosenRace){
         if(chosenRace.equals("Gnome")){
             //Rock Gnome Stats
@@ -125,5 +128,25 @@ abstract public class Race {
     public String getSize(){
         return size;
     }
+    //Strength, Dex, Con, Int, Wis, Charisma
+    public int getStrength(){
+        return abilityIncrease[0];
+    }
+    public int getDexterity(){
+        return abilityIncrease[1];
+    }
+    public int getConstitution(){
+        return abilityIncrease[2];
+    }
+    public int getIntelligence(){
+        return abilityIncrease[3];
+    }
+    public int getWisdom(){
+        return abilityIncrease[4];
+    }
+    public int getCharisma(){
+        return abilityIncrease[5];
+    }
+
 
 }
