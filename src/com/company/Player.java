@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Arrays;
 
-public class Player {
+public abstract class Player {
     String alignment;
     int currentHP;
     int maxHP;
