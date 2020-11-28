@@ -129,6 +129,7 @@ public class Race {
     }
   
     //Strength, Dex, Con, Int, Wis, Charisma
+    public int[] getAbilityIncrease() {return abilityIncrease;}
     public int getStrength(){
         return abilityIncrease[0];
     }
