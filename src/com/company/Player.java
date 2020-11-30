@@ -21,8 +21,11 @@ public abstract class Player {
 
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
-    public Player(String chosenRace, int experience){
+  
+    public Player(String chosenRace, int experience, int startingGold){
         playerRace = new Race(chosenRace);
+        money[0] = startingGold;
+        this.experience = experience;
         rollAbilityScores();
         setLevel();
     }

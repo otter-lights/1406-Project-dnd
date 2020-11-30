@@ -5,8 +5,8 @@ public abstract class MagicUser extends Player{
     //spell save dc
     //spell attack bonus
 
-    public MagicUser(String chosenRace){
-        super(chosenRace);
+    public MagicUser(String chosenRace, int startingGold, int xp){
+        super(chosenRace, startingGold, xp);
     }
 
     //not sure if this should be done here or in child class
