@@ -8,17 +8,12 @@ public abstract class Player {
     String alignment;
     int currentHP;
     int maxHP;
+    int userLevel;
+    int proficencyBonus;
     int experience;
     Race playerRace;
 
-    //i think it would be better to have these in an array (stats)
-    //it would make setting them up easier
-    int strength;     //0
-    int dexterity;    //1
-    int constitution; //2
-    int intelligence; //3
-    int wisdom;       //4
-    int charisma;     //5
+    //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     int[] abilityScores = new int[6];
     boolean Alive;
     int[] money = new int[3]; // depends on class
@@ -26,12 +21,98 @@ public abstract class Player {
 
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
-    public Player(String chosenRace, int startingGold){
+  
+    public Player(String chosenRace, int experience, int startingGold){
         playerRace = new Race(chosenRace);
         money[0] = startingGold;
+        this.experience = experience;
         rollAbilityScores();
+        setLevel();
     }
-
+    public int getLevel(){return userLevel;}
+    public int getProficencyBonus(){return proficencyBonus;}
+    public void setLevel(){
+        if(experience < 300){
+            userLevel = 1;
+            proficencyBonus = 2;
+        }
+        else if (experience < 900){
+            userLevel = 2;
+            proficencyBonus = 2;
+        }
+        else if (experience < 2700){
+            userLevel = 3;
+            proficencyBonus = 2;
+        }
+        else if(experience < 6500){
+            userLevel = 4;
+            proficencyBonus = 2;
+        }
+        else if(experience < 14000){
+            userLevel = 5;
+            proficencyBonus = 3;
+        }
+        else if(experience < 23000){
+            userLevel = 6;
+            proficencyBonus = 3;
+        }
+        else if(experience < 34000){
+            userLevel = 7;
+            proficencyBonus = 3;
+        }
+        else if(experience < 48000){
+            userLevel = 8;
+            proficencyBonus = 3;
+        }
+        else if(experience < 64000){
+            userLevel = 9;
+            proficencyBonus = 4;
+        }
+        else if(experience < 85000){
+            userLevel = 10;
+            proficencyBonus = 4;
+        }
+        else if(experience < 100000){
+            userLevel = 11;
+            proficencyBonus = 4;
+        }
+        else if(experience < 120000){
+            userLevel = 12;
+            proficencyBonus = 4;
+        }
+        else if(experience < 140000){
+            userLevel = 13;
+            proficencyBonus = 5;
+        }
+        else if(experience < 165000){
+            userLevel = 14;
+            proficencyBonus = 5;
+        }
+        else if(experience < 195000){
+            userLevel = 15;
+            proficencyBonus = 5;
+        }
+        else if(experience < 225000){
+            userLevel = 16;
+            proficencyBonus = 5;
+        }
+        else if(experience < 265000){
+            userLevel = 17;
+            proficencyBonus = 6;
+        }
+        else if(experience < 305000){
+            userLevel = 18;
+            proficencyBonus = 6;
+        }
+        else if(experience < 355000){
+            userLevel = 19;
+            proficencyBonus = 6;
+        }
+        else if(experience >= 355000){
+            userLevel = 20;
+            proficencyBonus = 6;
+        }
+    }
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
     // For now I am ignoring the decrease in speed that comes with higher weights, potentially added at a later date.
     public void addToInventory(Item newItem){
