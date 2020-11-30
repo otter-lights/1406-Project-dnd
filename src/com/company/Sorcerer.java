@@ -1,7 +1,7 @@
 package com.company;
 
-public class Wizard extends MagicUser{
-    public Wizard(String chosenRace){
+public class Sorcerer extends MagicUser{
+    public Sorcerer(String chosenRace){
         super(chosenRace, 70, 0);
     }
 
