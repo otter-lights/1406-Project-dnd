@@ -72,17 +72,6 @@ public abstract class Player {
             //it adds the ability increase in this main loop
             abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum() + abilityIncrease[i];
         }
-        //ignoring class primary stat, adding bonus from race class
-
-        //if above method is okay this can be removed v
-        //or if u want the variables to be separate and not in an array
-        //we can set them here :)
-        /*strength = abilityScores[0] + playerRace.getStrength();
-        dexterity = abilityScores[1] + playerRace.getDexterity();
-        constitution = abilityScores[2] + playerRace.getConstitution();
-        intelligence = abilityScores[3] + playerRace.getIntelligence();
-        wisdom = abilityScores[4] + playerRace.getWisdom();
-        charisma = abilityScores[5] + playerRace.getCharisma();*/
     }
 
 
