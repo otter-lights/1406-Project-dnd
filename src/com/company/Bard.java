@@ -2,7 +2,7 @@ package com.company;
 
 public class Bard extends MagicUser{
     public Bard(String chosenRace){
-        super(chosenRace, 105, 0);
+        super(chosenRace, 105, 0, 8);
     }
 
     public void castSpell(){

@@ -11,6 +11,7 @@ public abstract class Player {
     int userLevel;
     int proficencyBonus;
     int experience;
+    int hitDie;
     Race playerRace;
 
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
@@ -22,7 +23,7 @@ public abstract class Player {
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
   
-    public Player(String chosenRace, int experience, int startingGold){
+    public Player(String chosenRace, int experience, int startingGold, int hitDie){
         playerRace = new Race(chosenRace);
         money[0] = startingGold;
         this.experience = experience;
@@ -155,6 +156,16 @@ public abstract class Player {
             abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum() + abilityIncrease[i];
         }
     }
+
+    public int makeHit(){
+        Random rand = new Random();
+        int sum = 0;
+        for(int i = 1; i <= userLevel; i++){
+            sum += rand.nextInt(hitDie) + 1;
+        }
+        return sum;
+    }
+
 
 
 }

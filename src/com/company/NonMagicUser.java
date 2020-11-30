@@ -3,8 +3,8 @@ package com.company;
 public abstract class NonMagicUser extends Player{
     //list of attacks? (is that how this works)
 
-    public NonMagicUser(String chosenRace, int startingGold, int xp){
-        super(chosenRace, startingGold, xp);
+    public NonMagicUser(String chosenRace, int startingGold, int xp, int hitDie){
+        super(chosenRace, startingGold, xp, hitDie);
     }
 
     //not sure if this should be done here or in child class
