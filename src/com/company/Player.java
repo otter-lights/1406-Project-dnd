@@ -8,13 +8,18 @@ public abstract class Player {
     String alignment;
     int currentHP;
     int maxHP;
+
     int userLevel;
     int proficencyBonus;
     int experience;
     Race playerRace;
 
+    //Acrobatics, Animal Handling, Arcana, Athletics, Deception, History, Insight, Intimidation, Investigation, Medicine, Nature, Perception, Performance, Persuasion, Religion, Slight of Hand, Stealth, Survival
+    boolean[] skillProficency = new boolean[18];
+
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     int[] abilityScores = new int[6];
+    int[] abilityMods = new int[6];
     boolean Alive;
     int[] money = new int[3]; // depends on class
     ArrayList<Item> inventory;
@@ -31,6 +36,27 @@ public abstract class Player {
     }
     public int getLevel(){return userLevel;}
     public int getProficencyBonus(){return proficencyBonus;}
+
+    //needs to be supplied with the index of the appropriate modifier, the score that needs to be beaten, and a boolean indicating proficency
+    public boolean attackRoll(int modifier, int scoreToBeat, boolean profienct){
+        Random d20 = new Random();
+        int roll = (d20.nextInt(20) + 1) + abilityMods[modifier];
+        if(profienct){
+            roll = roll + proficencyBonus;
+        }
+        return roll >= scoreToBeat;
+    }
+    //needs to be supplied with the index of the appropriate modifier.
+    public int damageRoll(int modifier){
+        Random d20 = new Random();
+        return (d20.nextInt(20)+ 1) + abilityMods[modifier];
+    }
+
+    public void setAbilityMods(){
+        for(int i = 0; i < 6; i++){
+            abilityMods[i] = (int) Math.floor((abilityScores[i] - 10)/2);
+        }
+    }
     public void setLevel(){
         if(experience < 300){
             userLevel = 1;
@@ -113,6 +139,7 @@ public abstract class Player {
             proficencyBonus = 6;
         }
     }
+
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
     // For now I am ignoring the decrease in speed that comes with higher weights, potentially added at a later date.
     public void addToInventory(Item newItem){
