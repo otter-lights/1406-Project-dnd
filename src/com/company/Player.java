@@ -13,6 +13,7 @@ public abstract class Player {
     int experience;
     int hitDie;
     Race playerRace;
+    boolean[] saves;
 
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     int[] abilityScores = new int[6];
@@ -23,10 +24,11 @@ public abstract class Player {
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
   
-    public Player(String chosenRace, int experience, int startingGold, int hitDie){
+    public Player(String chosenRace, int experience, int startingGold, int hitDie, boolean[] saves){
         playerRace = new Race(chosenRace);
         money[0] = startingGold;
         this.experience = experience;
+        this.saves = saves;
         rollAbilityScores();
         setLevel();
     }
