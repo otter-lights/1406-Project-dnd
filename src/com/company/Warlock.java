@@ -1,12 +1,11 @@
 package com.company;
 
-public class Paladin extends MagicUser{
-    public Paladin(String chosenRace){
+public class Warlock extends MagicUser{
+    public Warlock(String chosenRace){
         super(chosenRace, 175);
     }
 
     public void castSpell(){
 
     }
-
 }
