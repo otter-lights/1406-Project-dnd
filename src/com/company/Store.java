@@ -22,4 +22,20 @@ public class Store {
             new Armor("Stone", 25, 90.0, 16, 0, "Heavy", -1),
             new Armor("Samurai Armor", 1350, 75.0, 17, 0, "Heavy", -1),
             new Armor("Wyvern Bone Armor", 600, 40.0, 17, 0, "Heavy", -1)};
+
+    Weapon[] weapon = new Weapon[] {new Weapon("Acrobat's Staff", 3, 2.0, 4,"bludgeoning", false, true),
+            new Weapon("Bladed Knuckle Duster", 2, 1.0, 4, "slashing", false, true),
+            new Weapon("Brandistock", 10, 4.0, 8, "piercing", true, true),
+            new Weapon("Broad Claw", 25, 3.0, 4, "slashing", false, true),
+            new Weapon("Horn Knife", 10, 2.0, 4, "piercing", false, true),
+            new Weapon("Motherwrench", 6, 10.0, 6, "bludgeoning", false, true),
+            new Weapon("Three-Section Staff", 2, 5.0, 4, "bludgeoning", true, true),
+            new Weapon("Umbrella", 5, 2.5, 6, "bludgeoning", false, true),
+            new Weapon("Wakizashi", 5, 1.0, 6, "slashing", false, true),
+            new Weapon("Spiked Staff", 2, 8, 8, "piercing", true, true),
+            new Weapon("Mattock", 7, 3.0, 6, "slashing", false, true),
+            new Weapon("Crab Claw", 10, 8.0, 4, "slashing", false, true),
+            new Weapon("Bonesaw", 15, 8, 8, "slashing", false, true),
+            new Weapon("Broken Greatsword", 1, 10.0, 8, "slashing", true, true),
+            new Weapon("")};
 }
