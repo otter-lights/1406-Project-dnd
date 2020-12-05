@@ -145,20 +145,24 @@ public abstract class Player {
 
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
     // For now I am ignoring the decrease in speed that comes with higher weights, potentially added at a later date.
-    public void addToInventory(Item newItem){
+    public boolean addToInventory(Item newItem){
         int weight = 0;
         for(Item i: inventory){
             weight += i.getWeight();
         }
         if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*abilityScores[0]){
             inventory.add(newItem);
+            return true;
         }
         else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*abilityScores[0])/2){
             inventory.add(newItem);
+            return true;
         }
         else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*abilityScores[0]){
             inventory.add(newItem);
+            return true;
         }
+        return false;
     }
 
     public void getStartingEquipment(){
