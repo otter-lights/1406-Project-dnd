@@ -37,5 +37,17 @@ public class Store {
             new Weapon("Crab Claw", 10, 8.0, 4, "slashing", false, true),
             new Weapon("Bonesaw", 15, 8, 8, "slashing", false, true),
             new Weapon("Broken Greatsword", 1, 10.0, 8, "slashing", true, true),
-            new Weapon("")};
+            new Weapon("Anchor", 90, 60.0, 10, "bludgeoning", true, true),
+            new Weapon("Arming Sword", 20, 3.0, 6, "piercing", false, true),
+            new Weapon("Ball and Chain", 55, 12.0, 8, "bludgeoning", false, true),
+            new Weapon("Battle Fan", 20, 2.0, 6, "slashing", false, true),
+            new Weapon("Battle Wire", 10, 1.0, 3, "slashing", false, true),
+            new Weapon("Bladed-Staff", 30, 2.0, 8, "slashing", false, true),
+            new Weapon("Boar Spear", 10, 5.0, 8, "piercing", true, true),
+            new Weapon("Boom Hammer", 50, 10.0, 8, "bludgeoning", false, true),
+            new Weapon("Dagger Whip", 2, 2.0, 2, "slashing", false, true),
+            new Weapon("Double Axe", 30, 10.0, 6, "slashing", true, true),
+            new Weapon("Double Scythe", 15, 3.0, 10, "slashing", true, true),
+            new Weapon("Elvish Warsword", 100, 5.0, 10, "slashing", false, true),
+            new Weapon("Great-Cleaver", 23, 11.0, 10, "slashing", true, true)};
 }
