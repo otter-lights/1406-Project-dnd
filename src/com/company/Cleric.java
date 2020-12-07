@@ -22,10 +22,10 @@ public class Cleric extends MagicUser{
                                     {5,-1,4,3,3,3,3,1,1,1,1},
                                     {5,-1,4,3,3,3,3,2,1,1,1},
                                     {5,-1,4,3,3,3,3,2,2,1,1}};
-    static Spell[] allSpells = {new Spell("Word of Radiance", true, "Constitution", "1:6", 5,0,"radiant"),
-                                new Spell("Sacred Flame", true, "Dexterity", "1:8", 60, 0,"radiant"),
-                                new Spell("Inflict Wounds", false, "", "3:10", 0, 1, "necrotic"),
-                                new Spell("Guiding Bolt", false, "", "4:6", 120, 1, "radiant")};
+    static Spell[] allSpells = {new Spell("Word of Radiance", "Constitution", 0,"1:6", 5,0,"radiant"),
+                                new Spell("Sacred Flame", "Dexterity", 0,"1:8", 60, 0,"radiant"),
+                                new Spell("Inflict Wounds", "3:10", 0, 1, "necrotic"),
+                                new Spell("Guiding Bolt", "4:6", 120, 1, "radiant")};
     Spell[] preparedSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     public Cleric(String chosenRace){
@@ -35,12 +35,11 @@ public class Cleric extends MagicUser{
     public void prepareSpell(Spell prep){
         for(int i = 0; i < preparedSpells.length; i++){
             Spell curSpell = preparedSpells[i];
-            if(curSpell == null){
+            if(curSpell == null && clericTable[getLevel()][prep.getLevel()+1] != 0){
                 preparedSpells[i] = prep;
                 break;
             }
         }
-
     }
 
     public void castSpell(){
