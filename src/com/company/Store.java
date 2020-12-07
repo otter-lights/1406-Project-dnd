@@ -17,7 +17,7 @@ public class Store {
             new Armor("Duskwood Armor", 600, 15.0, 14, 1, "Medium", -1),
             new Armor("Hero's Tunic", 1500, 30.0, 14, 1, "Medium", -1),
             new Armor("Chain Cloth", 2250, 45.0, 15, 1, "Medium", -1),
-            new Armor("Magnificen Half-Plate", 1800, 25.0, 15, 1, "Medium", -1),
+            new Armor("Magnificent Half-Plate", 1800, 25.0, 15, 1, "Medium", -1),
             new Armor("Tinkerer's Armor", 35, 20.0, 13, 0, "Heavy", -1),
             new Armor("Stone", 25, 90.0, 16, 0, "Heavy", -1),
             new Armor("Samurai Armor", 1350, 75.0, 17, 0, "Heavy", -1),
