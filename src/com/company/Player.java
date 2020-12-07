@@ -23,6 +23,7 @@ public abstract class Player {
     int[] abilityScores = new int[6];
     int[] abilityMods = new int[6];
     boolean Alive;
+    // money array is [gold pieces, silver pieces, copper pieces]
     int[] money = new int[3]; // depends on class
     ArrayList<Item> inventory;
 
