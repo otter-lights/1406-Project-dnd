@@ -22,9 +22,24 @@ public class Sorcerer extends MagicUser{
                                 {6,15,4,3,3,3,3,2,1,1,1},
                                 {6,15,4,3,3,3,3,2,2,1,1}};
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-
+    static Spell[] allSpells = {new Spell("Chill Touch", "1:8",120, 0, "necrotic"),
+                                new Spell("Mind Spike", "Wisdom", 0.5, "3:8", 60, 2, "psychic"),
+                                new Spell("Blight", "Constitution", 0.5, "8:8", 30, 4,"necrotic"),
+                                new Spell("Cone of Cold", "Constitution", 0.5, "8:8", 60, 5, "cold")};
+    Spell[] knownSpells;
     public Sorcerer(String chosenRace){
         super(chosenRace, 70, 0, 6, new boolean[] {false, false, true, false, false, true});
+        knownSpells = new Spell[sorcererTable[getLevel()][1]];
+    }
+    public void learnSpell(Spell prep){
+        for(int i = 0; i < knownSpells.length; i++){
+            Spell curSpell = knownSpells[i];
+            //this makes sure that the bard is able to cast a spell of this level before learning it
+            if(curSpell == null && sorcererTable[getLevel()][prep.getLevel()+1] != 0){
+                knownSpells[i] = prep;
+                break;
+            }
+        }
     }
 
     public void castSpell(){
