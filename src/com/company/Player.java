@@ -8,11 +8,12 @@ public abstract class Player {
     String alignment;
     int currentHP;
     int maxHP;
-
+    int position;
     int userLevel;
     int proficencyBonus;
     int experience;
     int hitDie;
+    int armorClass;
     Race playerRace;
     boolean[] saves;
 
@@ -38,8 +39,14 @@ public abstract class Player {
         rollAbilityScores();
         setLevel();
     }
+    public int getPosition(){return position;}
     public int getLevel(){return userLevel;}
-    public int getProficencyBonus(){return proficencyBonus;}
+    public int getAC(){return armorClass;}
+    public int[] getAbilityMods(){return abilityMods;}
+
+    public void takeDamage(int damage){
+        currentHP -= damage;
+    }
 
     //needs to be supplied with the index of the appropriate modifier, the score that needs to be beaten, and a boolean indicating proficency
     public boolean attackRoll(int modifier, int scoreToBeat, boolean profienct){
