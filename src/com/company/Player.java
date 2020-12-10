@@ -251,8 +251,6 @@ public abstract class Player {
         return sum;
     }
 
-    public abstract void attack(Player p, Weapon w);
-
     public int getCurrentHP(){ return currentHP; }
     public void setCurrentHP(int hp){ currentHP = hp; }
     public int getMaxHP(){ return maxHP; }

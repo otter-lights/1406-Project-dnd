@@ -9,22 +9,17 @@ public abstract class MagicUser extends Player{
     int spellCastingType;
 
     int[] spellSlots;
-    Spell[] useableSpells;
 
     public MagicUser(String chosenRace, int startingGold, int xp, int hitDie, int spellMod, String name){
         super(chosenRace, startingGold, xp, hitDie, name);
         spellSaveDC = 8 + proficencyBonus + abilityMods[spellMod];
         spellCastingType = spellMod;
+        spellSlots = getSpellSlots();
     }
-    public boolean isUseable(Spell s){
-        for(int i = 0; i < useableSpells.length; i++){
-            Spell curSpell = useableSpells[i];
-            if(curSpell.equals(s)){
-                return true;
-            }
-        }
-        return false;
-    }
+    public abstract int[] getSpellSlots();
+    public abstract boolean isUseable(Spell s);
+
+
     public void castSpell(Spell s, int level, Player p){
         String[] parts = s.getDamageDie().split(":");
         int numDie = Integer.parseInt(parts[0]);
