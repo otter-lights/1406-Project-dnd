@@ -200,6 +200,6 @@ public abstract class Player {
         return sum;
     }
 
-
+    public abstract void attack(Player p, Weapon w);
 
 }

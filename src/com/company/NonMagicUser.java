@@ -8,5 +8,5 @@ public abstract class NonMagicUser extends Player{
     }
 
     //not sure if this should be done here or in child class
-    public abstract void attack();
+
 }
