@@ -43,5 +43,6 @@ public class Druid extends MagicUser{
             }
         }
     }
+    public void attack(Player p, Weapon w){}
 
 }

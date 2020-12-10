@@ -45,4 +45,7 @@ public class Sorcerer extends MagicUser{
             }
         }
     }
+
+    public void attack(Player p, Weapon w){}
+
 }
