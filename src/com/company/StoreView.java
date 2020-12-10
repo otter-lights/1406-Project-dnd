@@ -6,7 +6,7 @@ import javafx.scene.control.ListView;
 
 public class StoreView extends Pane{
     private ListView<String> armorList, meleeList, rangedList, inventoryList;
-
+//DONT FORGET TO ADD MONEY  TO SCREEN!!!!!!!
     public StoreView(){
         Pane storeView = new Pane();
         storeView.setStyle("-fx-background-color: white;");

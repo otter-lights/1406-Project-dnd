@@ -18,4 +18,14 @@ public class Weapon extends Item{
         this.name = name;
         this.damage = damage;
     }
+
+    public String getDamageType() { return type; }
+    public String getTwoHanded() {
+        if (twoHanded){
+            return "This is a two-handed weapon.";
+        } else {
+            return "";
+        }
+    }
+    public int getDamage() { return damage; }
 }
