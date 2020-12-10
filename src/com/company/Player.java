@@ -5,62 +5,94 @@ import java.util.Collections;
 import java.util.Arrays;
 
 public abstract class Player {
-    String alignment;
-    int currentHP;
-    int maxHP;
-    int position;
-    int userLevel;
-    int proficencyBonus;
-    int experience;
-    int hitDie;
-    int armorClass;
-    Race playerRace;
-    boolean[] saves;
-
-    //Acrobatics, Animal Handling, Arcana, Athletics, Deception, History, Insight, Intimidation, Investigation, Medicine, Nature, Perception, Performance, Persuasion, Religion, Slight of Hand, Stealth, Survival
-    boolean[] skillProficency = new boolean[18];
+    protected int currentHP;
+    protected int maxHP;
+    protected int position;
+    protected int userLevel;
+    protected int proficencyBonus;
+    protected int experience;
+    protected int hitDie;
+    protected int armorClass;
+    protected Race playerRace;
+    protected String name;
 
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    int[] abilityScores = new int[6];
-    int[] abilityMods = new int[6];
-    boolean Alive;
-    // money array is [gold pieces, silver pieces, copper pieces]
-    int[] money = new int[3]; // depends on class
-    ArrayList<Item> inventory;
+    protected int[] abilityScores = new int[6];
+    protected int[] abilityMods = new int[6];
+
+    protected int goldPieces; // depends on class
+    protected ArrayList<Item> inventory;
 
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
   
-    public Player(String chosenRace, int experience, int startingGold, int hitDie, boolean[] saves){
+    public Player(String chosenRace, int experience, int startingGold, int hitDie, String name){
         playerRace = new Race(chosenRace);
-        money[0] = startingGold;
+        goldPieces = startingGold;
         this.experience = experience;
-        this.saves = saves;
         rollAbilityScores();
         setLevel();
+        position = 0;
+        this.name = name;
+        maxHP = hitDie + abilityMods[2];
+        currentHP = maxHP;
     }
+
+    public abstract void levelUp();
+    public void turn(Player otherPlayer){
+        System.out.println(name + " Attack " + otherPlayer.name);
+        //Would get them to chose weapon from inventory, here i selected a random one for testing
+        attack(otherPlayer, (Weapon) new Melee("Horn Knife", 10, 2.0, 4, "piercing", false));
+
+        System.out.println("Move");
+        move(true, 10);
+    }
+
+
+    public void attack(Player p, Weapon w){
+        if(Math.abs(p.getPosition() - position) <= w.getRange()){
+            Random rand = new Random();
+            int roll = rand.nextInt(20) + 1;
+            if(roll >= p.getAC()) {
+                roll = rand.nextInt(w.getDamage()) + 1;
+                p.takeDamage(roll);
+                System.out.println("Attack Hits");
+            }
+            else{
+                System.out.println("Attack Misses");
+            }
+        }
+        else{
+            System.out.println("Player not in range");
+        }
+    }
+
+    public void move(boolean foreward, int distance){
+        if(distance <= playerRace.getSpeed()){
+            if(foreward){
+                position += distance;
+            }
+            else{
+                position -= distance;
+            }
+        }
+    }
+
+
+
     public int getPosition(){return position;}
     public int getLevel(){return userLevel;}
     public int getAC(){return armorClass;}
     public int[] getAbilityMods(){return abilityMods;}
+    public boolean isAlive(){return currentHP > 0;}
+    public int getPurse(){return goldPieces;}
+    public int getProficencyBonus(){return proficencyBonus;}
+
+    public void spendMoney(int price){goldPieces -= price;}
+    public void recieveMoney(int gold){goldPieces += gold;}
 
     public void takeDamage(int damage){
         currentHP -= damage;
-    }
-
-    //needs to be supplied with the index of the appropriate modifier, the score that needs to be beaten, and a boolean indicating proficency
-    public boolean attackRoll(int modifier, int scoreToBeat, boolean profienct){
-        Random d20 = new Random();
-        int roll = (d20.nextInt(20) + 1) + abilityMods[modifier];
-        if(profienct){
-            roll = roll + proficencyBonus;
-        }
-        return roll >= scoreToBeat;
-    }
-    //needs to be supplied with the index of the appropriate modifier.
-    public int damageRoll(int modifier){
-        Random d20 = new Random();
-        return (d20.nextInt(20)+ 1) + abilityMods[modifier];
     }
 
     public void setAbilityMods(){
@@ -68,7 +100,20 @@ public abstract class Player {
             abilityMods[i] = (int) Math.floor((abilityScores[i] - 10)/2);
         }
     }
-    public void setLevel(){
+    public void longRest(){
+        int currentLevel = userLevel;
+        if(setLevel() > currentLevel){
+            //you leveled up
+            levelUp();
+        }
+        currentHP = maxHP;
+        Store generalStore = new Store(4,4,6);
+    }
+    public void addXP(int xp){
+        experience += xp;
+    }
+
+    public int setLevel(){
         if(experience < 300){
             userLevel = 1;
             proficencyBonus = 2;
@@ -149,6 +194,7 @@ public abstract class Player {
             userLevel = 20;
             proficencyBonus = 6;
         }
+        return userLevel;
     }
 
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity

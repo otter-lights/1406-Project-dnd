@@ -11,8 +11,8 @@ public abstract class MagicUser extends Player{
     int[] spellSlots;
     Spell[] useableSpells;
 
-    public MagicUser(String chosenRace, int startingGold, int xp, int hitDie, boolean[] saves, int spellMod){
-        super(chosenRace, startingGold, xp, hitDie, saves);
+    public MagicUser(String chosenRace, int startingGold, int xp, int hitDie, int spellMod, String name){
+        super(chosenRace, startingGold, xp, hitDie, name);
         spellSaveDC = 8 + proficencyBonus + abilityMods[spellMod];
         spellCastingType = spellMod;
     }

@@ -29,10 +29,15 @@ public class Bard extends MagicUser{
                                 new Spell("Shatter", 2, 0.5, "3:8", 60, 2, "thunder")};
     Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    public Bard(String chosenRace){
-        super(chosenRace, 105, 0, 8, new boolean[] {false, true, false, false, false, true},5);
+    public Bard(String chosenRace, String name){
+        super(chosenRace, 105, 0, 8,5, name);
         useableSpells = new Spell[bardTable[getLevel()][1]];
     }
+    public void levelUp(){
+        userLevel += 1;
+
+    }
+
     public void learnSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];

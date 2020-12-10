@@ -8,8 +8,12 @@ public class Monk extends NonMagicUser{
 
     //if no weapon & no armor:
     //attack with martialArts ^
-    public Monk(String chosenRace){
-        super(chosenRace, 35, 0, 8, new boolean[] {true, true, false, false, false, false});
+    public Monk(String chosenRace, String name){
+        super(chosenRace, 35, 0, 8, name);
+    }
+    public void levelUp(){
+        userLevel += 1;
+        maxHP += 5;
     }
 
     public void attack(){

@@ -30,9 +30,13 @@ public class Wizard extends MagicUser{
     Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
 
-    public Wizard(String chosenRace){
-        super(chosenRace, 70, 0, 6, new boolean[] {false, false, false, true, true, false},3);
+    public Wizard(String chosenRace, String name){
+        super(chosenRace, 70, 0, 6,3, name);
         useableSpells = new Spell[getLevel() + abilityMods[3]];
+    }
+    public void levelUp(){
+        userLevel += 1;
+        maxHP += 4;
     }
     public void prepareSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){

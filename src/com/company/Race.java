@@ -3,12 +3,12 @@ import java.util.Random;
 
 
 public class Race {
-    String size;
-    int baseSpeed;
-    boolean darkvision;
+    private String size;
+    private int baseSpeed;
+    private boolean darkvision;
     //this will be a 6 int array containing the base ability score increases for each race.
     // Order is {Strength, Dex, Con, Int, Wis, Charisma}
-    int[] abilityIncrease = new int[6];
+    private int[] abilityIncrease = new int[6];
 
     public Race(String chosenRace){
         switch (chosenRace) {
@@ -126,6 +126,7 @@ public class Race {
     public String getSize(){
         return size;
     }
+    public int getSpeed(){return baseSpeed;}
   
     //Strength, Dex, Con, Int, Wis, Charisma
     public int[] getAbilityIncrease() {return abilityIncrease;}

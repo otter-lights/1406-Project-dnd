@@ -12,8 +12,12 @@ public class Rouge extends NonMagicUser{
 
      */
 
-    public Rouge(String chosenRace){
-        super(chosenRace, 140, 0, 8, new boolean[] {false, true, false, true, false, false});
+    public Rouge(String chosenRace, String name){
+        super(chosenRace, 140, 0, 8, name);
+    }
+    public void levelUp(){
+        userLevel += 1;
+        maxHP += 5;
     }
 
     public void attack(){
