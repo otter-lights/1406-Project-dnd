@@ -17,8 +17,6 @@ public class StoreView extends Pane{
         Label armorLabel = new Label("Armor");
         armorLabel.relocate(20, 20);
         armorLabel.setPrefSize(150, 30);
-        armorLabel.setTextAlignment(TextAlignment.JUSTIFY);
-        armorLabel.setWrapText(true);
 
         Label meleeLabel = new Label("Melee");
         meleeLabel.relocate(190, 20);
@@ -31,6 +29,10 @@ public class StoreView extends Pane{
         Label inventoryLabel = new Label("Inventory");
         inventoryLabel.relocate(530, 20);
         inventoryLabel.setPrefSize(150, 30);
+
+        Label goldPiecesLabel = new Label("Gold pieces available:");
+        goldPiecesLabel.relocate(530, 395);
+        goldPiecesLabel.setPrefSize(150, 30);
 
         armorList = new ListView<String>();
         armorList.relocate(20, 60);
@@ -46,13 +48,19 @@ public class StoreView extends Pane{
 
         inventoryList = new ListView<String>();
         inventoryList.relocate(530, 60);
-        inventoryList.setPrefSize(250, 375);
+        inventoryList.setPrefSize(250, 325);
 
         TextField descriptionBox = new TextField();
         descriptionBox.relocate(20, 455);
         descriptionBox.setPrefSize(490, 125);
+        descriptionBox.setEditable(false);
 
-        storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox);
+        TextField goldPieces = new TextField();
+        goldPieces.relocate(675, 395);
+        goldPieces.setPrefSize(105, 30);
+        goldPieces.setEditable(false);
+
+        storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, goldPiecesLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox, goldPieces);
 
         getChildren().addAll(storeView);
     }
