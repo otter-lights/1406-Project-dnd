@@ -8,8 +8,6 @@ public abstract class Player {
     String alignment;
     private int currentHP;
     private int maxHP;
-    int currentHP;
-    int maxHP;
     int position;
     int userLevel;
     int proficencyBonus;
