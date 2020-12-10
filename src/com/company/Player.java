@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 public abstract class Player {
     String alignment;
+    private int currentHP;
+    private int maxHP;
     int currentHP;
     int maxHP;
     int position;
@@ -207,6 +209,9 @@ public abstract class Player {
         return sum;
     }
 
+    public abstract void attack(Player p, Weapon w);
 
-
+    public int getCurrentHP(){ return currentHP; }
+    public void setCurrentHP(int hp){ currentHP = hp; }
+    public int getMaxHP(){ return maxHP; }
 }

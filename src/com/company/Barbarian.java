@@ -14,7 +14,19 @@ public class Barbarian extends NonMagicUser{
         super(chosenRace, 105, 0, 12, new boolean[] {true, false, true, false, false, false});
     }
 
-    public void attack(){
+    public void attack(Player p, Weapon w){
 
+        if (raging){
+            raging = false;
+        }
     }
+
+    public void startRage(){
+        if (rages[this.getLevel() - 1] > ragesUsed){
+            raging = true;
+            ragesUsed++;
+        }
+    }
+
+
 }

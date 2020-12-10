@@ -11,4 +11,5 @@ public abstract class Item {
         goldPieces = cost;
         this.weight = weight;
     }
+
 }
