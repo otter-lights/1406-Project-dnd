@@ -45,4 +45,6 @@ public class Bard extends MagicUser{
         }
     }
 
+    public void attack(Player p, Weapon w){}
+
 }

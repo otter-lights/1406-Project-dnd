@@ -42,4 +42,7 @@ public class Cleric extends MagicUser{
             }
         }
     }
+
+    public void attack(Player p, Weapon w){}
+
 }
