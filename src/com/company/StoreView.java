@@ -3,6 +3,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
+import javafx.scene.text.TextAlignment;
 
 public class StoreView extends Pane{
     private ListView<String> armorList, meleeList, rangedList, inventoryList;
@@ -10,44 +11,46 @@ public class StoreView extends Pane{
     public StoreView(){
         Pane storeView = new Pane();
         storeView.setStyle("-fx-background-color: white;");
-        storeView.setPrefSize(600, 600);
+        storeView.setPrefSize(800, 600);
 
         //create things :)
         Label armorLabel = new Label("Armor");
         armorLabel.relocate(20, 20);
-        armorLabel.setPrefSize(125, 30);
+        armorLabel.setPrefSize(150, 30);
+        armorLabel.setTextAlignment(TextAlignment.JUSTIFY);
+        armorLabel.setWrapText(true);
 
         Label meleeLabel = new Label("Melee");
-        meleeLabel.relocate(165, 20);
-        meleeLabel.setPrefSize(125, 30);
+        meleeLabel.relocate(190, 20);
+        meleeLabel.setPrefSize(150, 30);
 
         Label rangedLabel = new Label("Ranged");
-        rangedLabel.relocate(310, 20);
-        rangedLabel.setPrefSize(125, 30);
+        rangedLabel.relocate(360, 20);
+        rangedLabel.setPrefSize(150, 30);
 
         Label inventoryLabel = new Label("Inventory");
-        inventoryLabel.relocate(455, 20);
-        inventoryLabel.setPrefSize(125, 30);
+        inventoryLabel.relocate(530, 20);
+        inventoryLabel.setPrefSize(150, 30);
 
         armorList = new ListView<String>();
         armorList.relocate(20, 60);
-        armorList.setPrefSize(125, 375);
+        armorList.setPrefSize(150, 375);
 
         meleeList = new ListView<String>();
-        meleeList.relocate(165, 60);
-        meleeList.setPrefSize(125, 375);
+        meleeList.relocate(190, 60);
+        meleeList.setPrefSize(150, 375);
 
         rangedList = new ListView<String>();
-        rangedList.relocate(310, 60);
-        rangedList.setPrefSize(125, 375);
+        rangedList.relocate(360, 60);
+        rangedList.setPrefSize(150, 375);
 
         inventoryList = new ListView<String>();
-        inventoryList.relocate(455, 60);
-        inventoryList.setPrefSize(125, 375);
+        inventoryList.relocate(530, 60);
+        inventoryList.setPrefSize(250, 375);
 
         TextField descriptionBox = new TextField();
         descriptionBox.relocate(20, 455);
-        descriptionBox.setPrefSize(415, 125);
+        descriptionBox.setPrefSize(490, 125);
 
         storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox);
 
