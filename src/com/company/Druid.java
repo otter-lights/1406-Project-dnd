@@ -29,11 +29,17 @@ public class Druid extends MagicUser{
                                 new Spell("Sunburst", 2, 0.5,"12:6", 150, 8,"radiant")};
     Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    public Druid(String chosenRace){
-        super(chosenRace, 70, 0, 8, new boolean[] {false, false, false, true, true, false}, 4);
+    public Druid(String chosenRace, String name){
+        super(chosenRace, 70, 0, 8, 4, name);
         useableSpells = new Spell[getLevel() + abilityMods[4]];
 
     }
+    public void levelUp(){
+        userLevel += 1;
+        maxHP += 5;
+        useableSpells = new Spell[getLevel() + abilityMods[4]];
+    }
+
     public void prepareSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];

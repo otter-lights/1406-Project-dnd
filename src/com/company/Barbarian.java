@@ -10,8 +10,12 @@ public class Barbarian extends NonMagicUser{
     //unarmored defense -> while not wearing armor
     // '->your armor class = 10 + dexterity + constitution
 
-    public Barbarian(String chosenRace){
-        super(chosenRace, 105, 0, 12, new boolean[] {true, false, true, false, false, false});
+    public Barbarian(String chosenRace, String name){
+        super(chosenRace, 105, 0, 12, name);
+    }
+    public void levelUp(){
+        userLevel += 1;
+        maxHP += 7;
     }
 
     public void attack(Player p, Weapon w){

@@ -5,10 +5,11 @@ public abstract class Item {
     public double getWeight(){
         return weight;
     }
-    private int cost;
+    public int getPrice(){return goldPieces;}
+    private int goldPieces;
 
     public Item(int cost, double weight){
-        this.cost = cost;
+        goldPieces = cost;
         this.weight = weight;
     }
 
