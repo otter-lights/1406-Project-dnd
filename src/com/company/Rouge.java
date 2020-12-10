@@ -1,4 +1,5 @@
 package com.company;
+import java.util.Random;
 
 public class Rouge extends NonMagicUser{
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
@@ -7,8 +8,9 @@ public class Rouge extends NonMagicUser{
     SNEAK ATTACK
 
     if u have advantage on roll u can deal extra damage (depends on lvl^)
+    '-> going to have a 30% chance for sneak attack instead
 
-    attack must used ranged weapon
+    attack must used ranged weapon IGNORING THIS
 
      */
 
@@ -20,7 +22,13 @@ public class Rouge extends NonMagicUser{
         maxHP += 5;
     }
 
-    public void attack(){
-
+    public void attack(Player p, Weapon w){
+        Random random = new Random();
+        int sneakAttack = random.nextInt(3);
+        if (sneakAttack == 0) {
+            //yes sneak attack
+            //damage(?) idk += roll however many times u need for your lvl^^ sneakAttack
+            //attack:
+        }
     }
 }

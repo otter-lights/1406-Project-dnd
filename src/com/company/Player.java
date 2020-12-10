@@ -16,6 +16,7 @@ public abstract class Player {
     protected Race playerRace;
     protected String name;
 
+
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     protected int[] abilityScores = new int[6];
     protected int[] abilityMods = new int[6];
@@ -219,9 +220,6 @@ public abstract class Player {
         return false;
     }
 
-    public void getStartingEquipment(){
-        //depends on class
-    }
 
     public void getSpells(){
         //depends on class
@@ -253,6 +251,9 @@ public abstract class Player {
         return sum;
     }
 
+    public abstract void attack(Player p, Weapon w);
 
-
+    public int getCurrentHP(){ return currentHP; }
+    public void setCurrentHP(int hp){ currentHP = hp; }
+    public int getMaxHP(){ return maxHP; }
 }

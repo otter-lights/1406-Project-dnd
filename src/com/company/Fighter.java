@@ -1,6 +1,8 @@
 package com.company;
+import java.util.Random;
 
 public class Fighter extends NonMagicUser{
+    private boolean secondWind = true;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     /* FIGHTING STYLE
     Archery
@@ -35,7 +37,20 @@ public class Fighter extends NonMagicUser{
         maxHP += 6;
     }
 
-    public void attack(){
+    public void attack(Player p, Weapon w){
 
+    }
+
+    public void secondWind(){
+        Random random = new Random();
+        if (secondWind){
+            int addHP = random.nextInt(10) + 1 + this.getLevel();
+            if (getCurrentHP() + addHP <= getMaxHP()){
+                setCurrentHP(getCurrentHP() + addHP);
+            } else {
+                setCurrentHP(getMaxHP());
+            }
+            secondWind = false;
+        }
     }
 }

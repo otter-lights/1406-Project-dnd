@@ -47,4 +47,7 @@ public class Wizard extends MagicUser{
             }
         }
     }
+
+    public void attack(Player p, Weapon w){}
+
 }

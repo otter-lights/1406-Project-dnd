@@ -18,7 +18,19 @@ public class Barbarian extends NonMagicUser{
         maxHP += 7;
     }
 
-    public void attack(){
+    public void attack(Player p, Weapon w){
 
+        if (raging){
+            raging = false;
+        }
     }
+
+    public void startRage(){
+        if (rages[this.getLevel() - 1] > ragesUsed){
+            raging = true;
+            ragesUsed++;
+        }
+    }
+
+
 }
