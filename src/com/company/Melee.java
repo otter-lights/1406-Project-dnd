@@ -6,6 +6,6 @@ public class Melee extends Weapon{
     }
 
     public Melee(String name, int cost, double weight, int damage){
-        super(cost, weight, damage);
+        super(name, cost, weight, damage);
     }
 }

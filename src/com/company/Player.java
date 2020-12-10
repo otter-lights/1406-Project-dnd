@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public abstract class Player {
     String alignment;
-    int currentHP;
-    int maxHP;
+    private int currentHP;
+    private int maxHP;
 
     int userLevel;
     int proficencyBonus;
@@ -202,4 +202,7 @@ public abstract class Player {
 
     public abstract void attack(Player p, Weapon w);
 
+    public int getCurrentHP(){ return currentHP; }
+    public void setCurrentHP(int hp){ currentHP = hp; }
+    public int getMaxHP(){ return maxHP; }
 }
