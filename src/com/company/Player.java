@@ -173,9 +173,6 @@ public abstract class Player {
         return false;
     }
 
-    public void getStartingEquipment(){
-        //depends on class
-    }
 
     public void getSpells(){
         //depends on class
