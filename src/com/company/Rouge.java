@@ -1,4 +1,5 @@
 package com.company;
+import java.util.Random;
 
 public class Rouge extends NonMagicUser{
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
@@ -17,6 +18,12 @@ public class Rouge extends NonMagicUser{
     }
 
     public void attack(Player p, Weapon w){
-
+        Random random = new Random();
+        int sneakAttack = random.nextInt(2);
+        if (sneakAttack == 0) {
+            //yes sneak attack
+            //damage(?) idk += roll however many times u need for your lvl^^ sneakAttack
+            //attack:
+        }
     }
 }
