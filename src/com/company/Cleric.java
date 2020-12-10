@@ -26,23 +26,19 @@ public class Cleric extends MagicUser{
                                 new Spell("Sacred Flame", 1, 0,"1:8", 60, 0,"radiant"),
                                 new Spell("Inflict Wounds", "3:10", 0, 1, "necrotic"),
                                 new Spell("Guiding Bolt", "4:6", 120, 1, "radiant")};
-    Spell[] preparedSpells;
+    Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     public Cleric(String chosenRace){
         super(chosenRace, 140, 0, 8, new boolean[] {false, false, false, false, true, true},4);
-        preparedSpells = new Spell[getLevel() + abilityMods[4]];
+        useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
     public void prepareSpell(Spell prep){
-        for(int i = 0; i < preparedSpells.length; i++){
-            Spell curSpell = preparedSpells[i];
+        for(int i = 0; i < useableSpells.length; i++){
+            Spell curSpell = useableSpells[i];
             if(curSpell == null && clericTable[getLevel()][prep.getLevel()+1] != 0){
-                preparedSpells[i] = prep;
+                useableSpells[i] = prep;
                 break;
             }
         }
-    }
-
-    public void castSpell(Spell s, int level, Player p){
-
     }
 }

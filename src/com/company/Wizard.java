@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Random;
+
 public class Wizard extends MagicUser{
     static int[][] wizardTable = {{3,-1,2,0,0,0,0,0,0,0,0},
                                     {3,-1,3,0,0,0,0,0,0,0,0},
@@ -25,24 +27,20 @@ public class Wizard extends MagicUser{
                                 new Spell("Ray of Frost","1:8", 60, 0,"cold"),
                                 new Spell("Magic Missle", "3:5", 120, 1, "force"),
                                 new Spell("Acid Arrow", "4:6",90, 2, "acid")};
-    Spell[] preparedSpells;
+    Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
 
     public Wizard(String chosenRace){
         super(chosenRace, 70, 0, 6, new boolean[] {false, false, false, true, true, false},3);
-        preparedSpells = new Spell[getLevel() + abilityMods[3]];
+        useableSpells = new Spell[getLevel() + abilityMods[3]];
     }
     public void prepareSpell(Spell prep){
-        for(int i = 0; i < preparedSpells.length; i++){
-            Spell curSpell = preparedSpells[i];
+        for(int i = 0; i < useableSpells.length; i++){
+            Spell curSpell = useableSpells[i];
             if(curSpell == null && wizardTable[getLevel()][prep.getLevel()+1] != 0){
-                preparedSpells[i] = prep;
+                useableSpells[i] = prep;
                 break;
             }
         }
-    }
-
-    public void castSpell(Spell s, int level, Player p){
-
     }
 }

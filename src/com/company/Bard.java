@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Random;
+
 public class Bard extends MagicUser{
     static int[][] bardTable = {{2,4,2,0,0,0,0,0,0,0,0},
                                 {2,5,3,0,0,0,0,0,0,0,0},
@@ -25,24 +27,21 @@ public class Bard extends MagicUser{
                                 new Spell("Thunderwave", 2, 0.5, "2:8", 15,1,"thunder"),
                                 new Spell("Dissonant Whispers", 4, 0.5, "3:6", 60, 1, "psychic"),
                                 new Spell("Shatter", 2, 0.5, "3:8", 60, 2, "thunder")};
-    Spell[] knownSpells;
+    Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     public Bard(String chosenRace){
         super(chosenRace, 105, 0, 8, new boolean[] {false, true, false, false, false, true},5);
-        knownSpells = new Spell[bardTable[getLevel()][1]];
+        useableSpells = new Spell[bardTable[getLevel()][1]];
     }
     public void learnSpell(Spell prep){
-        for(int i = 0; i < knownSpells.length; i++){
-            Spell curSpell = knownSpells[i];
+        for(int i = 0; i < useableSpells.length; i++){
+            Spell curSpell = useableSpells[i];
             //this makes sure that the bard is able to cast a spell of this level before learning it
             if(curSpell == null && bardTable[getLevel()][prep.getLevel()+1] != 0){
-                knownSpells[i] = prep;
+                useableSpells[i] = prep;
                 break;
             }
         }
     }
 
-    public void castSpell(Spell s, int level, Player p){
-
-    }
 }
