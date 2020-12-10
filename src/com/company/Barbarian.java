@@ -27,4 +27,6 @@ public class Barbarian extends NonMagicUser{
             ragesUsed++;
         }
     }
+
+
 }

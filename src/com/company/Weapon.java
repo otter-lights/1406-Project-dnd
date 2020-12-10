@@ -12,4 +12,10 @@ public class Weapon extends Item{
         this.type = type;
         this.twoHanded = twoHanded;
     }
+
+    public Weapon(String name, int cost, double weight, int damage){
+        super(cost, weight);
+        this.name = name;
+        this.damage = damage;
+    }
 }

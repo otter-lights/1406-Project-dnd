@@ -30,7 +30,7 @@ public class Fighter extends NonMagicUser{
         super(chosenRace, 175, 0, 10, new boolean[] {true, false, true, false, false, false});
     }
 
-    public void attack(){
+    public void attack(Player p, Weapon w){
 
     }
 }

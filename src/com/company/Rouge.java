@@ -16,7 +16,7 @@ public class Rouge extends NonMagicUser{
         super(chosenRace, 140, 0, 8, new boolean[] {false, true, false, true, false, false});
     }
 
-    public void attack(){
+    public void attack(Player p, Weapon w){
 
     }
 }

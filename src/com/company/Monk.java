@@ -8,11 +8,15 @@ public class Monk extends NonMagicUser{
 
     //if no weapon & no armor:
     //attack with martialArts ^
+
+
+    //FOR LEVEL UP DONT FORGET TO CHANGE MARTIAL ARTS DAMAGE
     public Monk(String chosenRace){
         super(chosenRace, 35, 0, 8, new boolean[] {true, true, false, false, false, false});
+        addToInventory((new Melee("Martial Arts", 0, 0.0, martialArts[this.getLevel() - 1])));
     }
 
-    public void attack(){
+    public void attack(Player p, Weapon w){
 
     }
 }
