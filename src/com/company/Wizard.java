@@ -38,6 +38,18 @@ public class Wizard extends MagicUser{
         userLevel += 1;
         maxHP += 4;
     }
+    public int[] getSpellSlots(){return wizardTable[userLevel];}
+
+    public boolean isUseable(Spell s){
+        for(int i = 0; i < useableSpells.length; i++){
+            Spell curSpell = useableSpells[i];
+            if(curSpell.equals(s)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void prepareSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];

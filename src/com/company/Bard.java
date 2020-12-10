@@ -38,6 +38,17 @@ public class Bard extends MagicUser{
         userLevel += 1;
 
     }
+    public int[] getSpellSlots(){return bardTable[userLevel];}
+
+    public boolean isUseable(Spell s){
+        for(int i = 0; i < useableSpells.length; i++){
+            Spell curSpell = useableSpells[i];
+            if(curSpell.equals(s)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void learnSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){

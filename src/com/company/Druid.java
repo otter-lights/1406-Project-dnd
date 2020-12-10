@@ -39,7 +39,17 @@ public class Druid extends MagicUser{
         maxHP += 5;
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
+    public int[] getSpellSlots(){return druidTable[userLevel];}
 
+    public boolean isUseable(Spell s){
+        for(int i = 0; i < useableSpells.length; i++){
+            Spell curSpell = useableSpells[i];
+            if(curSpell.equals(s)){
+                return true;
+            }
+        }
+        return false;
+    }
     public void prepareSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];

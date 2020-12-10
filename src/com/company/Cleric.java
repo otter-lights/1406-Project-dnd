@@ -39,6 +39,18 @@ public class Cleric extends MagicUser{
         useableSpells = new Spell[getLevel() + abilityMods[4]];
 
     }
+    public int[] getSpellSlots(){return clericTable[userLevel];}
+
+    public boolean isUseable(Spell s){
+        for(int i = 0; i < useableSpells.length; i++){
+            Spell curSpell = useableSpells[i];
+            if(curSpell.equals(s)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Override from player
     public void longRest(){
         int currentLevel = userLevel;
