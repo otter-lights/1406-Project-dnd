@@ -32,6 +32,7 @@ public class Druid extends MagicUser{
     public Druid(String chosenRace, String name){
         super(chosenRace, 70, 0, 8, 4, name);
         useableSpells = new Spell[getLevel() + abilityMods[4]];
+
     }
     public void levelUp(){
         userLevel += 1;
@@ -48,6 +49,6 @@ public class Druid extends MagicUser{
             }
         }
     }
-
+    public void attack(Player p, Weapon w){}
 
 }

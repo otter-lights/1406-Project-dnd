@@ -12,4 +12,6 @@ public abstract class Item {
         goldPieces = cost;
         this.weight = weight;
     }
+
+    public int getCost() { return cost; }
 }

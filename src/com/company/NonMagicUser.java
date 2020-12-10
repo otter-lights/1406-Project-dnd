@@ -7,6 +7,4 @@ public abstract class NonMagicUser extends Player{
         super(chosenRace, startingGold, xp, hitDie, name);
     }
 
-    //not sure if this should be done here or in child class
-    public abstract void attack();
 }

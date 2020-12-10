@@ -37,6 +37,7 @@ public class Cleric extends MagicUser{
         userLevel += 1;
         maxHP += 5;
         useableSpells = new Spell[getLevel() + abilityMods[4]];
+
     }
     //Override from player
     public void longRest(){
@@ -56,4 +57,7 @@ public class Cleric extends MagicUser{
             }
         }
     }
+
+    public void attack(Player p, Weapon w){}
+
 }
