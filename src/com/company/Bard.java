@@ -27,6 +27,7 @@ public class Bard extends MagicUser{
                                 new Spell("Thunderwave", 2, 0.5, "2:8", 15,1,"thunder"),
                                 new Spell("Dissonant Whispers", 4, 0.5, "3:6", 60, 1, "psychic"),
                                 new Spell("Shatter", 2, 0.5, "3:8", 60, 2, "thunder")};
+  
     Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     public Bard(String chosenRace){

@@ -31,6 +31,7 @@ public class Cleric extends MagicUser{
     public Cleric(String chosenRace){
         super(chosenRace, 140, 0, 8, new boolean[] {false, false, false, false, true, true},4);
         useableSpells = new Spell[getLevel() + abilityMods[4]];
+
     }
     public void prepareSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){

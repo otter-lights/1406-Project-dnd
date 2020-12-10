@@ -32,6 +32,7 @@ public class Druid extends MagicUser{
     public Druid(String chosenRace){
         super(chosenRace, 70, 0, 8, new boolean[] {false, false, false, true, true, false}, 4);
         useableSpells = new Spell[getLevel() + abilityMods[4]];
+
     }
     public void prepareSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){
@@ -42,6 +43,5 @@ public class Druid extends MagicUser{
             }
         }
     }
-
 
 }
