@@ -10,7 +10,7 @@ public class StoreView extends Pane{
     public StoreView(){
         Pane storeView = new Pane();
         storeView.setStyle("-fx-background-color: white;");
-        storeView.setPrefSize(800, 600);
+        storeView.setPrefSize(600, 600);
 
         //create things :)
         Label armorLabel = new Label("Armor");
@@ -44,5 +44,13 @@ public class StoreView extends Pane{
         inventoryList = new ListView<String>();
         inventoryList.relocate(455, 60);
         inventoryList.setPrefSize(125, 375);
+
+        TextField descriptionBox = new TextField();
+        descriptionBox.relocate(20, 455);
+        descriptionBox.setPrefSize(415, 125);
+
+        storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox);
+
+        getChildren().addAll(storeView);
     }
 }
