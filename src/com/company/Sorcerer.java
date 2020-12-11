@@ -41,6 +41,8 @@ public class Sorcerer extends MagicUser{
         spellSlots = sorcererTable[userLevel];
     }
     public int[] getSpellSlots(){return sorcererTable[userLevel];}
+    public String getClassName(){return "Sorcerer";}
+
 
     public boolean isUseable(Spell s){
         for(int i = 0; i < useableSpells.length; i++){

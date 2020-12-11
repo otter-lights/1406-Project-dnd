@@ -1,11 +1,11 @@
 package com.company;
 
 public class Armor extends Item{
-    int armorClass;
-    String name;
-    int modifier;
-    int maxHP;
-    String type;
+    private int armorClass;
+    private String name;
+    private int modifier;
+    private int maxHP;
+    private String type;
 
     public Armor(String name, int cost, double weight, int armorClass, int modifier, String type, int maxHP){
         super(cost, weight);
@@ -15,6 +15,7 @@ public class Armor extends Item{
         this.maxHP = maxHP;
         this.type = type;
     }
+    public int getArmorClass(){return armorClass;}
 
     public String toString(){
         if (this.getCost() <= 10){

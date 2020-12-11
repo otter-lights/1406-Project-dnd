@@ -37,9 +37,15 @@ public abstract class Player {
         this.name = name;
         maxHP = hitDie + abilityMods[2];
         currentHP = maxHP;
+        setArmorClass();
+        inventory = new ArrayList<>();
     }
 
     public abstract void levelUp();
+    public abstract String getClassName();
+    public Race getPlayerRace(){
+        return playerRace;
+    }
     public void turn(Player otherPlayer){
         System.out.println(name + " Attack " + otherPlayer.name);
         //Would get them to chose weapon from inventory, here i selected a random one for testing
@@ -85,9 +91,11 @@ public abstract class Player {
     public int getLevel(){return userLevel;}
     public int getAC(){return armorClass;}
     public int[] getAbilityMods(){return abilityMods;}
+    public int[] getAbilityScores(){return abilityScores;}
     public boolean isAlive(){return currentHP > 0;}
     public int getPurse(){return goldPieces;}
     public int getProficencyBonus(){return proficencyBonus;}
+    public String getName(){return name;}
 
     public void spendMoney(int price){goldPieces -= price;}
     public void recieveMoney(int gold){goldPieces += gold;}
@@ -96,11 +104,6 @@ public abstract class Player {
         currentHP -= damage;
     }
 
-    public void setAbilityMods(){
-        for(int i = 0; i < 6; i++){
-            abilityMods[i] = (int) Math.floor((abilityScores[i] - 10)/2);
-        }
-    }
     public void longRest(){
         int currentLevel = userLevel;
         if(setLevel() > currentLevel){
@@ -239,6 +242,73 @@ public abstract class Player {
             //this is an option if you want to store the stats in an array
             //it adds the ability increase in this main loop
             abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum() + abilityIncrease[i];
+            abilityMods[i] = calculateMods(abilityScores[i]);
+        }
+    }
+    public void setArmorClass(){
+        boolean wearingArmor = false;
+        if(inventory!=null){
+            for(Item i: inventory){
+                if(i instanceof Armor){
+                    armorClass += ((Armor) i).getArmorClass() + abilityMods[1];
+                    wearingArmor = true;
+                }
+            }
+        }
+
+        if(!wearingArmor){
+            armorClass = 10 + abilityMods[1];
+        }
+    }
+
+    public int calculateMods(int score){
+        if(score <= 1){
+            return -5;
+        }
+        else if(score == 2 || score == 3){
+            return -4;
+        }
+        else if(score == 4 || score == 5){
+            return -3;
+        }
+        else if(score == 6 || score == 7){
+            return -2;
+        }
+        else if(score == 8 || score == 9){
+            return -1;
+        }
+        else if(score == 10 || score == 11){
+            return 0;
+        }
+        else if(score == 12 || score == 13){
+            return 1;
+        }
+        else if(score == 14 || score == 15){
+            return 2;
+        }
+        else if(score == 16 || score == 17){
+            return 3;
+        }
+        else if(score == 18 || score == 19){
+            return 4;
+        }
+        else if(score == 20 || score == 21){
+            return 5;
+        }
+        else if(score == 22 || score == 23){
+            return 6;
+        }
+        else if(score == 24 || score == 25){
+            return 7;
+        }
+        else if(score == 26 || score == 27){
+            return 8;
+        }
+        else if(score == 28 || score == 29){
+            return 9;
+        }
+        else{
+            return 10;
         }
     }
 

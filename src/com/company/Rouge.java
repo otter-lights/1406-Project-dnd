@@ -21,6 +21,7 @@ public class Rouge extends NonMagicUser{
         userLevel += 1;
         maxHP += 5;
     }
+    public String getClassName(){return "Rouge";}
 
     public void attack(Player p, Weapon w){
         Random random = new Random();

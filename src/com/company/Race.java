@@ -3,6 +3,7 @@ import java.util.Random;
 
 
 public class Race {
+    private String raceName;
     private String size;
     private int baseSpeed;
     private boolean darkvision;
@@ -11,6 +12,7 @@ public class Race {
     private int[] abilityIncrease = new int[6];
 
     public Race(String chosenRace){
+        raceName = chosenRace;
         switch (chosenRace) {
             case "Gnome":
                 //Rock Gnome Stats
@@ -127,6 +129,7 @@ public class Race {
         return size;
     }
     public int getSpeed(){return baseSpeed;}
+    public String getRaceName(){return raceName;}
   
     //Strength, Dex, Con, Int, Wis, Charisma
     public int[] getAbilityIncrease() {return abilityIncrease;}

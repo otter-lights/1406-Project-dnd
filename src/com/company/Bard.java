@@ -49,6 +49,7 @@ public class Bard extends MagicUser{
         }
         return false;
     }
+    public String getClassName(){return "Bard";}
 
     public void learnSpell(Spell prep){
         for(int i = 0; i < useableSpells.length; i++){

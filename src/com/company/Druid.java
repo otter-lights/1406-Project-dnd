@@ -40,6 +40,8 @@ public class Druid extends MagicUser{
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
     public int[] getSpellSlots(){return druidTable[userLevel];}
+    public String getClassName(){return "Druid";}
+
 
     public boolean isUseable(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
