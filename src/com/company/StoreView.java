@@ -11,7 +11,7 @@ public class StoreView extends Pane{
     public StoreView(){
         Pane storeView = new Pane();
         storeView.setStyle("-fx-background-color: white;");
-        storeView.setPrefSize(800, 600);
+        storeView.setPrefSize(200, 500);
 
         //create things :)
         Label armorLabel = new Label("Armor");

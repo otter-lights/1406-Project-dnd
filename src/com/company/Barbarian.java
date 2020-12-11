@@ -17,7 +17,7 @@ public class Barbarian extends NonMagicUser{
         userLevel += 1;
         maxHP += 7;
     }
-
+    public String getClassName(){return "Barbarian";}
     public void attack(Player p, Weapon w){
 
         if (raging){

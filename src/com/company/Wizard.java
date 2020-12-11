@@ -39,6 +39,8 @@ public class Wizard extends MagicUser{
         maxHP += 4;
     }
     public int[] getSpellSlots(){return wizardTable[userLevel];}
+    public String getClassName(){return "Wizard";}
+
 
     public boolean isUseable(Spell s){
         for(int i = 0; i < useableSpells.length; i++){

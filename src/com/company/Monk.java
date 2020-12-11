@@ -12,6 +12,8 @@ public class Monk extends NonMagicUser{
         super(chosenRace, 35, 0, 8, name);
         addToInventory((new Melee("Martial Arts", 0, 0.0, martialArts[this.getLevel() - 1])));
     }
+    public String getClassName(){return "Monk";}
+
     public void levelUp(){
         userLevel += 1;
         maxHP += 5;

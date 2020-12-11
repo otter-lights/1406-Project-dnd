@@ -40,6 +40,8 @@ public class Fighter extends NonMagicUser{
     public void attack(Player p, Weapon w){
 
     }
+    public String getClassName(){return "Fighter";}
+
 
     public void secondWind(){
         Random random = new Random();

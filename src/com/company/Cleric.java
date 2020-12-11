@@ -40,6 +40,8 @@ public class Cleric extends MagicUser{
 
     }
     public int[] getSpellSlots(){return clericTable[userLevel];}
+    public String getClassName(){return "Cleric";}
+
 
     public boolean isUseable(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
