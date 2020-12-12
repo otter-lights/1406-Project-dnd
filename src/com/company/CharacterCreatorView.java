@@ -11,8 +11,9 @@ import javafx.scene.layout.TilePane;
 import java.util.HashMap;
 
 public class CharacterCreatorView extends Pane {
-    private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "Half Elf", "Half Orc", "Halfling", "Human", "Tiefling"};
+    private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "Half-Elf", "Half-Orc", "Halfling", "Human", "Tiefling"};
     private String[] classes = new String[] {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rogue", "Sorcerer", "Wizard"};
+    private Integer[] level = new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
     HashMap<String, String> descriptons = new HashMap<String,String>() {{
         put("Dragonborn", "Dragonborn look very much like dragons standing erect in humanoid form, though they lack wings or a tail.");
         put("Dwarf", "Bold and hardy, dwarves are known as skilled warriors, minors, and workers of stone and metal.");
@@ -75,9 +76,25 @@ public class CharacterCreatorView extends Pane {
         classDescriptionBox.setPrefSize(400, 45);
         classDescriptionBox.setEditable(false);
 
+        Label nameLabel = new Label("Name");
+        nameLabel.relocate(250, 265);
+        nameLabel.setPrefSize(150, 30);
+
+        TextField nameBox = new TextField();
+        nameBox.relocate(250, 300);
+        nameBox.setPrefSize(300, 45);
+
+        Label levelLabel = new Label("Starting Level");
+        levelLabel.relocate(325, 365);
+        levelLabel.setPrefSize(150, 30);
+
+        ComboBox levelSelection = new ComboBox(FXCollections.observableArrayList(level));
+        levelSelection.setPrefSize(150, 45);
+        levelSelection.relocate(325,400);
+
 
         //add ze children
-        storeView.getChildren().addAll(raceSelection, classSelection, raceDescriptionBox, classDescriptionBox, raceLabel, classLabel);
+        storeView.getChildren().addAll(raceSelection, classSelection, raceDescriptionBox, classDescriptionBox, raceLabel, classLabel, nameBox, nameLabel, levelSelection, levelLabel);
 
         getChildren().addAll(storeView);
     }
