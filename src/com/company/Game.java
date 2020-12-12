@@ -85,7 +85,7 @@ public class Game {
             return new Monk(raceName, name, gold, xp, hitDie, abilityScores);
         }
         else if(className.equals("Rouge")){
-            return new Rouge(raceName, name, gold, xp, hitDie, abilityScores);
+            return new Rogue(raceName, name, gold, xp, hitDie, abilityScores);
         }
         else if(className.equals("Sorcerer")){
             return new Sorcerer(raceName, name, gold, xp, hitDie, abilityScores);
