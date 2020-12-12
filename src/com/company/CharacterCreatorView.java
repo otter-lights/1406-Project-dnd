@@ -8,10 +8,31 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.TilePane;
+import java.util.HashMap;
 
 public class CharacterCreatorView extends Pane {
     private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "Half Elf", "Half Orc", "Halfling", "Human", "Tiefling"};
-    private String[] classes = new String[] {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rouge", "Sorcerer", "Wizard"};
+    private String[] classes = new String[] {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rogue", "Sorcerer", "Wizard"};
+    HashMap<String, String> descriptons = new HashMap<String,String>() {{
+        put("Dragonborn", "");
+        put("Dwarf", "");
+        put("Gnome", "");
+        put("Elf", "");
+        put("Half Elf", "");
+        put("Half Orc", "");
+        put("Halfling", "");
+        put("Human", "");
+        put("Tielfing", "");
+        put("Barbarian", "");
+        put("Bard", "");
+        put("Cleric", "");
+        put("Druid", "");
+        put("Fighter", "");
+        put("Monk", "");
+        put("Rogue", "Rogues");
+        put("Sorcerer", "");
+        put("Wizard", "");
+    }};
 
     public CharacterCreatorView() {
         Pane storeView = new Pane();

@@ -1,7 +1,7 @@
 package com.company;
 import java.util.Random;
 
-public class Rouge extends NonMagicUser{
+public class Rogue extends NonMagicUser{
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     String[] sneakAttack = new String[] {"1d6", "1d6", "2d6", "2d6", "3d6", "3d6", "4d6", "4d6", "5d6", "5d6", "6d6", "6d6", "7d6", "7d6", "8d6", "8d6", "9d6", "9d6", "10d6", "10d6"};
     /*
@@ -14,7 +14,7 @@ public class Rouge extends NonMagicUser{
 
      */
 
-    public Rouge(String chosenRace, String name){
+    public Rogue(String chosenRace, String name){
         super(chosenRace, 140, 0, 8, name);
     }
     public void levelUp(){
