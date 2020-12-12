@@ -1,4 +1,5 @@
 package com.company;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -7,11 +8,11 @@ import javafx.scene.text.TextAlignment;
 
 public class StoreView extends Pane{
     private ListView<String> armorList, meleeList, rangedList, inventoryList;
-//DONT FORGET TO ADD MONEY  TO SCREEN!!!!!!!
+
     public StoreView(){
         Pane storeView = new Pane();
         storeView.setStyle("-fx-background-color: white;");
-        storeView.setPrefSize(200, 500);
+        storeView.setPrefSize(800, 600);
 
         //create things :)
         Label armorLabel = new Label("Armor");
@@ -60,7 +61,15 @@ public class StoreView extends Pane{
         goldPieces.setPrefSize(105, 30);
         goldPieces.setEditable(false);
 
-        storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, goldPiecesLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox, goldPieces);
+        Button purchaseButton = new Button("Purchase");
+        purchaseButton.relocate(530,455);
+        purchaseButton.setPrefSize(150,45);
+
+        Button exitButton = new Button("Exit Store");
+        exitButton.relocate(530, 535);
+        exitButton.setPrefSize(150, 45);
+
+        storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, goldPiecesLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox, goldPieces, purchaseButton, exitButton);
 
         getChildren().addAll(storeView);
     }
