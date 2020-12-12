@@ -28,17 +28,35 @@ public class CharacterCreatorView extends Pane {
             make race & class drop down menus!!
          */
 
+        Label raceLabel = new Label("Race");
+        raceLabel.relocate(100, 65);
+        raceLabel.setPrefSize(150, 30);
+
         ComboBox raceSelection = new ComboBox(FXCollections.observableArrayList(races));
         raceSelection.setPrefSize(150, 45);
         raceSelection.relocate(100,100);
+
+        Label classLabel = new Label("Class");
+        classLabel.relocate(100, 165);
+        classLabel.setPrefSize(150, 30);
 
         ComboBox classSelection = new ComboBox(FXCollections.observableArrayList(classes));
         classSelection.setPrefSize(150, 45);
         classSelection.relocate(100,200);
 
+        TextField raceDescriptionBox = new TextField();
+        raceDescriptionBox.relocate(300, 100);
+        raceDescriptionBox.setPrefSize(400, 45);
+        raceDescriptionBox.setEditable(false);
+
+        TextField classDescriptionBox = new TextField();
+        classDescriptionBox.relocate(300, 200);
+        classDescriptionBox.setPrefSize(400, 45);
+        classDescriptionBox.setEditable(false);
+
 
         //add ze children
-        storeView.getChildren().addAll(raceSelection, classSelection);
+        storeView.getChildren().addAll(raceSelection, classSelection, raceDescriptionBox, classDescriptionBox, raceLabel, classLabel);
 
         getChildren().addAll(storeView);
     }
