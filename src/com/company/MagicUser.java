@@ -10,8 +10,14 @@ public abstract class MagicUser extends Player{
 
     int[] spellSlots;
 
-    public MagicUser(String chosenRace, int startingGold, int xp, int hitDie, int spellMod, String name){
-        super(chosenRace, startingGold, xp, hitDie, name);
+    public MagicUser(String name, String chosenRace, int startingGold, int xp, int hitDie, int spellMod){
+        super(name, chosenRace, startingGold, xp, hitDie);
+        spellSaveDC = 8 + proficencyBonus + abilityMods[spellMod];
+        spellCastingType = spellMod;
+        spellSlots = getSpellSlots();
+    }
+    public MagicUser(String name, String chosenRace, int startingGold, int xp, int hitDie, int spellMod, int[] abilityScores){
+        super(name, chosenRace, startingGold, xp, hitDie, abilityScores);
         spellSaveDC = 8 + proficencyBonus + abilityMods[spellMod];
         spellCastingType = spellMod;
         spellSlots = getSpellSlots();
