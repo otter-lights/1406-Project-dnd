@@ -27,18 +27,40 @@ public abstract class Player {
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
   
-    public Player(String chosenRace, int experience, int startingGold, int hitDie, String name){
-        playerRace = new Race(chosenRace);
-        goldPieces = startingGold;
-        this.experience = experience;
-        rollAbilityScores();
-        setLevel();
-        position = 0;
+    public Player(String name, String chosenRace, int gold, int xp, int hitDie){
         this.name = name;
+        this.playerRace = new Race(chosenRace);
+        this.experience = xp;
+        this.hitDie = hitDie;
+        this.goldPieces = gold;
+
         maxHP = hitDie + abilityMods[2];
         currentHP = maxHP;
-        setArmorClass();
+        position = 0;
         inventory = new ArrayList<>();
+
+        rollAbilityScores();
+        setArmorClass();
+        setLevel();
+    }
+    public Player(String name, String chosenRace, int gold, int xp, int hitDie, int[] abilityScores){
+        this.name = name;
+        this.playerRace = new Race(chosenRace);
+        this.experience = xp;
+        this.hitDie = hitDie;
+        this.abilityScores = abilityScores;
+        this.goldPieces = gold;
+
+        maxHP = hitDie + abilityMods[2];
+        currentHP = maxHP;
+        position = 0;
+
+        for(int i = 0; i < 6; i++){
+            abilityMods[i] = calculateMods(abilityScores[i]);
+        }
+
+        setArmorClass();
+        setLevel();
     }
 
     public abstract void levelUp();
@@ -96,6 +118,8 @@ public abstract class Player {
     public int getPurse(){return goldPieces;}
     public int getProficencyBonus(){return proficencyBonus;}
     public String getName(){return name;}
+    public int getXP(){return experience;}
+    public int getHitDie(){return hitDie;}
 
     public void spendMoney(int price){goldPieces -= price;}
     public void recieveMoney(int gold){goldPieces += gold;}
@@ -223,10 +247,6 @@ public abstract class Player {
         return false;
     }
 
-
-    public void getSpells(){
-        //depends on class
-    }
 
     private void rollAbilityScores(){
         int[] abilityIncrease = playerRace.getAbilityIncrease();

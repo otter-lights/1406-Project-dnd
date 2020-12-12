@@ -11,7 +11,10 @@ public class Barbarian extends NonMagicUser{
     // '->your armor class = 10 + dexterity + constitution
 
     public Barbarian(String chosenRace, String name){
-        super(chosenRace, 105, 0, 12, name);
+        super(name, chosenRace, 105, 0, 12);
+    }
+    public Barbarian(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
+        super(name, chosenRace, gold, xp, hitDie, abilityScores);
     }
     public void levelUp(){
         userLevel += 1;

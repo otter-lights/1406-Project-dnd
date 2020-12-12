@@ -25,7 +25,7 @@ public class FightView extends Pane {
         dialogBox.setEditable(false);
         dialogBox.setStyle("-fx-control-inner-background: #" + Paint.valueOf("808080").toString().substring(2));
 
-        getChildren().addAll(p1Pane, p2Pane, dialogBox);
+        fightview.getChildren().addAll(p1Pane, p2Pane, dialogBox);
 
         Button p1Attack = new Button("Attack");
         p1Attack.relocate(230, 300);
@@ -53,7 +53,7 @@ public class FightView extends Pane {
         p1EndTurn.relocate(230, 450);
         p1EndTurn.setPrefSize(150, 30);
 
-        getChildren().addAll(p1Attack, p1Move, p1EndTurn, p1RightLabel, p1UpLabel, p1Right, p1Up);
+        fightview.getChildren().addAll(p1Attack, p1Move, p1EndTurn, p1RightLabel, p1UpLabel, p1Right, p1Up);
 
         Button p2Attack = new Button("Attack");
         p2Attack.relocate(420, 300);
@@ -81,7 +81,8 @@ public class FightView extends Pane {
         p2EndTurn.relocate(420, 450);
         p2EndTurn.setPrefSize(150, 30);
 
-        getChildren().addAll(p2Attack, p2Move, p2EndTurn, p2RightLabel, p2UpLabel, p2Right, p2Up);
+        fightview.getChildren().addAll(p2Attack, p2Move, p2EndTurn, p2RightLabel, p2UpLabel, p2Right, p2Up);
+        getChildren().add(fightview);
     }
 
 }

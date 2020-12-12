@@ -31,8 +31,12 @@ public class Wizard extends MagicUser{
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
 
     public Wizard(String chosenRace, String name){
-        super(chosenRace, 70, 0, 6,3, name);
+        super(name, chosenRace, 70, 0, 6,3);
         useableSpells = new Spell[getLevel() + abilityMods[3]];
+    }
+    public Wizard(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
+        super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
+        useableSpells = new Spell[wizardTable[getLevel()][1]];
     }
     public void levelUp(){
         userLevel += 1;

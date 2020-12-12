@@ -29,9 +29,12 @@ public class Cleric extends MagicUser{
     Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     public Cleric(String chosenRace, String name){
-        super(chosenRace, 140, 0, 8,4, name);
+        super(name, chosenRace, 140, 0, 8,4);
         useableSpells = new Spell[getLevel() + abilityMods[4]];
-
+    }
+    public Cleric(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
+        super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
+        useableSpells = new Spell[clericTable[getLevel()][1]];
     }
     public void levelUp(){
         userLevel += 1;

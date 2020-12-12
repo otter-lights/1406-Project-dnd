@@ -31,9 +31,13 @@ public class Sorcerer extends MagicUser{
     Spell[] useableSpells;
 
     public Sorcerer(String chosenRace, String name){
-        super(chosenRace, 70, 0, 6, 5, name);
+        super(name, chosenRace, 70, 0, 6, 5);
         useableSpells = new Spell[sorcererTable[getLevel()][1]];
         spellSlots = sorcererTable[userLevel];
+    }
+    public Sorcerer(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
+        super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
+        useableSpells = new Spell[sorcererTable[getLevel()][1]];
     }
     public void levelUp(){
         userLevel += 1;

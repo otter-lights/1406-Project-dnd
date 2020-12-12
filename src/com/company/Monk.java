@@ -9,7 +9,11 @@ public class Monk extends NonMagicUser{
     //if no weapon & no armor:
     //attack with martialArts ^
     public Monk(String chosenRace, String name){
-        super(chosenRace, 35, 0, 8, name);
+        super(name, chosenRace, 35, 0, 8);
+        addToInventory((new Melee("Martial Arts", 0, 0.0, martialArts[this.getLevel() - 1])));
+    }
+    public Monk(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
+        super(name, chosenRace, gold, xp, hitDie, abilityScores);
         addToInventory((new Melee("Martial Arts", 0, 0.0, martialArts[this.getLevel() - 1])));
     }
     public String getClassName(){return "Monk";}
