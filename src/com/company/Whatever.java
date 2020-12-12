@@ -12,9 +12,9 @@ public class Whatever extends Application {
     public void start(Stage primaryStage){
         Pane aPane = new Pane();
 
-        //StoreView storeView = new StoreView();
-        FightView fight = new FightView(new Fighter("Dragonborn", "Player 1"), new Druid("Gnome", "Player 2"));
-        aPane.getChildren().add(fight);
+        StoreView storeView = new StoreView();
+        //FightView fight = new FightView(new Fighter("Dragonborn", "Player 1"), new Druid("Gnome", "Player 2"));
+        aPane.getChildren().add(storeView);
 
         primaryStage.setTitle("Encounter Sim");
         primaryStage.setResizable(false);
