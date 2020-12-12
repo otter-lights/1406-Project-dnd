@@ -39,6 +39,11 @@ public class CharacterCreatorView extends Pane {
         put("Sorcerer", "A spell-caster who draws on inherent magic from a gift or bloodline.");
         put("Wizard", "A scholarly magic-user capable of manipulating the structures of reality.");
     }};
+    private ComboBox raceSelection = new ComboBox(FXCollections.observableArrayList(races));
+    private ComboBox classSelection = new ComboBox(FXCollections.observableArrayList(classes));
+    private Label nameLabel = new Label("Name");
+    private ComboBox levelSelection = new ComboBox(FXCollections.observableArrayList(level));
+    private TextField nameBox = new TextField();
 
     public CharacterCreatorView() {
         Pane storeView = new Pane();
@@ -59,7 +64,7 @@ public class CharacterCreatorView extends Pane {
         raceLabel.relocate(100, 65);
         raceLabel.setPrefSize(150, 30);
 
-        ComboBox raceSelection = new ComboBox(FXCollections.observableArrayList(races));
+
         raceSelection.setPrefSize(150, 45);
         raceSelection.relocate(100,100);
 
@@ -67,7 +72,6 @@ public class CharacterCreatorView extends Pane {
         classLabel.relocate(100, 165);
         classLabel.setPrefSize(150, 30);
 
-        ComboBox classSelection = new ComboBox(FXCollections.observableArrayList(classes));
         classSelection.setPrefSize(150, 45);
         classSelection.relocate(100,200);
 
@@ -81,11 +85,9 @@ public class CharacterCreatorView extends Pane {
         classDescriptionBox.setPrefSize(400, 45);
         classDescriptionBox.setEditable(false);
 
-        Label nameLabel = new Label("Name");
         nameLabel.relocate(300, 265);
         nameLabel.setPrefSize(150, 30);
 
-        TextField nameBox = new TextField();
         nameBox.relocate(300, 300);
         nameBox.setPrefSize(300, 45);
 
@@ -93,7 +95,6 @@ public class CharacterCreatorView extends Pane {
         levelLabel.relocate(325, 365);
         levelLabel.setPrefSize(150, 30);
 
-        ComboBox levelSelection = new ComboBox(FXCollections.observableArrayList(level));
         levelSelection.setPrefSize(150, 45);
         levelSelection.relocate(325,400);
 
@@ -147,5 +148,36 @@ public class CharacterCreatorView extends Pane {
          */
 
 
+    }
+
+    public Player createPlayer(){
+        if(classSelection.getValue().equals("Barbarian")){
+            return new Barbarian((String)raceSelection.getValue(), nameBox.getText());
+        }
+        else if(classSelection.getValue().equals("Bard")){
+            return new Bard((String)raceSelection.getValue(), nameBox.getText());
+        }
+        else if(classSelection.getValue().equals("Cleric")){
+            return new Cleric((String)raceSelection.getValue(), nameBox.getText());
+        }
+        else if(classSelection.getValue().equals("Druid")){
+            return new Druid((String)raceSelection.getValue(), nameBox.getText());
+        }
+        else if(classSelection.getValue().equals("Fighter")){
+            return new Fighter((String)raceSelection.getValue(), nameBox.getText());
+        }
+        else if(classSelection.getValue().equals("Monk")){
+            return new Monk((String)raceSelection.getValue(), nameBox.getText());
+        }
+        else if(classSelection.getValue().equals("Rouge")){
+            return new Rogue((String)raceSelection.getValue(), nameBox.getText());
+        }
+        else if(classSelection.getValue().equals("Sorcerer")){
+            return new Sorcerer((String)raceSelection.getValue(), nameBox.getText());
+        }
+        else if(classSelection.getValue().equals("Wizard")){
+            return new Wizard((String)raceSelection.getValue(), nameBox.getText());
+        }
+        return null;
     }
 }
