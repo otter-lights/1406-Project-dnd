@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-public class RestView extends Pane {
+public class RestView extends GamePane {
     private ListView<Player> playerOptions;
     private Button newCharacter;
     private Button visitStore;

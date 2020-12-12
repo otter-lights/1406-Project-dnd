@@ -7,16 +7,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
 public class GameController extends Application {
     public void start(Stage primaryStage){
         Game model = new Game();
         Pane currentView = new Pane();
 
         StoreView storeView = new StoreView();
-        FightView fight = new FightView(new Fighter("Dragonborn", "Player 1"), new Druid("Gnome", "Player 2"));
-        RestView rest = new RestView(new Game(), new Wizard("Elf", "Player 1"));
+        //FightView fight = new FightView(model.getPrimaryPlayer(), model.getSecondaryPlayer());
+        RestView rest = new RestView(model, model.getPrimaryPlayer());
+        CharacterCreatorView creator = new CharacterCreatorView();
 
-        currentView.getChildren().add(rest);
+        currentView.getChildren().add(creator);
 
         rest.getVisitStore().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
@@ -27,8 +30,25 @@ public class GameController extends Application {
 
         rest.getEndProgram().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
-                //Save all the characters
+                String filename = JOptionPane.showInputDialog("Enter Filename: ");
+                model.addPlayer(new Druid("Gnome", "Gargamel"));
+                model.saveCharacters(filename);
                 System.exit(0);
+            }
+        });
+
+        rest.getNewCharacter().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                currentView.getChildren().clear();
+                currentView.getChildren().add(creator);
+                ((GamePane) currentView.getChildren().get(0)).update();
+            }
+        });
+
+        creator.getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                currentView.getChildren().clear();
+                currentView.getChildren().add(rest);
             }
         });
 

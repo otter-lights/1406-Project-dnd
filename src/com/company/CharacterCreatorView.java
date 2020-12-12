@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class CharacterCreatorView extends Pane {
+public class CharacterCreatorView extends GamePane {
     private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "Half-Elf", "Half-Orc", "Halfling", "Human", "Tiefling"};
     private String[] classes = new String[] {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rogue", "Sorcerer", "Wizard"};
     private Integer[] level = new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
@@ -39,13 +39,14 @@ public class CharacterCreatorView extends Pane {
         put("Sorcerer", "A spell-caster who draws on inherent magic from a gift or bloodline.");
         put("Wizard", "A scholarly magic-user capable of manipulating the structures of reality.");
     }};
+
     private ComboBox raceSelection = new ComboBox(FXCollections.observableArrayList(races));
     private ComboBox classSelection = new ComboBox(FXCollections.observableArrayList(classes));
     private Label nameLabel = new Label("Name");
     private ComboBox levelSelection = new ComboBox(FXCollections.observableArrayList(level));
     private TextField nameBox = new TextField();
     private String[] names = new String[135];
-
+    Button createButton;
 
     public CharacterCreatorView() {
         Pane storeView = new Pane();
@@ -100,7 +101,7 @@ public class CharacterCreatorView extends Pane {
         levelSelection.setPrefSize(150, 45);
         levelSelection.relocate(325,400);
 
-        Button createButton = new Button("Create Character");
+        createButton = new Button("Create Character");
         createButton.relocate(325, 500);
         createButton.setPrefSize(150, 45);
 
@@ -173,5 +174,9 @@ public class CharacterCreatorView extends Pane {
         } else{
             nameBox.setText(chooseName());
         }
+    }
+    public Button getCreateButton(){return createButton;}
+    public void update(){
+
     }
 }
