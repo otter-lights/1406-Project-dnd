@@ -8,7 +8,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.TilePane;
+import java.util.Random;
+
+import java.io.IOException;
 import java.util.HashMap;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class CharacterCreatorView extends Pane {
     private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "Half-Elf", "Half-Orc", "Halfling", "Human", "Tiefling"};
@@ -77,11 +82,11 @@ public class CharacterCreatorView extends Pane {
         classDescriptionBox.setEditable(false);
 
         Label nameLabel = new Label("Name");
-        nameLabel.relocate(250, 265);
+        nameLabel.relocate(300, 265);
         nameLabel.setPrefSize(150, 30);
 
         TextField nameBox = new TextField();
-        nameBox.relocate(250, 300);
+        nameBox.relocate(300, 300);
         nameBox.setPrefSize(300, 45);
 
         Label levelLabel = new Label("Starting Level");
@@ -92,10 +97,55 @@ public class CharacterCreatorView extends Pane {
         levelSelection.setPrefSize(150, 45);
         levelSelection.relocate(325,400);
 
+        Button createButton = new Button("Create Character");
+        createButton.relocate(325, 500);
+        createButton.setPrefSize(150, 45);
+
+        Button nameButton = new Button("Random");
+        nameButton.relocate(200, 300);
+        nameButton.setPrefSize(75, 45);
 
         //add ze children
-        storeView.getChildren().addAll(raceSelection, classSelection, raceDescriptionBox, classDescriptionBox, raceLabel, classLabel, nameBox, nameLabel, levelSelection, levelLabel);
+        storeView.getChildren().addAll(raceSelection, classSelection, raceDescriptionBox, classDescriptionBox, raceLabel, classLabel, nameBox, nameLabel, levelSelection, levelLabel, createButton, nameButton);
 
         getChildren().addAll(storeView);
+
+
+        //this is code for getting the names
+        /*
+        //at top somewhere
+        String[] names = new String[]{}; //length 135 names i forget how to do
+
+        //this would happen on button click
+        if (names[0] == null){
+            String file = "location/names.txt";
+            nameBox.setText(getNames(file));
+        } else{
+            nameBox.setText(chooseName());
+        }
+
+        //methods
+        private String getNames(String fileName){
+            int pos = 0;
+            try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
+                String currentLine;
+                while ((currentLine = br.readLine()) != null){
+                    names[pos] = currentLine;
+                    pos++;
+                }
+            } catch(IOException e){
+                e.printStackTrace();
+            }
+            return chooseName();
+        }
+
+        private String chooseName(){
+            Random random = new Random();
+            return names[random.nextInt(135);
+        }
+
+         */
+
+
     }
 }
