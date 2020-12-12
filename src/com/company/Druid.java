@@ -35,7 +35,7 @@ public class Druid extends MagicUser{
     }
     public Druid(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
-        useableSpells = new Spell[druidTable[getLevel()][1]];
+        useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
     public void levelUp(){
         userLevel += 1;

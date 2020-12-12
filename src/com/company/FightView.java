@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 
 
-public class FightView extends Pane {
+public class FightView extends GamePane {
     public FightView(Player p1, Player p2){
         Pane fightview = new Pane();
         fightview.setStyle("-fx-background-color: white;");
@@ -83,6 +83,9 @@ public class FightView extends Pane {
 
         fightview.getChildren().addAll(p2Attack, p2Move, p2EndTurn, p2RightLabel, p2UpLabel, p2Right, p2Up);
         getChildren().add(fightview);
+    }
+    public void update(){
+
     }
 
 }

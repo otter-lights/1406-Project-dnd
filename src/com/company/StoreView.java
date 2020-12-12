@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
 import javafx.scene.text.TextAlignment;
 
-public class StoreView extends Pane{
+public class StoreView extends GamePane{
     private ListView<String> armorList, meleeList, rangedList, inventoryList;
 
     public StoreView(){
@@ -72,5 +72,8 @@ public class StoreView extends Pane{
         storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, goldPiecesLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox, goldPieces, purchaseButton, exitButton);
 
         getChildren().addAll(storeView);
+    }
+    public void update(){
+
     }
 }
