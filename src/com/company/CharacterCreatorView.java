@@ -44,6 +44,8 @@ public class CharacterCreatorView extends Pane {
     private Label nameLabel = new Label("Name");
     private ComboBox levelSelection = new ComboBox(FXCollections.observableArrayList(level));
     private TextField nameBox = new TextField();
+    private String[] names = new String[135];
+
 
     public CharacterCreatorView() {
         Pane storeView = new Pane();
@@ -112,42 +114,6 @@ public class CharacterCreatorView extends Pane {
         getChildren().addAll(storeView);
 
 
-        //this is code for getting the names
-        /*
-        //at top somewhere
-        String[] names = new String[]{}; //length 135 names i forget how to do
-
-        //this would happen on button click
-        if (names[0] == null){
-            String file = "location/names.txt";
-            nameBox.setText(getNames(file));
-        } else{
-            nameBox.setText(chooseName());
-        }
-
-        //methods
-        private String getNames(String fileName){
-            int pos = 0;
-            try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
-                String currentLine;
-                while ((currentLine = br.readLine()) != null){
-                    names[pos] = currentLine;
-                    pos++;
-                }
-            } catch(IOException e){
-                e.printStackTrace();
-            }
-            return chooseName();
-        }
-
-        private String chooseName(){
-            Random random = new Random();
-            return names[random.nextInt(135);
-        }
-
-         */
-
-
     }
 
     public Player createPlayer(){
@@ -179,5 +145,33 @@ public class CharacterCreatorView extends Pane {
             return new Wizard((String)raceSelection.getValue(), nameBox.getText());
         }
         return null;
+    }
+
+    private String getNames(String fileName){
+        int pos = 0;
+        try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
+            String currentLine;
+            while ((currentLine = br.readLine()) != null){
+                names[pos] = currentLine;
+                pos++;
+            }
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        return chooseName();
+    }
+
+    private String chooseName(){
+        Random random = new Random();
+        return names[random.nextInt(135)];
+    }
+
+    public void getRandomName(){
+        if (names[0] == null){
+            String file = "location/names.txt";
+            nameBox.setText(getNames(file));
+        } else{
+            nameBox.setText(chooseName());
+        }
     }
 }
