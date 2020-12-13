@@ -1,4 +1,5 @@
 package com.company;
+import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
@@ -8,7 +9,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.scene.control.SelectionMode;
 
 public class StoreView extends GamePane{
-    private ListView<String> armorList, meleeList, rangedList, inventoryList;
+    private ListView<Item> armorList, meleeList, rangedList, inventoryList;
     private Button purchaseButton, exitButton;
     private Game model;
 
@@ -40,22 +41,22 @@ public class StoreView extends GamePane{
         goldPiecesLabel.relocate(530, 395);
         goldPiecesLabel.setPrefSize(150, 30);
 
-        armorList = new ListView<String>();
+        armorList = new ListView<Item>();
         armorList.relocate(20, 60);
         armorList.setPrefSize(150, 375);
         armorList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        meleeList = new ListView<String>();
+        meleeList = new ListView<Item>();
         meleeList.relocate(190, 60);
         meleeList.setPrefSize(150, 375);
         meleeList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        rangedList = new ListView<String>();
+        rangedList = new ListView<Item>();
         rangedList.relocate(360, 60);
         rangedList.setPrefSize(150, 375);
         rangedList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        inventoryList = new ListView<String>();
+        inventoryList = new ListView<Item>();
         inventoryList.relocate(530, 60);
         inventoryList.setPrefSize(250, 325);
         inventoryList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -85,26 +86,21 @@ public class StoreView extends GamePane{
         exitButton.relocate(530, 535);
         exitButton.setPrefSize(150, 45);
 
-        //for testing
-        armorList.getItems().add("steel plate");
-        armorList.getItems().add("steel plate");
-        meleeList.getItems().add("swordy");
-        rangedList.getItems().add("slingshot");
-        meleeList.getItems().add("swordy");
-        rangedList.getItems().add("slingshot");
-
-
         storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, goldPiecesLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox, goldPieces, purchaseButton, exitButton);
 
         getChildren().addAll(storeView);
     }
     public Button getPurchaseButton(){return purchaseButton;}
     public Button getExitButton(){return exitButton;}
-    public ListView<String> getArmorList() {return armorList;}
-    public ListView<String> getMeleeList() {return meleeList;}
-    public ListView<String> getRangedList() {return rangedList;}
+    public ListView<Item> getArmorList() {return armorList;}
+    public ListView<Item> getMeleeList() {return meleeList;}
+    public ListView<Item> getRangedList() {return rangedList;}
+    public void purchase(Item item){ model.getGeneralStore().purchase(item, model.getPrimaryPlayer());}
 
     public void update(){
-
+        armorList.setItems(FXCollections.observableArrayList(model.getGeneralStore().getArmor()));
+        meleeList.setItems(FXCollections.observableArrayList(model.getGeneralStore().getMeleeWeapons()));
+        rangedList.setItems(FXCollections.observableArrayList(model.getGeneralStore().getRangedWeapons()));
+        inventoryList.setItems(FXCollections.observableArrayList(model.getPrimaryPlayer().getInventory()));
     }
 }
