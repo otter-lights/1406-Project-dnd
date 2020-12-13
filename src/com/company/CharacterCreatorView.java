@@ -25,7 +25,7 @@ public class CharacterCreatorView extends GamePane {
         put("Gnome", "A gnome's energy and enthusiasm for living shines through every inch of their tiny body.");
         put("Elf", "Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.");
         put("HalfElf", "Half-elves combine what some say are the best qualities of their elf and human parents.");
-        put("HalfOrc", "Half-orcs' grayist pigmentation, sloping foreheads, jutting jaws, prominent teeth, and towering builds make their orcish heritage plain for all to see.");
+        put("HalfOrc", "Half-orcs' grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, and towering builds make their orcish heritage plain for all to see.");
         put("Halfling", "The diminutive halflings survive in a world full of larger creatures by avoiding notice or, barring that, avoiding offense.");
         put("Human", "Humans are the most adaptable and ambitious people among the common races. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.");
         put("Tielfing", "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling.");
