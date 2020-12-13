@@ -28,8 +28,8 @@ public class Cleric extends MagicUser{
                                 new Spell("Guiding Bolt", "4:6", 120, 1, "radiant")};
     Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    public Cleric(String chosenRace, String name){
-        super(name, chosenRace, 140, 0, 8,4);
+    public Cleric(String chosenRace, String name, int level){
+        super(name, chosenRace, 140, 0, 8,4, level);
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
     public Cleric(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){

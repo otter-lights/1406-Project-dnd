@@ -27,12 +27,13 @@ public abstract class Player {
     //The chosen race input will come from the gui/a generation
     //constructor is currently empty (maybe not the best way to implement?)
   
-    public Player(String name, String chosenRace, int gold, int xp, int hitDie){
+    public Player(String name, String chosenRace, int gold, int xp, int hitDie, int level){
         this.name = name;
         this.playerRace = new Race(chosenRace);
         this.experience = xp;
         this.hitDie = hitDie;
         this.goldPieces = gold;
+        setExperience(level);
 
         maxHP = hitDie + abilityMods[2];
         currentHP = maxHP;
@@ -141,6 +142,49 @@ public abstract class Player {
         experience += xp;
     }
 
+    public void setExperience(int level) {
+        if (level == 1) {
+            experience = 0;
+        } else if (level == 2) {
+            experience = 300;
+        } else if (level == 3) {
+            experience = 900;
+        } else if (level == 4) {
+            experience = 2700;
+        } else if (level == 5) {
+            experience = 6500;
+        } else if (level == 6) {
+            experience = 14000;
+        } else if (level == 7) {
+            experience = 23000;
+        } else if (level == 8) {
+            experience = 34000;
+        } else if (level == 9) {
+            experience = 48000;
+        } else if (level == 10) {
+            experience = 64000;
+        } else if (level == 11) {
+            experience = 85000;
+        } else if (level == 12) {
+            experience = 100000;
+        } else if (level == 13) {
+            experience = 120000;
+        } else if (level == 14) {
+            experience = 140000;
+        } else if (level == 15) {
+            experience = 165000;
+        } else if (level == 16) {
+            experience = 195000;
+        } else if (level == 17) {
+            experience = 225000;
+        } else if (level == 18) {
+            experience = 265000;
+        } else if (level == 19) {
+            experience = 305000;
+        } else if (level == 20) {
+            experience = 355000;
+        }
+    }
     public int setLevel(){
         if(experience < 300){
             userLevel = 1;

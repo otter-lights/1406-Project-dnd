@@ -11,7 +11,7 @@ public class Game {
     private Store generalStore;
     public Game(){
         allPlayers = new ArrayList<Player>();
-        allPlayers.add(new Druid ("Gnome", "Player 1"));
+        allPlayers.add(new Druid ("Gnome", "Player 1", 1));
         round = 0;
         generalStore = new Store(5,5,6);
         primaryPlayer = allPlayers.get(0);

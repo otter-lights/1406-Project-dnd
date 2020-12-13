@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ListView;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ComboBox;
@@ -19,7 +20,7 @@ public class CharacterCreatorView extends GamePane {
     private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "HalfElf", "HalfOrc", "Halfling", "Human", "Tiefling"};
     private String[] classes = new String[] {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rogue", "Sorcerer", "Wizard"};
     private Integer[] level = new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-    HashMap<String, String> descriptons = new HashMap<String,String>() {{
+    HashMap<String, String> descriptions = new HashMap<String,String>() {{
         put("Dragonborn", "Dragonborn look very much like dragons standing erect in humanoid form, though they lack wings or a tail.");
         put("Dwarf", "Bold and hardy, dwarves are known as skilled warriors, minors, and workers of stone and metal.");
         put("Gnome", "A gnome's energy and enthusiasm for living shines through every inch of their tiny body.");
@@ -28,7 +29,7 @@ public class CharacterCreatorView extends GamePane {
         put("HalfOrc", "Half-orcs' grayish pigmentation, sloping foreheads, jutting jaws, prominent teeth, and towering builds make their orcish heritage plain for all to see.");
         put("Halfling", "The diminutive halflings survive in a world full of larger creatures by avoiding notice or, barring that, avoiding offense.");
         put("Human", "Humans are the most adaptable and ambitious people among the common races. Whatever drives them, humans are the innovators, the achievers, and the pioneers of the worlds.");
-        put("Tielfing", "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling.");
+        put("Tiefling", "To be greeted with stares and whispers, to suffer violence and insult on the street, to see mistrust and fear in every eye: this is the lot of the tiefling.");
         put("Barbarian", "A fierce warrior of primitive background who can enter a battle rage.");
         put("Bard", "An inspiring magician whose power echoes the music of creation.");
         put("Cleric", "A priestly champion who wields divine magic in service of a higher power.");
@@ -46,22 +47,14 @@ public class CharacterCreatorView extends GamePane {
     private ComboBox levelSelection = new ComboBox(FXCollections.observableArrayList(level));
     private TextField nameBox = new TextField();
     private String[] names = new String[135];
-    Button createButton;
+    private TextArea raceDescriptionBox = new TextArea();
+    private TextArea classDescriptionBox = new TextArea();
+    Button createButton, nameButton;
 
     public CharacterCreatorView() {
         Pane storeView = new Pane();
         storeView.setStyle("-fx-background-color: white;");
         storeView.setPrefSize(800, 600);
-
-        /*things to add
-            race
-            class
-            lvl
-            name
-            that's it :)
-
-            make race & class drop down menus!!
-         */
 
         Label raceLabel = new Label("Race");
         raceLabel.relocate(100, 65);
@@ -78,15 +71,15 @@ public class CharacterCreatorView extends GamePane {
         classSelection.setPrefSize(150, 45);
         classSelection.relocate(100,200);
 
-        TextField raceDescriptionBox = new TextField();
-        raceDescriptionBox.relocate(300, 100);
-        raceDescriptionBox.setPrefSize(400, 45);
+        raceDescriptionBox.relocate(300, 95);
+        raceDescriptionBox.setPrefSize(400, 55);
         raceDescriptionBox.setEditable(false);
+        raceDescriptionBox.setWrapText(true);
 
-        TextField classDescriptionBox = new TextField();
-        classDescriptionBox.relocate(300, 200);
-        classDescriptionBox.setPrefSize(400, 45);
+        classDescriptionBox.relocate(300, 195);
+        classDescriptionBox.setPrefSize(400, 55);
         classDescriptionBox.setEditable(false);
+        classDescriptionBox.setWrapText(true);
 
         nameLabel.relocate(300, 265);
         nameLabel.setPrefSize(150, 30);
@@ -105,7 +98,7 @@ public class CharacterCreatorView extends GamePane {
         createButton.relocate(325, 500);
         createButton.setPrefSize(150, 45);
 
-        Button nameButton = new Button("Random");
+        nameButton = new Button("Random");
         nameButton.relocate(200, 300);
         nameButton.setPrefSize(75, 45);
 
@@ -119,31 +112,31 @@ public class CharacterCreatorView extends GamePane {
 
     public Player createPlayer(){
         if(classSelection.getValue().equals("Barbarian")){
-            return new Barbarian((String)raceSelection.getValue(), nameBox.getText());
+            return new Barbarian((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Bard")){
-            return new Bard((String)raceSelection.getValue(), nameBox.getText());
+            return new Bard((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Cleric")){
-            return new Cleric((String)raceSelection.getValue(), nameBox.getText());
+            return new Cleric((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Druid")){
-            return new Druid((String)raceSelection.getValue(), nameBox.getText());
+            return new Druid((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Fighter")){
-            return new Fighter((String)raceSelection.getValue(), nameBox.getText());
+            return new Fighter((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Monk")){
-            return new Monk((String)raceSelection.getValue(), nameBox.getText());
+            return new Monk((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
-        else if(classSelection.getValue().equals("Rouge")){
-            return new Rogue((String)raceSelection.getValue(), nameBox.getText());
+        else if(classSelection.getValue().equals("Rogue")){
+            return new Rogue((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Sorcerer")){
-            return new Sorcerer((String)raceSelection.getValue(), nameBox.getText());
+            return new Sorcerer((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Wizard")){
-            return new Wizard((String)raceSelection.getValue(), nameBox.getText());
+            return new Wizard((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         return null;
     }
@@ -169,14 +162,28 @@ public class CharacterCreatorView extends GamePane {
 
     public void getRandomName(){
         if (names[0] == null){
-            String file = "location/names.txt";
+            String file = "/Users/awildecat/documents/GitHub/1406-Project-dnd/src/com/company/names.txt";
             nameBox.setText(getNames(file));
         } else{
             nameBox.setText(chooseName());
         }
     }
+
+    public void setRaceDescription(String race){
+        raceDescriptionBox.setText(descriptions.get(race));
+    }
+
+    public void setClassDescription(String dndClass){
+        classDescriptionBox.setText(descriptions.get(dndClass));
+    }
+
     public Button getCreateButton(){return createButton;}
+    public Button getNameButton(){return nameButton;}
     public void update(){
 
     }
+    public ComboBox getRaceSelection(){ return raceSelection; }
+    public ComboBox getClassSelection(){ return classSelection; }
+
+    public String[] getRaces(){return races;}
 }

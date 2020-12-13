@@ -28,8 +28,8 @@ public class Fighter extends NonMagicUser{
     //SECOND WIND
     //u can use bonus action to regain hit points equal to 1d10 + lvl
     //must short or long rest before use again
-    public Fighter(String chosenRace, String name){
-        super(name, chosenRace, 175, 0, 10);
+    public Fighter(String chosenRace, String name, int level){
+        super(name, chosenRace, 175, 0, 10, level);
     }
     public Fighter(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie, abilityScores);

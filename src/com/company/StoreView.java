@@ -4,7 +4,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
-import javafx.scene.text.TextAlignment;
+import javafx.beans.binding.BooleanBinding;
+import javafx.scene.control.SelectionMode;
 
 public class StoreView extends GamePane{
     private ListView<String> armorList, meleeList, rangedList, inventoryList;
@@ -42,18 +43,22 @@ public class StoreView extends GamePane{
         armorList = new ListView<String>();
         armorList.relocate(20, 60);
         armorList.setPrefSize(150, 375);
+        armorList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         meleeList = new ListView<String>();
         meleeList.relocate(190, 60);
         meleeList.setPrefSize(150, 375);
+        meleeList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         rangedList = new ListView<String>();
         rangedList.relocate(360, 60);
         rangedList.setPrefSize(150, 375);
+        rangedList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         inventoryList = new ListView<String>();
         inventoryList.relocate(530, 60);
         inventoryList.setPrefSize(250, 325);
+        inventoryList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         TextField descriptionBox = new TextField();
         descriptionBox.relocate(20, 455);
@@ -68,10 +73,26 @@ public class StoreView extends GamePane{
         purchaseButton = new Button("Purchase");
         purchaseButton.relocate(530,455);
         purchaseButton.setPrefSize(150,45);
+        //purchaseButton.disableProperty().bind(armorList.getSelectionModel().selectedItemProperty().isNull());
+        //purchaseButton.disableProperty().bind(meleeList.getSelectionModel().selectedItemProperty().isNull());
+        //purchaseButton.disableProperty().bind(rangedList.getSelectionModel().selectedItemProperty().isNull());
+        BooleanBinding booleanBinding = armorList.getSelectionModel().selectedItemProperty().isNull().and(
+                rangedList.getSelectionModel().selectedItemProperty().isNull().and(
+                        meleeList.getSelectionModel().selectedItemProperty().isNull()));
+        purchaseButton.disableProperty().bind(booleanBinding);
 
         exitButton = new Button("Leave Store");
         exitButton.relocate(530, 535);
         exitButton.setPrefSize(150, 45);
+
+        //for testing
+        armorList.getItems().add("steel plate");
+        armorList.getItems().add("steel plate");
+        meleeList.getItems().add("swordy");
+        rangedList.getItems().add("slingshot");
+        meleeList.getItems().add("swordy");
+        rangedList.getItems().add("slingshot");
+
 
         storeView.getChildren().addAll(armorLabel, meleeLabel, rangedLabel, inventoryLabel, goldPiecesLabel, armorList, meleeList, rangedList, inventoryList, descriptionBox, goldPieces, purchaseButton, exitButton);
 
@@ -79,6 +100,9 @@ public class StoreView extends GamePane{
     }
     public Button getPurchaseButton(){return purchaseButton;}
     public Button getExitButton(){return exitButton;}
+    public ListView<String> getArmorList() {return armorList;}
+    public ListView<String> getMeleeList() {return meleeList;}
+    public ListView<String> getRangedList() {return rangedList;}
 
     public void update(){
 

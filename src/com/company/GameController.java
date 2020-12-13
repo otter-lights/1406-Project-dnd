@@ -5,12 +5,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.control.ListView;
+import javafx.beans.value.ObservableValue;
 
 import javax.swing.*;
 import java.util.Random;
@@ -40,7 +44,7 @@ public class GameController extends Application {
         rest.getEndProgram().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 String filename = JOptionPane.showInputDialog("Enter Filename: ");
-                model.addPlayer(new Druid("Gnome", "Gargamel"));
+                model.addPlayer(new Druid("Gnome", "Gargamel", 1));
                 model.saveCharacters(filename);
                 System.exit(0);
             }
@@ -128,6 +132,21 @@ public class GameController extends Application {
             }
         });
 
+        creator.getRaceSelection().setOnAction(e -> {
+            creator.setRaceDescription((String)creator.getRaceSelection().getValue());
+        });
+
+        creator.getClassSelection().setOnAction(e -> {
+            creator.setClassDescription((String)creator.getClassSelection().getValue());
+        });
+
+        creator.getNameButton().setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent actionEvent){
+                creator.getRandomName();
+            }
+        });
+
+
         store.getExitButton().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 currentView.getChildren().clear();
@@ -135,6 +154,38 @@ public class GameController extends Application {
                 rest.update();
             }
         });
+
+        store.getPurchaseButton().setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent actionEvent){
+                if (store.getArmorList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
+                    //ranged
+                } else if (store.getRangedList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
+                    //armor
+                } else if (store.getArmorList().getSelectionModel().isEmpty() && store.getRangedList().getSelectionModel().isEmpty()){
+                    //melee
+                }
+            }
+        });
+
+        store.getArmorList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent e){
+                store.getMeleeList().getSelectionModel().clearSelection();
+                store.getRangedList().getSelectionModel().clearSelection();
+            }
+        });
+        store.getMeleeList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent e){
+                store.getArmorList().getSelectionModel().clearSelection();
+                store.getRangedList().getSelectionModel().clearSelection();
+            }
+        });
+        store.getRangedList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent e){
+                store.getMeleeList().getSelectionModel().clearSelection();
+                store.getArmorList().getSelectionModel().clearSelection();
+            }
+        });
+
 
         primaryStage.setTitle("Encounter Sim");
         primaryStage.setResizable(false);
