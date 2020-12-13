@@ -7,9 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
 import javafx.beans.binding.BooleanBinding;
 import javafx.scene.control.SelectionMode;
+import java.util.ArrayList;
 
 public class StoreView extends GamePane{
-    private ListView<Item> armorList, meleeList, rangedList, inventoryList;
+    private ListView<String> armorList, meleeList, rangedList, inventoryList;
     private Button purchaseButton, exitButton;
     private Game model;
 
@@ -92,15 +93,23 @@ public class StoreView extends GamePane{
     }
     public Button getPurchaseButton(){return purchaseButton;}
     public Button getExitButton(){return exitButton;}
-    public ListView<Item> getArmorList() {return armorList;}
-    public ListView<Item> getMeleeList() {return meleeList;}
-    public ListView<Item> getRangedList() {return rangedList;}
+    public ListView<String> getArmorList() {return armorList;}
+    public ListView<String> getMeleeList() {return meleeList;}
+    public ListView<String> getRangedList() {return rangedList;}
     public void purchase(Item item){ model.getGeneralStore().purchase(item, model.getPrimaryPlayer());}
 
     public void update(){
-        armorList.setItems(FXCollections.observableArrayList(model.getGeneralStore().getArmor()));
-        meleeList.setItems(FXCollections.observableArrayList(model.getGeneralStore().getMeleeWeapons()));
-        rangedList.setItems(FXCollections.observableArrayList(model.getGeneralStore().getRangedWeapons()));
-        inventoryList.setItems(FXCollections.observableArrayList(model.getPrimaryPlayer().getInventory()));
+        updateListView(model.getGeneralStore().getArmor(), armorList);
+        updateListView(model.getGeneralStore().getMeleeWeapons(), meleeList);
+        updateListView(model.getGeneralStore().getRangedWeapons(), rangedList);
+        Item[] inventoryItems = model.getPrimaryPlayer().getInventory().toArray(new Item[model.getPrimaryPlayer().getInventory().size()]);
+        updateListView(inventoryItems, inventoryList);
+    }
+
+    private void updateListView(Item[] item, ListView<String> listView){
+        ArrayList<Item> arrayList = new ArrayList<>(item);
+        for(Item i: item){
+            listView.getItems().add(i.getName());
+        }
     }
 }

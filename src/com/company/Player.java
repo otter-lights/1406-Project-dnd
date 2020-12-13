@@ -63,7 +63,7 @@ public abstract class Player {
         setArmorClass();
         setLevel();
     }
-    public Item[] getInventory(){ return getInventory(); }
+    public ArrayList<Item> getInventory(){ return this.inventory; }
     public abstract void levelUp();
     public abstract String getClassName();
     public Race getPlayerRace(){
