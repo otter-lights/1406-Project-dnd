@@ -44,6 +44,9 @@ public class Druid extends MagicUser{
     }
     public int[] getSpellSlots(){return druidTable[userLevel];}
     public String getClassName(){return "Druid";}
+    public Spell[] getAllSpells(){return allSpells;};
+    public Spell[] getUseableSpells(){return useableSpells;}
+
 
 
     public boolean isUseable(Spell s){
@@ -55,11 +58,11 @@ public class Druid extends MagicUser{
         }
         return false;
     }
-    public void prepareSpell(Spell prep){
+    public void prepSpell(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
-            if(curSpell == null && druidTable[getLevel()][prep.getLevel()+1] != 0){
-                useableSpells[i] = prep;
+            if(curSpell == null && druidTable[userLevel][s.getLevel()+1] != 0){
+                useableSpells[i] = s;
                 break;
             }
         }

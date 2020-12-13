@@ -7,15 +7,20 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class RestView extends GamePane {
-    private ListView<Player> playerOptions;
-    private Button newCharacter;
-    private Button visitStore;
-    private Button endProgram;
-    Game model;
+    private ListView<Player> playerOptions, opponents;
+    private ListView<Spell> allSpells, useableSpells;
+    private Button newCharacter, visitStore, endProgram, changePrimary, startRound, prepSpell;
+    private Game model;
+    private Player p;
+    Label name, playerClass, playerRace, playerLevel, health, armorClass, strScore, dexScore, conScore, intScore, wisScore, chaScore, allSpellLabel, preparedSpellsLabel;
 
-    public RestView(Game model, Player p){
+
+    public RestView(Game model){
+        p = model.getPrimaryPlayer();
         this.model = model;
         setStyle("-fx-background-color: white;");
         setPrefSize(800, 600);
@@ -35,54 +40,18 @@ public class RestView extends GamePane {
         Label currentCharacter = new Label("Current Character");
         currentCharacter.relocate(10,75);
 
-        Label name = new Label(p.getName());
-        name.relocate(10,120);
-        name.setPrefSize(200,30);
+        setCharacterStats();
+        showSpellInfo();
 
-        Label playerClass = new Label("Class: " + p.getClassName());
-        playerClass.relocate(20,150);
-        playerClass.setPrefSize(100, 20);
+        changePrimary = new Button("Change \nPrimary \nCharacter");
+        changePrimary.relocate(275,50);
+        changePrimary.setPrefSize(105,130);
+        //changePrimary.setDisable(true);
 
-        Label playerRace = new Label("Race: " + p.getPlayerRace().getRaceName());
-        playerRace.relocate(20,170);
-        playerRace.setPrefSize(100, 20);
-
-        Label playerLevel = new Label("Level: " + p.getLevel());
-        playerLevel.relocate(20,190);
-        playerLevel.setPrefSize(100, 20);
-
-        Label health = new Label("Hit Points: " + p.getCurrentHP() + "/" + p.getMaxHP());
-        health.relocate(20,210);
-        health.setPrefSize(100, 20);
-
-        Label armorClass = new Label("AC: " + p.getAC());
-        armorClass.relocate(20,230);
-        armorClass.setPrefSize(100, 20);
-
-        getChildren().addAll(name, playerClass, playerRace, playerLevel, health, armorClass);
-
-        Label strScore = new Label("Str: " + p.getAbilityScores()[0] + "(" + p.getAbilityMods()[0] + ")");
-        strScore.relocate(140,150);
-        strScore.setPrefSize(70,16);
-        Label dexScore = new Label("Dex: " + p.getAbilityScores()[1] + "(" + p.getAbilityMods()[1] + ")");
-        dexScore.relocate(140,166);
-        dexScore.setPrefSize(70,16);
-        Label conScore = new Label("Con: " + p.getAbilityScores()[2] + "(" + p.getAbilityMods()[2] + ")");
-        conScore.relocate(140,182);
-        conScore.setPrefSize(70,16);
-        Label intScore = new Label("Int: " + p.getAbilityScores()[3] + "(" + p.getAbilityMods()[3] + ")");
-        intScore.relocate(140,198);
-        intScore.setPrefSize(70,16);
-        Label wisScore = new Label("Wis: " + p.getAbilityScores()[4] + "(" + p.getAbilityMods()[4] + ")");
-        wisScore.relocate(140,214);
-        wisScore.setPrefSize(70,16);
-        Label chaScore = new Label("Cha: " + p.getAbilityScores()[5] + "(" + p.getAbilityMods()[5] + ")");
-        chaScore.relocate(140,230);
-        chaScore.setPrefSize(70,16);
-
-
-        getChildren().addAll(strScore, dexScore, conScore, intScore, wisScore, chaScore);
-
+        playerOptions = new ListView<Player>();
+        playerOptions.relocate(390, 50);
+        playerOptions.setPrefSize(400,130);
+        getChildren().addAll(changePrimary, playerOptions);
 
         final ToggleGroup opponentOptions = new ToggleGroup();
         RadioButton o1 = new RadioButton("Randomly Generate Opponent");
@@ -104,15 +73,15 @@ public class RestView extends GamePane {
         o3.setToggleGroup(opponentOptions);
         o3.relocate(540,320);
 
-        ListView<Player> playerOptions2 = playerOptions;
-        playerOptions2 = new ListView<Player>();
-        playerOptions2.relocate(560, 340);
-        playerOptions2.setPrefSize(200,180);
-        getChildren().add(playerOptions2);
+        opponents = new ListView<Player>();
+        opponents.relocate(560, 340);
+        opponents.setPrefSize(200,180);
+        getChildren().add(opponents);
 
-        Button startRound = new Button("Start Fight");
+        startRound = new Button("Start Fight");
         startRound.relocate(540, 540);
         startRound.setPrefSize(250, 50);
+        startRound.setDisable(true);
 
         //getChildren().addAll(visitStore, newCharacter, endProgram, currentCharacter, o1, o2, classOptions, o3, playerOptions, startRound);
         getChildren().addAll(visitStore, newCharacter, endProgram, currentCharacter, o1, o2, o3, startRound);
@@ -120,9 +89,104 @@ public class RestView extends GamePane {
     public Button getNewCharacter(){return newCharacter;}
     public Button getVisitStore(){return visitStore;}
     public Button getEndProgram(){return endProgram;}
+    public Button getChangePrimary(){return changePrimary;}
+    public Button getStartRound(){return startRound;}
+    public ListView<Player> getPlayerOptions(){return playerOptions;}
+    public Button getPrepSpell(){return prepSpell;}
+    public ListView<Spell> getAllSpells(){return allSpells;}
 
     public void update(){
+        p = model.getPrimaryPlayer();
+
+        getChildren().removeAll(name, playerClass, playerRace, playerLevel, health, armorClass);
+        getChildren().removeAll(strScore, dexScore, conScore, intScore, wisScore, chaScore);
+        getChildren().removeAll(allSpellLabel, allSpells, prepSpell, preparedSpellsLabel, useableSpells);
+
+        setCharacterStats();
+        if(p instanceof MagicUser){
+            showSpellInfo();
+
+            ArrayList<Spell> allSpellsList = new ArrayList<Spell>();
+            Collections.addAll(allSpellsList, ((MagicUser) model.getPrimaryPlayer()).getAllSpells());
+            allSpells.setItems(FXCollections.observableArrayList(allSpellsList));
+
+            ArrayList<Spell> useableSpellsList = new ArrayList<Spell>();
+            Collections.addAll(useableSpellsList, ((MagicUser) model.getPrimaryPlayer()).getUseableSpells());
+            useableSpells.setItems(FXCollections.observableArrayList());
+        }
+
         ArrayList<Player> characters = model.getAllPlayers();
         playerOptions.setItems(FXCollections.observableArrayList(characters));
+        opponents.setItems(FXCollections.observableArrayList(characters));
+
+    }
+    public void setCharacterStats(){
+        name = new Label(p.getName());
+        name.relocate(10,120);
+        name.setPrefSize(200,30);
+
+        playerClass = new Label("Class: " + p.getClassName());
+        playerClass.relocate(20,150);
+        playerClass.setPrefSize(100, 20);
+
+        playerRace = new Label("Race: " + p.getPlayerRace().getRaceName());
+        playerRace.relocate(20,170);
+        playerRace.setPrefSize(100, 20);
+
+        playerLevel = new Label("Level: " + p.getLevel());
+        playerLevel.relocate(20,190);
+        playerLevel.setPrefSize(100, 20);
+
+        health = new Label("Hit Points: " + p.getCurrentHP() + "/" + p.getMaxHP());
+        health.relocate(20,210);
+        health.setPrefSize(100, 20);
+
+        armorClass = new Label("AC: " + p.getAC());
+        armorClass.relocate(20,230);
+        armorClass.setPrefSize(100, 20);
+
+        getChildren().addAll(name, playerClass, playerRace, playerLevel, health, armorClass);
+
+        strScore = new Label("Str: " + p.getAbilityScores()[0] + "(" + p.getAbilityMods()[0] + ")");
+        strScore.relocate(140,150);
+        strScore.setPrefSize(70,16);
+        dexScore = new Label("Dex: " + p.getAbilityScores()[1] + "(" + p.getAbilityMods()[1] + ")");
+        dexScore.relocate(140,166);
+        dexScore.setPrefSize(70,16);
+        conScore = new Label("Con: " + p.getAbilityScores()[2] + "(" + p.getAbilityMods()[2] + ")");
+        conScore.relocate(140,182);
+        conScore.setPrefSize(70,16);
+        intScore = new Label("Int: " + p.getAbilityScores()[3] + "(" + p.getAbilityMods()[3] + ")");
+        intScore.relocate(140,198);
+        intScore.setPrefSize(70,16);
+        wisScore = new Label("Wis: " + p.getAbilityScores()[4] + "(" + p.getAbilityMods()[4] + ")");
+        wisScore.relocate(140,214);
+        wisScore.setPrefSize(70,16);
+        chaScore = new Label("Cha: " + p.getAbilityScores()[5] + "(" + p.getAbilityMods()[5] + ")");
+        chaScore.relocate(140,230);
+        chaScore.setPrefSize(70,16);
+
+
+        getChildren().addAll(strScore, dexScore, conScore, intScore, wisScore, chaScore);
+    }
+    public void showSpellInfo(){
+        allSpellLabel = new Label("All Available Spells");
+        allSpellLabel.relocate(275, 190);
+
+        allSpells = new ListView<Spell>();
+        allSpells.relocate(275, 210);
+        allSpells.setPrefHeight(150);
+
+        prepSpell = new Button("Prepare Selected Spell");
+        prepSpell.relocate(275, 365);
+        prepSpell.setPrefSize(250, 25);
+
+        preparedSpellsLabel = new Label("Prepared Spells");
+        preparedSpellsLabel.relocate(275, 400);
+
+        useableSpells = new ListView<Spell>();
+        useableSpells.relocate(275, 420);
+        useableSpells.setPrefHeight(170);
+        getChildren().addAll(allSpellLabel, allSpells, prepSpell, preparedSpellsLabel, useableSpells);
     }
 }

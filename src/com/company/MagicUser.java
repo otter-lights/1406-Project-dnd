@@ -24,6 +24,9 @@ public abstract class MagicUser extends Player{
     }
     public abstract int[] getSpellSlots();
     public abstract boolean isUseable(Spell s);
+    public abstract Spell[] getAllSpells();
+    public abstract Spell[] getUseableSpells();
+    public abstract void prepSpell(Spell s);
 
 
     public void castSpell(Spell s, int level, Player p){
