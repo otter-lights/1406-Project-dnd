@@ -98,10 +98,10 @@ public class GameController extends Application {
                 String[] raceNames = {"Dragonborn", "Dwarf", "Gnome", "Elf", "HalfElf", "HalfOrc", "Halfling", "Human", "Tiefling"};
 
                 if(rest.getOption1().isSelected()){
-                    characters(classNames[rand.nextInt(9)], raceNames[rand.nextInt(9)]);
+                    characters(classNames[rand.nextInt(9)], raceNames[rand.nextInt(9)], rand.nextInt(20)+1);
                 }
                 else if(rest.getOption2().isSelected()){
-                    characters(rest.getClassOptions().getSelectionModel().getSelectedItem().toString(), raceNames[rand.nextInt(9)]);
+                    characters(rest.getClassOptions().getSelectionModel().getSelectedItem().toString(), raceNames[rand.nextInt(9)], rand.nextInt(20) + 1);
                 }
                 else if(rest.getOption3().isSelected()){
                     model.setSecondaryPlayer(rest.getOpponents().getSelectionModel().getSelectedItem());
@@ -193,33 +193,33 @@ public class GameController extends Application {
         primaryStage.show();
 
     }
-    public void characters(String selection, String race){
+    public void characters(String selection, String race, int level){
         if(selection.equals("Barbarian")){
-            model.setSecondaryPlayer(new Barbarian(race, "Player 2"));
+            model.setSecondaryPlayer(new Barbarian(race, "Player 2", level));
         }
         else if(selection.equals("Bard")){
-            model.setSecondaryPlayer(new Bard(race, "Player 2"));
+            model.setSecondaryPlayer(new Bard(race, "Player 2", level));
         }
         else if(selection.equals("Cleric")){
-            model.setSecondaryPlayer(new Cleric(race, "Player 2"));
+            model.setSecondaryPlayer(new Cleric(race, "Player 2", level));
         }
         else if(selection.equals("Druid")){
-            model.setSecondaryPlayer(new Druid(race, "Player 2"));
+            model.setSecondaryPlayer(new Druid(race, "Player 2", level));
         }
         else if(selection.equals("Fighter")){
-            model.setSecondaryPlayer(new Druid(race, "Player 2"));
+            model.setSecondaryPlayer(new Druid(race, "Player 2", level));
         }
         else if(selection.equals("Monk")){
-            model.setSecondaryPlayer(new Monk(race, "Player 2"));
+            model.setSecondaryPlayer(new Monk(race, "Player 2", level));
         }
         else if(selection.equals("Rouge")){
-            model.setSecondaryPlayer(new Rogue(race, "Player 2"));
+            model.setSecondaryPlayer(new Rogue(race, "Player 2", level));
         }
         else if(selection.equals("Sorcerer")){
-            model.setSecondaryPlayer(new Sorcerer(race, "Player 2"));
+            model.setSecondaryPlayer(new Sorcerer(race, "Player 2", level));
         }
         else if(selection.equals("Wizard")){
-            model.setSecondaryPlayer(new Wizard(race, "Player 2"));
+            model.setSecondaryPlayer(new Wizard(race, "Player 2", level));
         }
     }
 
