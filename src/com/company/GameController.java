@@ -100,7 +100,13 @@ public class GameController extends Application {
 
         store.getPurchaseButton().setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent actionEvent){
-                store.getArmorList().getSelectionModel().clearSelection();
+                if (store.getArmorList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
+                    //ranged
+                } else if (store.getRangedList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
+                    //armor
+                } else if (store.getArmorList().getSelectionModel().isEmpty() && store.getRangedList().getSelectionModel().isEmpty()){
+                    //melee
+                }
             }
         });
 
