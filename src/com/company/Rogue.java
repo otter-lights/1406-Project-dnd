@@ -14,8 +14,8 @@ public class Rogue extends NonMagicUser{
 
      */
 
-    public Rogue(String chosenRace, String name){
-        super(name, chosenRace, 140, 0, 8);
+    public Rogue(String chosenRace, String name, int level){
+        super(name, chosenRace, 140, 0, 8, level);
     }
     public Rogue(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie, abilityScores);

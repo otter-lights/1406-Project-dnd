@@ -29,8 +29,8 @@ public class Druid extends MagicUser{
                                 new Spell("Sunburst", 2, 0.5,"12:6", 150, 8,"radiant")};
     Spell[] useableSpells;
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    public Druid(String chosenRace, String name){
-        super(name, chosenRace, 70, 0, 8, 4);
+    public Druid(String chosenRace, String name, int level){
+        super(name, chosenRace, 70, 0, 8, 4, level);
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
     public Druid(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){

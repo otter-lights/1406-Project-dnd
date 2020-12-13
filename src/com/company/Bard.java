@@ -31,8 +31,8 @@ public class Bard extends MagicUser{
     Spell[] useableSpells;
 
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    public Bard(String chosenRace, String name){
-        super(name, chosenRace, 105, 0, 8,5);
+    public Bard(String chosenRace, String name, int level){
+        super(name, chosenRace, 105, 0, 8,5, level);
         useableSpells = new Spell[bardTable[getLevel()][1]];
     }
     public Bard(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){

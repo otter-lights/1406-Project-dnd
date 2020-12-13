@@ -30,8 +30,8 @@ public class Sorcerer extends MagicUser{
                                 new Spell("Cone of Cold", 2, 0.5, "8:8", 60, 5, "cold")};
     Spell[] useableSpells;
 
-    public Sorcerer(String chosenRace, String name){
-        super(name, chosenRace, 70, 0, 6, 5);
+    public Sorcerer(String chosenRace, String name, int level){
+        super(name, chosenRace, 70, 0, 6, 5, level);
         useableSpells = new Spell[sorcererTable[getLevel()][1]];
         spellSlots = sorcererTable[userLevel];
     }

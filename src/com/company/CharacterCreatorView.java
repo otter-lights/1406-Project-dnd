@@ -119,31 +119,31 @@ public class CharacterCreatorView extends GamePane {
 
     public Player createPlayer(){
         if(classSelection.getValue().equals("Barbarian")){
-            return new Barbarian((String)raceSelection.getValue(), nameBox.getText());
+            return new Barbarian((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Bard")){
-            return new Bard((String)raceSelection.getValue(), nameBox.getText());
+            return new Bard((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Cleric")){
-            return new Cleric((String)raceSelection.getValue(), nameBox.getText());
+            return new Cleric((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Druid")){
-            return new Druid((String)raceSelection.getValue(), nameBox.getText());
+            return new Druid((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Fighter")){
-            return new Fighter((String)raceSelection.getValue(), nameBox.getText());
+            return new Fighter((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Monk")){
-            return new Monk((String)raceSelection.getValue(), nameBox.getText());
+            return new Monk((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
-        else if(classSelection.getValue().equals("Rouge")){
-            return new Rogue((String)raceSelection.getValue(), nameBox.getText());
+        else if(classSelection.getValue().equals("Rogue")){
+            return new Rogue((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Sorcerer")){
-            return new Sorcerer((String)raceSelection.getValue(), nameBox.getText());
+            return new Sorcerer((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         else if(classSelection.getValue().equals("Wizard")){
-            return new Wizard((String)raceSelection.getValue(), nameBox.getText());
+            return new Wizard((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
         return null;
     }

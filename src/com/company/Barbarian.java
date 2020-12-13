@@ -10,8 +10,8 @@ public class Barbarian extends NonMagicUser{
     //unarmored defense -> while not wearing armor
     // '->your armor class = 10 + dexterity + constitution
 
-    public Barbarian(String chosenRace, String name){
-        super(name, chosenRace, 105, 0, 12);
+    public Barbarian(String chosenRace, String name, int level){
+        super(name, chosenRace, 105, 0, 12, level);
     }
     public Barbarian(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie, abilityScores);

@@ -32,7 +32,7 @@ public class GameController extends Application {
         rest.getEndProgram().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 String filename = JOptionPane.showInputDialog("Enter Filename: ");
-                model.addPlayer(new Druid("Gnome", "Gargamel"));
+                model.addPlayer(new Druid("Gnome", "Gargamel", 1));
                 model.saveCharacters(filename);
                 System.exit(0);
             }
