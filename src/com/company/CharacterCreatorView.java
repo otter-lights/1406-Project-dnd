@@ -56,16 +56,6 @@ public class CharacterCreatorView extends GamePane {
         storeView.setStyle("-fx-background-color: white;");
         storeView.setPrefSize(800, 600);
 
-        /*things to add
-            race
-            class
-            lvl
-            name
-            that's it :)
-
-            make race & class drop down menus!!
-         */
-
         Label raceLabel = new Label("Race");
         raceLabel.relocate(100, 65);
         raceLabel.setPrefSize(150, 30);

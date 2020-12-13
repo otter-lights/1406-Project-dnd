@@ -3,9 +3,13 @@ package com.company;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.control.ListView;
+import javafx.beans.value.ObservableValue;
 
 import javax.swing.*;
 
@@ -85,6 +89,7 @@ public class GameController extends Application {
             }
         });
 
+
         store.getExitButton().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 currentView.getChildren().clear();
@@ -92,6 +97,32 @@ public class GameController extends Application {
                 rest.update();
             }
         });
+
+        store.getPurchaseButton().setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent actionEvent){
+                store.getArmorList().getSelectionModel().clearSelection();
+            }
+        });
+
+        store.getArmorList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent e){
+                store.getMeleeList().getSelectionModel().clearSelection();
+                store.getRangedList().getSelectionModel().clearSelection();
+            }
+        });
+        store.getMeleeList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent e){
+                store.getArmorList().getSelectionModel().clearSelection();
+                store.getRangedList().getSelectionModel().clearSelection();
+            }
+        });
+        store.getRangedList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent e){
+                store.getMeleeList().getSelectionModel().clearSelection();
+                store.getArmorList().getSelectionModel().clearSelection();
+            }
+        });
+
 
         primaryStage.setTitle("Encounter Sim");
         primaryStage.setResizable(false);
