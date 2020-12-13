@@ -87,14 +87,13 @@ public class Store {
             rangedWeapons[i] = allRanged[rand.nextInt(allRanged.length)];
         }
     }
-    public void purchase(Item[] set, int index, Player customer){
-        Item want = set[index];
-        if(want.getPrice() <= customer.getPurse()){
-            customer.spendMoney(want.getPrice());
+    public void purchase(Item item, Player customer){
+        if(item.getPrice() <= customer.getPurse()){
+            customer.spendMoney(item.getPrice());
         }
-        if(!customer.addToInventory(want)){
+        if(!customer.addToInventory(item)){
             //oops you are too weak to carry this item... "can i have my money back"
-            customer.recieveMoney(want.getPrice());
+            customer.recieveMoney(item.getPrice());
         }
     }
 
