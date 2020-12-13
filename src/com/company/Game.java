@@ -9,7 +9,7 @@ public class Game {
     private Player secondaryPlayer;
     public Game(){
         allPlayers = new ArrayList<Player>();
-        allPlayers.add(new Druid ("Gnome", "Player 1"));
+        allPlayers.add(new Druid ("Gnome", "Player 1", 1));
         primaryPlayer = allPlayers.get(0);
     }
     public void addPlayer(Player p){allPlayers.add(p);}

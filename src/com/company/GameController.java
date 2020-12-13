@@ -71,6 +71,20 @@ public class GameController extends Application {
             }
         });
 
+        creator.getRaceSelection().setOnAction(e -> {
+            creator.setRaceDescription((String)creator.getRaceSelection().getValue());
+        });
+
+        creator.getClassSelection().setOnAction(e -> {
+            creator.setClassDescription((String)creator.getClassSelection().getValue());
+        });
+
+        creator.getNameButton().setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent actionEvent){
+                creator.getRandomName();
+            }
+        });
+
         store.getExitButton().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 currentView.getChildren().clear();
