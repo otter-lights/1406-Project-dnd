@@ -57,4 +57,9 @@ public class Spell {
     public int hashCode() {
         return Objects.hash(name, hasSave, savingThrow, save, damageDie, range, level, damageType);
     }
+
+    public String toString(){
+        String[] damage = damageDie.split(":");
+        return name + ": Level " + level + " spell, " + damage[0] + "d" + damage[1]  + " " + damageType + " damage.";
+    }
 }

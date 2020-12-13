@@ -14,9 +14,9 @@ public class GameController extends Application {
         Game model = new Game();
         Pane currentView = new Pane();
 
-        StoreView storeView = new StoreView();
+        StoreView store = new StoreView(model);
         //FightView fight = new FightView(model.getPrimaryPlayer(), model.getSecondaryPlayer());
-        RestView rest = new RestView(model, model.getPrimaryPlayer());
+        RestView rest = new RestView(model);
         CharacterCreatorView creator = new CharacterCreatorView();
 
         currentView.getChildren().add(creator);
@@ -24,7 +24,8 @@ public class GameController extends Application {
         rest.getVisitStore().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 currentView.getChildren().clear();
-                currentView.getChildren().add(storeView);
+                currentView.getChildren().add(store);
+                store.update();
             }
         });
 
@@ -41,14 +42,40 @@ public class GameController extends Application {
             public void handle(ActionEvent actionEvent) {
                 currentView.getChildren().clear();
                 currentView.getChildren().add(creator);
-                ((GamePane) currentView.getChildren().get(0)).update();
+                creator.update();
+            }
+        });
+
+        rest.getChangePrimary().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                model.setPrimaryPlayer(rest.getPlayerOptions().getSelectionModel().getSelectedItem());
+                rest.update();
+            }
+        });
+
+        rest.getPrepSpell().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("test");
+                Spell s = rest.getAllSpells().getSelectionModel().getSelectedItem();
+                ((MagicUser) model.getPrimaryPlayer()).prepSpell(s);
+                rest.update();
             }
         });
 
         creator.getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                model.addPlayer(creator.createPlayer());
                 currentView.getChildren().clear();
                 currentView.getChildren().add(rest);
+                rest.update();
+            }
+        });
+
+        store.getExitButton().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                currentView.getChildren().clear();
+                currentView.getChildren().add(rest);
+                rest.update();
             }
         });
 

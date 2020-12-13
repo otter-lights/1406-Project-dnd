@@ -8,8 +8,12 @@ import javafx.scene.text.TextAlignment;
 
 public class StoreView extends GamePane{
     private ListView<String> armorList, meleeList, rangedList, inventoryList;
+    private Button purchaseButton, exitButton;
+    private Game model;
 
-    public StoreView(){
+    public StoreView(Game model){
+        this.model = model;
+
         Pane storeView = new Pane();
         storeView.setStyle("-fx-background-color: white;");
         storeView.setPrefSize(800, 600);
@@ -61,11 +65,11 @@ public class StoreView extends GamePane{
         goldPieces.setPrefSize(105, 30);
         goldPieces.setEditable(false);
 
-        Button purchaseButton = new Button("Purchase");
+        purchaseButton = new Button("Purchase");
         purchaseButton.relocate(530,455);
         purchaseButton.setPrefSize(150,45);
 
-        Button exitButton = new Button("Exit Store");
+        exitButton = new Button("Leave Store");
         exitButton.relocate(530, 535);
         exitButton.setPrefSize(150, 45);
 
@@ -73,6 +77,9 @@ public class StoreView extends GamePane{
 
         getChildren().addAll(storeView);
     }
+    public Button getPurchaseButton(){return purchaseButton;}
+    public Button getExitButton(){return exitButton;}
+
     public void update(){
 
     }

@@ -44,8 +44,12 @@ public class Sorcerer extends MagicUser{
         maxHP += 4;
         spellSlots = sorcererTable[userLevel];
     }
+
     public int[] getSpellSlots(){return sorcererTable[userLevel];}
     public String getClassName(){return "Sorcerer";}
+    public Spell[] getAllSpells(){return allSpells;};
+    public Spell[] getUseableSpells(){return useableSpells;}
+
 
 
     public boolean isUseable(Spell s){
@@ -58,12 +62,12 @@ public class Sorcerer extends MagicUser{
         return false;
     }
 
-    public void learnSpell(Spell prep){
+    public void prepSpell(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
             //this makes sure that the bard is able to cast a spell of this level before learning it
-            if(curSpell == null && sorcererTable[getLevel()][prep.getLevel()+1] != 0){
-                useableSpells[i] = prep;
+            if(curSpell == null && sorcererTable[userLevel][s.getLevel()+1] != 0){
+                useableSpells[i] = s;
                 break;
             }
         }

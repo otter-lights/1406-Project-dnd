@@ -29,6 +29,7 @@ public class Bard extends MagicUser{
                                 new Spell("Shatter", 2, 0.5, "3:8", 60, 2, "thunder")};
   
     Spell[] useableSpells;
+
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     public Bard(String chosenRace, String name){
         super(name, chosenRace, 105, 0, 8,5);
@@ -40,7 +41,7 @@ public class Bard extends MagicUser{
     }
     public void levelUp(){
         userLevel += 1;
-
+        useableSpells = new Spell[bardTable[getLevel()][1]];
     }
     public int[] getSpellSlots(){return bardTable[userLevel];}
 
@@ -54,13 +55,15 @@ public class Bard extends MagicUser{
         return false;
     }
     public String getClassName(){return "Bard";}
+    public Spell[] getAllSpells(){return allSpells;};
+    public Spell[] getUseableSpells(){return useableSpells;}
 
-    public void learnSpell(Spell prep){
+    public void prepSpell(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
             //this makes sure that the bard is able to cast a spell of this level before learning it
-            if(curSpell == null && bardTable[getLevel()][prep.getLevel()+1] != 0){
-                useableSpells[i] = prep;
+            if(curSpell == null && bardTable[userLevel][s.getLevel()+1] != 0){
+                useableSpells[i] = s;
                 break;
             }
         }

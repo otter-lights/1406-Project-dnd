@@ -344,4 +344,7 @@ public abstract class Player {
     public int getCurrentHP(){ return currentHP; }
     public void setCurrentHP(int hp){ currentHP = hp; }
     public int getMaxHP(){ return maxHP; }
+    public String toString(){
+        return getName() + ", a level " + getLevel() + " " + getPlayerRace().getRaceName() + ", " + getClassName();
+    }
 }
