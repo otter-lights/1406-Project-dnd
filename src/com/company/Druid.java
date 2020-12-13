@@ -67,6 +67,15 @@ public class Druid extends MagicUser{
             }
         }
     }
+    public int lengthUseable(){
+        int counter = 0;
+        for(Spell s: useableSpells){
+            if(s != null){
+                counter++;
+            }
+        }
+        return counter;
+    }
     public void attack(Player p, Weapon w){}
 
 }

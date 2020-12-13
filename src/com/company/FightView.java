@@ -9,15 +9,25 @@ import javafx.scene.paint.Paint;
 
 
 public class FightView extends GamePane {
-    public FightView(Player p1, Player p2){
-        Pane fightview = new Pane();
-        fightview.setStyle("-fx-background-color: white;");
-        fightview.setPrefSize(800, 600);
+    private Game model;
+    private Player p1;
+    private Player p2;
+    private PlayerInfo p1Pane;
+    private PlayerInfo p2Pane;
+    public FightView(Game model){
+        this.model = model;
 
-        PlayerInfo p1Pane = new PlayerInfo(p1);
-        p1Pane.relocate(0,0);
-        PlayerInfo p2Pane = new PlayerInfo(p2);
-        p2Pane.relocate(575,0);
+        p1 = model.getPrimaryPlayer();
+        p2 = model.getSecondaryPlayer();
+
+        setPlayers();
+
+        System.out.println(model.getPrimaryPlayer());
+        System.out.println(model.getSecondaryPlayer());
+
+        setStyle("-fx-background-color: white;");
+        setPrefSize(800, 600);
+
 
         TextArea dialogBox = new TextArea("Dialog Box: \n");
         dialogBox.relocate(250, 25);
@@ -25,7 +35,7 @@ public class FightView extends GamePane {
         dialogBox.setEditable(false);
         dialogBox.setStyle("-fx-control-inner-background: #" + Paint.valueOf("808080").toString().substring(2));
 
-        fightview.getChildren().addAll(p1Pane, p2Pane, dialogBox);
+        getChildren().add(dialogBox);
 
         Button p1Attack = new Button("Attack");
         p1Attack.relocate(230, 300);
@@ -53,7 +63,7 @@ public class FightView extends GamePane {
         p1EndTurn.relocate(230, 450);
         p1EndTurn.setPrefSize(150, 30);
 
-        fightview.getChildren().addAll(p1Attack, p1Move, p1EndTurn, p1RightLabel, p1UpLabel, p1Right, p1Up);
+        getChildren().addAll(p1Attack, p1Move, p1EndTurn, p1RightLabel, p1UpLabel, p1Right, p1Up);
 
         Button p2Attack = new Button("Attack");
         p2Attack.relocate(420, 300);
@@ -81,11 +91,19 @@ public class FightView extends GamePane {
         p2EndTurn.relocate(420, 450);
         p2EndTurn.setPrefSize(150, 30);
 
-        fightview.getChildren().addAll(p2Attack, p2Move, p2EndTurn, p2RightLabel, p2UpLabel, p2Right, p2Up);
-        getChildren().add(fightview);
+        getChildren().addAll(p2Attack, p2Move, p2EndTurn, p2RightLabel, p2UpLabel, p2Right, p2Up);
     }
     public void update(){
-
+        p1 = model.getPrimaryPlayer();
+        p2 = model.getSecondaryPlayer();
+        setPlayers();
+    }
+    public void setPlayers(){
+        p1Pane = new PlayerInfo(p1);
+        p1Pane.relocate(0,0);
+        p2Pane = new PlayerInfo(p2);
+        p2Pane.relocate(575,0);
+        getChildren().addAll(p1Pane, p2Pane);
     }
 
 }

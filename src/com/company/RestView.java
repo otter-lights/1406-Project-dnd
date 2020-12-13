@@ -15,6 +15,9 @@ public class RestView extends GamePane {
     private ListView<Spell> allSpells, useableSpells;
     private Button newCharacter, visitStore, endProgram, changePrimary, startRound, prepSpell;
     private Game model;
+    private ComboBox classOptions;
+    private ToggleGroup opponentOptions;
+    private RadioButton o1, o2, o3;
     private Player p;
     Label name, playerClass, playerRace, playerLevel, health, armorClass, strScore, dexScore, conScore, intScore, wisScore, chaScore, allSpellLabel, preparedSpellsLabel;
 
@@ -37,39 +40,66 @@ public class RestView extends GamePane {
         endProgram.relocate(540,10);
         endProgram.setPrefSize(250,30);
 
+
         Label currentCharacter = new Label("Current Character");
         currentCharacter.relocate(10,75);
 
         setCharacterStats();
-        showSpellInfo();
+
+        allSpellLabel = new Label("All Available Spells");
+        allSpellLabel.relocate(275, 190);
+        allSpellLabel.setVisible(false);
+
+        allSpells = new ListView<Spell>();
+        allSpells.relocate(275, 210);
+        allSpells.setPrefHeight(150);
+        allSpells.setVisible(false);
+
+        prepSpell = new Button("Prepare Selected Spell");
+        prepSpell.relocate(275, 365);
+        prepSpell.setPrefSize(250, 25);
+        prepSpell.setVisible(false);
+        prepSpell.setDisable(true);
+
+        preparedSpellsLabel = new Label("Prepared Spells");
+        preparedSpellsLabel.relocate(275, 400);
+        preparedSpellsLabel.setVisible(false);
+
+        useableSpells = new ListView<Spell>();
+        useableSpells.relocate(275, 420);
+        useableSpells.setPrefHeight(170);
+        useableSpells.setVisible(false);
+        getChildren().addAll(allSpellLabel, allSpells, prepSpell, preparedSpellsLabel, useableSpells);
 
         changePrimary = new Button("Change \nPrimary \nCharacter");
         changePrimary.relocate(275,50);
         changePrimary.setPrefSize(105,130);
-        //changePrimary.setDisable(true);
+        changePrimary.setDisable(true);
 
         playerOptions = new ListView<Player>();
         playerOptions.relocate(390, 50);
         playerOptions.setPrefSize(400,130);
         getChildren().addAll(changePrimary, playerOptions);
 
-        final ToggleGroup opponentOptions = new ToggleGroup();
-        RadioButton o1 = new RadioButton("Randomly Generate Opponent");
+        opponentOptions = new ToggleGroup();
+        o1 = new RadioButton("Randomly Generate Opponent");
         o1.setToggleGroup(opponentOptions);
         o1.relocate(540,200);
 
-        RadioButton o2 = new RadioButton("Opponent with Class Specified");
+        opponentOptions.selectToggle(o1);
+
+        o2 = new RadioButton("Opponent with Class Specified");
         o2.setToggleGroup(opponentOptions);
         o2.relocate(540, 250);
 
 
         ObservableList<String> options = FXCollections.observableArrayList("Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rouge", "Sorcerer", "Wizard");
-        ComboBox classOptions = new ComboBox(options);
+        classOptions = new ComboBox(options);
         classOptions.relocate(560, 280);
         classOptions.setPrefSize(200,20);
         getChildren().add(classOptions);
 
-        RadioButton o3 = new RadioButton("Opponent from Character Options");
+        o3 = new RadioButton("Opponent from Character Options");
         o3.setToggleGroup(opponentOptions);
         o3.relocate(540,320);
 
@@ -94,25 +124,82 @@ public class RestView extends GamePane {
     public ListView<Player> getPlayerOptions(){return playerOptions;}
     public Button getPrepSpell(){return prepSpell;}
     public ListView<Spell> getAllSpells(){return allSpells;}
+    public ToggleGroup getOpponentOptions(){return opponentOptions;}
+    public ComboBox getClassOptions(){return classOptions;}
+    public ListView<Player> getOpponents(){return opponents;}
+    public RadioButton getOption1(){return o1;}
+    public RadioButton getOption2(){return o2;}
+    public RadioButton getOption3(){return o3;}
 
     public void update(){
         p = model.getPrimaryPlayer();
 
         getChildren().removeAll(name, playerClass, playerRace, playerLevel, health, armorClass);
         getChildren().removeAll(strScore, dexScore, conScore, intScore, wisScore, chaScore);
-        getChildren().removeAll(allSpellLabel, allSpells, prepSpell, preparedSpellsLabel, useableSpells);
+
+        if(playerOptions.getSelectionModel().getSelectedIndex() >= 0){
+            changePrimary.setDisable(false);
+        }
+        else{
+            changePrimary.setDisable(true);
+        }
+
+        if(allSpells.getSelectionModel().getSelectedIndex() >= 0){
+            prepSpell.setDisable(false);
+        }
+        else{
+            prepSpell.setDisable(true);
+        }
+
+        if(opponentOptions.getSelectedToggle().equals(o1)){
+            startRound.setDisable(false);
+        }
+        else if(opponentOptions.getSelectedToggle().equals(o2)){
+            if(classOptions.getSelectionModel().getSelectedIndex() >= 0){
+                startRound.setDisable(false);
+            }
+            else{
+                startRound.setDisable(true);
+            }
+        }
+        else if(opponentOptions.getSelectedToggle().equals(o3)){
+            if(opponents.getSelectionModel().getSelectedIndex() >= 0){
+                startRound.setDisable(false);
+            }
+            else{
+                startRound.setDisable(true);
+            }
+        }
+        else{
+            startRound.setDisable(true);
+        }
 
         setCharacterStats();
         if(p instanceof MagicUser){
-            showSpellInfo();
+            allSpellLabel.setVisible(true);
+            allSpells.setVisible(true);
+            prepSpell.setVisible(true);
+            preparedSpellsLabel.setVisible(true);
+            useableSpells.setVisible(true);
 
             ArrayList<Spell> allSpellsList = new ArrayList<Spell>();
             Collections.addAll(allSpellsList, ((MagicUser) model.getPrimaryPlayer()).getAllSpells());
             allSpells.setItems(FXCollections.observableArrayList(allSpellsList));
 
             ArrayList<Spell> useableSpellsList = new ArrayList<Spell>();
-            Collections.addAll(useableSpellsList, ((MagicUser) model.getPrimaryPlayer()).getUseableSpells());
-            useableSpells.setItems(FXCollections.observableArrayList());
+            for(Spell s: ((MagicUser) model.getPrimaryPlayer()).getUseableSpells()){
+                if(s!=null){
+                    useableSpellsList.add(s);
+                }
+            }
+            useableSpells.setItems(FXCollections.observableArrayList(useableSpellsList));
+        }
+        else{
+            allSpellLabel.setVisible(false);
+            allSpells.setVisible(false);
+            prepSpell.setVisible(false);
+            preparedSpellsLabel.setVisible(false);
+            useableSpells.setVisible(false);
         }
 
         ArrayList<Player> characters = model.getAllPlayers();
@@ -168,25 +255,5 @@ public class RestView extends GamePane {
 
 
         getChildren().addAll(strScore, dexScore, conScore, intScore, wisScore, chaScore);
-    }
-    public void showSpellInfo(){
-        allSpellLabel = new Label("All Available Spells");
-        allSpellLabel.relocate(275, 190);
-
-        allSpells = new ListView<Spell>();
-        allSpells.relocate(275, 210);
-        allSpells.setPrefHeight(150);
-
-        prepSpell = new Button("Prepare Selected Spell");
-        prepSpell.relocate(275, 365);
-        prepSpell.setPrefSize(250, 25);
-
-        preparedSpellsLabel = new Label("Prepared Spells");
-        preparedSpellsLabel.relocate(275, 400);
-
-        useableSpells = new ListView<Spell>();
-        useableSpells.relocate(275, 420);
-        useableSpells.setPrefHeight(170);
-        getChildren().addAll(allSpellLabel, allSpells, prepSpell, preparedSpellsLabel, useableSpells);
     }
 }

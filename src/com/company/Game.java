@@ -11,6 +11,7 @@ public class Game {
         allPlayers = new ArrayList<Player>();
         allPlayers.add(new Druid ("Gnome", "Player 1"));
         primaryPlayer = allPlayers.get(0);
+        secondaryPlayer = allPlayers.get(0);
     }
     public void addPlayer(Player p){allPlayers.add(p);}
     public ArrayList<Player> getAllPlayers(){return allPlayers;}
@@ -18,9 +19,12 @@ public class Game {
     public Player getSecondaryPlayer(){return secondaryPlayer;}
 
     public void setPrimaryPlayer(Player p){
+        System.out.println("test");
         primaryPlayer = p;
+        System.out.println(primaryPlayer);
     }
     public void setSecondaryPlayer(Player p){
+        System.out.println("test2");
         secondaryPlayer = p;
     }
 

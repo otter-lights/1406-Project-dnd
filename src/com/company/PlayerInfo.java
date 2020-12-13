@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 public class PlayerInfo extends Pane {
     private ListView<Weapon> weapons;
     private ListView<Spell> spells;
+
     public PlayerInfo(Player p){
         Pane fightView = new Pane();
         fightView.setStyle("-fx-background-color: white;");
