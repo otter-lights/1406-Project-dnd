@@ -22,9 +22,7 @@ public class Game {
     public Player getPrimaryPlayer(){return primaryPlayer;}
     public Player getSecondaryPlayer(){return secondaryPlayer;}
 
-    public void makeStore(){
-        new Store(5,5,6);
-    }
+    public void makeStore(){ generalStore = new Store(5,5,6); }
     public Store getGeneralStore(){
         return generalStore;
     }
