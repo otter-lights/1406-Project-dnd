@@ -18,7 +18,6 @@ public class StoreView extends Pane implements GamePane{
     private Game model;
     private TextField goldPieces = new TextField();
 
-
     public StoreView(Game model){
         this.model = model;
 

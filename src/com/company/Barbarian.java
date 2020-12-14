@@ -18,22 +18,20 @@ public class Barbarian extends NonMagicUser{
         super(name, chosenRace, gold, hitDie, xp, abilityScores);
     }
     public void levelUp(){
-        maxHP += 7;
+        setMaxHP(getMaxHP() + 7);
     }
     public void longRest(){
-        int currentLevel = userLevel;
+        int currentLevel = getLevel();
         if(setLevel() > currentLevel){
             //you leveled up
             levelUp();
         }
-        currentHP = maxHP;
+        setCurrentHP(getMaxHP());
         Store generalStore = new Store(4,4,6);
         ragesUsed = 0;
     }
     public String getClassName(){return "Barbarian";}
-    public void attack(Player p, Weapon w){
 
-    }
     public boolean canRage(){
         return rages[this.getLevel() - 1] > ragesUsed;
     }
@@ -44,7 +42,7 @@ public class Barbarian extends NonMagicUser{
             Random rand = new Random();
             int roll = rand.nextInt(20) + 1;
             if(roll >= p.getAC()) {
-                roll = rand.nextInt(12) + 1  + rageDamage[userLevel - 1];
+                roll = rand.nextInt(12) + 1  + rageDamage[getLevel() - 1];
                 p.takeDamage(roll);
                 return("Rage Attack Hits, " + p.getName() + " takes " + roll + " damage. \n");
             }

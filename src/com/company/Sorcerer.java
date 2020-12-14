@@ -32,20 +32,29 @@ public class Sorcerer extends MagicUser{
 
     public Sorcerer(String chosenRace, String name, int level){
         super(name, chosenRace, 70, 6, 5, level);
-        useableSpells = new Spell[getLevel() + abilityMods[5]];
-        spellSlots = sorcererTable[userLevel - 1];
+        if(getAbilityMods()[5] > 0){
+            useableSpells = new Spell[getLevel() + getAbilityMods()[5]];
+        }
+        else{
+            useableSpells = new Spell[getLevel()];
+        }
     }
     public Sorcerer(String chosenRace, String name, int gold,  int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
-        useableSpells = new Spell[getLevel() + abilityMods[5]];
+        if(getAbilityMods()[5] > 0){
+            useableSpells = new Spell[getLevel() + getAbilityMods()[5]];
+        }
+        else{
+            useableSpells = new Spell[getLevel()];
+        }
     }
     public void levelUp(){
-        maxHP += 4;
-        useableSpells = new Spell[getLevel() + abilityMods[5]];
-        spellSlots = sorcererTable[userLevel - 1];
+        setMaxHP(getMaxHP() + 4);
+        useableSpells = new Spell[getLevel() + getAbilityMods()[5]];
+        spellSlots = sorcererTable[getLevel() - 1];
     }
 
-    public int[] getSpellSlots(){return sorcererTable[userLevel - 1];}
+    public int[] getSpellSlots(){return sorcererTable[getLevel() - 1];}
     public String getClassName(){return "Sorcerer";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
@@ -66,7 +75,7 @@ public class Sorcerer extends MagicUser{
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
             //this makes sure that the bard is able to cast a spell of this level before learning it
-            if(curSpell == null && sorcererTable[userLevel - 1][s.getLevel()+1] != 0){
+            if(curSpell == null && sorcererTable[getLevel() - 1][s.getLevel()+1] != 0){
                 useableSpells[i] = s;
                 break;
             }

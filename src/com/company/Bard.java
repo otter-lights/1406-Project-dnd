@@ -33,14 +33,24 @@ public class Bard extends MagicUser{
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     public Bard(String chosenRace, String name, int level){
         super(name, chosenRace, 105, 8,5, level);
-        useableSpells = new Spell[getLevel() + abilityMods[5]];
+        if(getAbilityMods()[5] > 0){
+            useableSpells = new Spell[getLevel() + getAbilityMods()[5]];
+        }
+        else{
+            useableSpells = new Spell[getLevel()];
+        }
     }
     public Bard(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
-        useableSpells = new Spell[bardTable[getLevel()][1]];
+        if(getAbilityMods()[5] > 0){
+            useableSpells = new Spell[getLevel() + getAbilityMods()[5]];
+        }
+        else{
+            useableSpells = new Spell[getLevel()];
+        }
     }
     public void levelUp(){
-        maxHP += 5;
+        setMaxHP(getMaxHP() + 5);
         useableSpells = new Spell[bardTable[getLevel()][1]];
     }
 
@@ -54,7 +64,7 @@ public class Bard extends MagicUser{
         }
         return false;
     }
-	public int[] getSpellSlots(){return bardTable[userLevel - 1];}
+	public int[] getSpellSlots(){return bardTable[getLevel() - 1];}
 
     public String getClassName(){return "Bard";}
     public Spell[] getAllSpells(){return allSpells;}
@@ -64,7 +74,7 @@ public class Bard extends MagicUser{
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
             //this makes sure that the bard is able to cast a spell of this level before learning it
-            if(curSpell == null && bardTable[userLevel - 1][s.getLevel()+1] != 0){
+            if(curSpell == null && bardTable[getLevel() - 1][s.getLevel()+1] != 0){
                 useableSpells[i] = s;
                 break;
             }
@@ -79,7 +89,4 @@ public class Bard extends MagicUser{
             }
         }
     }
-
-    public void attack(Player p, Weapon w){}
-
 }

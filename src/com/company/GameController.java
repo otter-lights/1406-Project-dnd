@@ -31,6 +31,7 @@ public class GameController extends Application {
         RestView rest = new RestView(model);
         CharacterCreatorView creator = new CharacterCreatorView();
 
+
         currentView.getChildren().add(creator);
 
         rest.getVisitStore().setOnAction(new EventHandler<ActionEvent>() {
@@ -44,8 +45,7 @@ public class GameController extends Application {
 
         rest.getEndProgram().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
-                String filename = JOptionPane.showInputDialog("Enter Filename: ");
-                model.saveCharacters(filename);
+                model.saveCharacters("save.txt");
                 System.exit(0);
             }
         });
@@ -99,12 +99,14 @@ public class GameController extends Application {
 
                 if(rest.getOption1().isSelected()){
                     characters(classNames[rand.nextInt(9)], raceNames[rand.nextInt(9)], rand.nextInt(20)+1);
+                    model.getSecondaryPlayer().randomItems();
                     if(model.getSecondaryPlayer() instanceof MagicUser){
                         ((MagicUser) model.getSecondaryPlayer()).randomUseableSpells();
                     }
                 }
                 else if(rest.getOption2().isSelected()){
                     characters(rest.getClassOptions().getSelectionModel().getSelectedItem().toString(), raceNames[rand.nextInt(9)], Integer.parseInt((String)rest.getLevelOptions().getSelectionModel().getSelectedItem()));
+                    model.getSecondaryPlayer().randomItems();
                     if(model.getSecondaryPlayer() instanceof MagicUser){
                         ((MagicUser) model.getSecondaryPlayer()).randomUseableSpells();
                     }
@@ -127,7 +129,6 @@ public class GameController extends Application {
                 rest.update();
             }
         });
-
 
         rest.getOpponents().setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
@@ -177,7 +178,6 @@ public class GameController extends Application {
         fight.getP2Pane().getWeapons().setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
                 fight.getP2Pane().getSpells().getSelectionModel().clearSelection();
-                model.getPrimaryPlayer().addToInventory(new Melee("Acrobat's Staff", 3, 2.0, 4,"bludgeoning", false));
                 fight.update();
             }
         });
@@ -219,8 +219,14 @@ public class GameController extends Application {
                     fight.getDialogBox().appendText(model.getPrimaryPlayer().getName() + " casts " + s.getName() + " " + msg + "\n");
                 }
                 if(fight.getP1Pane().getWeapons().getSelectionModel().getSelectedIndex() >= 0){
-                    //attack with weapon
-                    fight.getP1Pane().getWeapons().getSelectionModel().getSelectedItem();
+                    String msg;
+                    if(fight.getP1Pane().getWeapons().getSelectionModel().getSelectedItem() != "Martial Arts"){
+                        msg = model.getPrimaryPlayer().attack(model.getSecondaryPlayer(), (Weapon) Store.getItemFromHashMap(fight.getP1Pane().getWeapons().getSelectionModel().getSelectedItem()));
+                    }
+                    else{
+                        msg = model.getPrimaryPlayer().attack(model.getSecondaryPlayer(), new Melee("Martial Arts", 0, 0.0, Monk.getMartialArts()[model.getSecondaryPlayer().getLevel()], "bludgeoning", true));
+                    }
+                    fight.getDialogBox().appendText(msg);
                 }
                 if(model.getSecondaryPlayer().isAlive() == false){
                     model.getPrimaryPlayer().winsAgainst(model.getSecondaryPlayer());
@@ -233,9 +239,11 @@ public class GameController extends Application {
                     fight.getDialogBox().setText("Dialog Box");
 
                     JOptionPane.showMessageDialog(null, model.getSecondaryPlayer().getName() + " has passed out. \n" + model.getPrimaryPlayer().getName() + " is the winner. \n");
+                    model.endRound();
                     currentView.getChildren().clear();
                     currentView.getChildren().add(rest);
                 }
+                model.setAttacked();
                 fight.update();
             }
         });
@@ -246,9 +254,15 @@ public class GameController extends Application {
                     String msg = ((MagicUser) model.getSecondaryPlayer()).castSpell(s, model.getPrimaryPlayer());
                     fight.getDialogBox().appendText(model.getSecondaryPlayer().getName() + " casts " + s.getName() + " " + msg + "\n");
                 }
-                if(fight.getP1Pane().getWeapons().getSelectionModel().getSelectedIndex() >= 0){
-                    //attack with weapon
-                    fight.getP1Pane().getWeapons().getSelectionModel().getSelectedItem();
+                if(fight.getP2Pane().getWeapons().getSelectionModel().getSelectedIndex() >= 0){
+                    String msg;
+                    if(fight.getP2Pane().getWeapons().getSelectionModel().getSelectedItem() != "Martial Arts"){
+                        msg = model.getSecondaryPlayer().attack(model.getPrimaryPlayer(), (Weapon) Store.getItemFromHashMap(fight.getP2Pane().getWeapons().getSelectionModel().getSelectedItem()));
+                    }
+                    else{
+                        msg = model.getSecondaryPlayer().attack(model.getPrimaryPlayer(), new Melee("Martial Arts", 0, 0.0, Monk.getMartialArts()[model.getSecondaryPlayer().getLevel()], "bludgeoning", true));
+                    }
+                    fight.getDialogBox().appendText(msg);
                 }
                 if(model.getPrimaryPlayer().isAlive() == false){
                     model.getSecondaryPlayer().winsAgainst(model.getPrimaryPlayer());
@@ -261,12 +275,11 @@ public class GameController extends Application {
                     fight.getDialogBox().setText("Dialog Box");
 
                     JOptionPane.showMessageDialog(null, model.getPrimaryPlayer().getName() + " has passed out. \n" + model.getSecondaryPlayer().getName() + " is the winner. \n");
+                    model.endRound();
                     currentView.getChildren().clear();
                     currentView.getChildren().add(rest);
-
-                    //currentView.getChildren().clear();
-                    //currentView.getChildren().add(rest);
                 }
+                model.setAttacked();
                 fight.update();
             }
         });
@@ -296,10 +309,9 @@ public class GameController extends Application {
             }
         });
 
-
         store.getExitButton().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
-                //exit
+                model.getPrimaryPlayer().setArmorClass();
                 currentView.getChildren().clear();
                 currentView.getChildren().add(rest);
                 rest.update();

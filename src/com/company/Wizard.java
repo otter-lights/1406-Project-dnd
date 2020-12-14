@@ -32,17 +32,27 @@ public class Wizard extends MagicUser{
 
     public Wizard(String chosenRace, String name, int level){
         super(name, chosenRace, 70, 6,3, level);
-        useableSpells = new Spell[getLevel() + abilityMods[3]];
+        if(getAbilityMods()[3] > 0){
+            useableSpells = new Spell[getLevel() + getAbilityMods()[3]];
+        }
+        else{
+            useableSpells = new Spell[getLevel()];
+        }
     }
     public Wizard(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie, 5, abilityScores);
-        useableSpells = new Spell[getLevel() + abilityMods[3]];
+        if(getAbilityMods()[3] > 0){
+            useableSpells = new Spell[getLevel() + getAbilityMods()[3]];
+        }
+        else{
+            useableSpells = new Spell[getLevel()];
+        }
     }
     public void levelUp(){
-        maxHP += 4;
-        useableSpells = new Spell[getLevel() + abilityMods[3]];
+        setMaxHP(getMaxHP() + 4);
+        useableSpells = new Spell[getLevel() + getAbilityMods()[3]];
     }
-    public int[] getSpellSlots(){return wizardTable[userLevel - 1];}
+    public int[] getSpellSlots(){return wizardTable[getLevel() - 1];}
     public String getClassName(){return "Wizard";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
@@ -61,7 +71,7 @@ public class Wizard extends MagicUser{
     public void prepSpell(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
-            if(curSpell == null && wizardTable[userLevel - 1][s.getLevel()+1] != 0){
+            if(curSpell == null && wizardTable[getLevel() - 1][s.getLevel()+1] != 0){
                 useableSpells[i] = s;
                 break;
             }

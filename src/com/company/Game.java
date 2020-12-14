@@ -9,11 +9,16 @@ public class Game {
     private Player primaryPlayer;
     private Player secondaryPlayer;
     private Store generalStore;
+    private boolean attacked, moved;
     public Game(){
         allPlayers = new ArrayList<Player>();
-        allPlayers.add(new Druid ("Gnome", "Player 1", 1));
-        allPlayers.add(new Cleric("Dragonborn", "Player 2", 1));
+        readCharacters("save.txt");
+        //examples of magical and non magical playing characters for introductory purposes
+        //allPlayers.add(new Druid ("Gnome", "Magical Player Example", 1));
+        //allPlayers.add(new Barbarian("Dragonborn", "Non Magical Player Example", 1));
         round = 0;
+        attacked = false;
+        moved = false;
         generalStore = new Store(5,5,6);
         primaryPlayer = allPlayers.get(0);
         secondaryPlayer = allPlayers.get(1);
@@ -29,6 +34,16 @@ public class Game {
     public Store getGeneralStore(){
         return generalStore;
     }
+    public void setAttacked(){attacked = true;}
+    public boolean canAttack(){return attacked == false;}
+    public void setMoved(){moved = true;}
+    public boolean canMove(){return moved == false;}
+    public void endRound(){round = 0;}
+    public void endTurn(){
+        attacked = false;
+        moved = false;
+        round++;
+    }
     public boolean primeTurn(){
         if(round % 2 == 0){
             return true;
@@ -36,9 +51,6 @@ public class Game {
         else{
             return false;
         }
-    }
-    public void endTurn(){
-        round++;
     }
 
     public void setPrimaryPlayer(Player p){
@@ -50,17 +62,18 @@ public class Game {
 
     public void readCharacters(String filename){
         try{
-            DataInputStream in = new DataInputStream(new FileInputStream(filename));
+            BufferedReader in = new BufferedReader(new FileReader(filename));
             boolean EOF = false;
             while(!EOF){
                 try {
-                    String name = in.readUTF();
-                    String className = in.readUTF();
-                    String raceName = in.readUTF();
-                    int xp = in.readInt();
-                    int hitDie = in.readInt();
-                    int[] abilityScores = {in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt()};
-                    int gold = in.readInt();
+                    String name = in.readLine();
+                    String className = in.readLine();
+                    String raceName = in.readLine();
+                    int xp = Integer.parseInt(in.readLine());
+                    int hitDie = Integer.parseInt(in.readLine());
+                    int[] abilityScores = {Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine())};
+                    int gold = Integer.parseInt(in.readLine());
+
                     Player p = makePlayer(name, raceName, className, xp, hitDie, abilityScores, gold);
                     for(int i = 0; i < in.readInt(); i++){
                         p.addToInventory(Store.getItemFromHashMap(in.readUTF()));
@@ -80,22 +93,22 @@ public class Game {
     }
     public void saveCharacters(String filename){
         try{
-            DataOutputStream out = new DataOutputStream(new FileOutputStream(filename));
+            PrintWriter out = new PrintWriter(new FileWriter(filename));
             for(Player p: allPlayers){
-                out.writeUTF(p.getName());
-                out.writeUTF(p.getClassName());
-                out.writeUTF(p.getPlayerRace().getRaceName());
-                out.writeInt(p.getXP());
-                out.writeInt(p.getHitDie());
+                out.println(p.getName());
+                out.println(p.getClassName());
+                out.println(p.getPlayerRace().getRaceName());
+                out.println(p.getXP());
+                out.println(p.getHitDie());
 
-                out.writeInt(p.getAbilityScores()[0]);
-                out.writeInt(p.getAbilityScores()[1]);
-                out.writeInt(p.getAbilityScores()[2]);
-                out.writeInt(p.getAbilityScores()[3]);
-                out.writeInt(p.getAbilityScores()[4]);
-                out.writeInt(p.getAbilityScores()[5]);
+                out.println(p.getAbilityScores()[0]);
+                out.println(p.getAbilityScores()[1]);
+                out.println(p.getAbilityScores()[2]);
+                out.println(p.getAbilityScores()[3]);
+                out.println(p.getAbilityScores()[4]);
+                out.println(p.getAbilityScores()[5]);
 
-                out.writeInt(p.getPurse());
+                out.println(p.getPurse());
 
                 out.writeInt(p.getInventory().size());
                 for(Item item: p.getInventory()){
