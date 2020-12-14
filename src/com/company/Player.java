@@ -299,7 +299,7 @@ public abstract class Player {
             carryingWeight += newItem.getWeight();
             return true;
         }
-        return false;
+        return false;//not added to inventory
     }
     public ArrayList<String> getWeapons(){
         ArrayList<String> weapons = new ArrayList<String>();

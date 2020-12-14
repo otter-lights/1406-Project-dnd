@@ -61,6 +61,7 @@ public class Game {
     }
 
     public void readCharacters(String filename){
+        //get saved characters
         try{
             BufferedReader in = new BufferedReader(new FileReader(filename));
             boolean EOF = false;
@@ -92,6 +93,7 @@ public class Game {
 
     }
     public void saveCharacters(String filename){
+        //save characters
         try{
             PrintWriter out = new PrintWriter(new FileWriter(filename));
             for(Player p: allPlayers){

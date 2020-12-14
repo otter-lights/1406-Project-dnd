@@ -36,6 +36,7 @@ public class GameController extends Application {
 
         rest.getVisitStore().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                //open up store view
                 model.makeStore();
                 currentView.getChildren().clear();
                 currentView.getChildren().add(store);
@@ -45,6 +46,7 @@ public class GameController extends Application {
 
         rest.getEndProgram().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                //close program
                 model.saveCharacters("save.txt");
                 System.exit(0);
             }
@@ -52,6 +54,7 @@ public class GameController extends Application {
 
         rest.getNewCharacter().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                //calls character creator view
                 currentView.getChildren().clear();
                 currentView.getChildren().add(creator);
                 creator.update();
@@ -60,6 +63,7 @@ public class GameController extends Application {
 
         rest.getChangePrimary().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                //changes primary player
                 model.setPrimaryPlayer(rest.getPlayerOptions().getSelectionModel().getSelectedItem());
                 rest.update();
             }
@@ -68,6 +72,7 @@ public class GameController extends Application {
 
         rest.getPrepSpell().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                //preps spell
                 Spell s = rest.getAllSpells().getSelectionModel().getSelectedItem();
                 ((MagicUser) model.getPrimaryPlayer()).prepSpell(s);
                 rest.update();
@@ -93,6 +98,7 @@ public class GameController extends Application {
         });
         rest.getStartRound().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                //starts round
                 Random rand = new Random();
                 String[] classNames = {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rouge", "Sorcerer", "Wizard"};
                 String[] raceNames = {"Dragonborn", "Dwarf", "Gnome", "Elf", "HalfElf", "HalfOrc", "Halfling", "Human", "Tiefling"};
@@ -138,6 +144,7 @@ public class GameController extends Application {
 
         creator.getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                //create player
                 model.addPlayer(creator.createPlayer());
                 currentView.getChildren().clear();
                 currentView.getChildren().add(rest);

@@ -56,6 +56,7 @@ public class Bard extends MagicUser{
 
 
     public boolean isUseable(Spell s){
+        //check if spell is usable
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
             if(curSpell != null && curSpell.equals(s)){
