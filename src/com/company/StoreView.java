@@ -114,7 +114,6 @@ public class StoreView extends GamePane{
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getArmor())), armorList);
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getMeleeWeapons())), meleeList);
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getRangedWeapons())), rangedList);
-        updateListView(model.getPrimaryPlayer().getInventory(), inventoryList);
     }
 
     public void updateAfterPurchase(){
