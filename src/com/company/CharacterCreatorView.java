@@ -20,7 +20,7 @@ public class CharacterCreatorView extends GamePane {
     private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "HalfElf", "HalfOrc", "Halfling", "Human", "Tiefling"};
     private String[] classes = new String[] {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rogue", "Sorcerer", "Wizard"};
     private Integer[] level = new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-    HashMap<String, String> descriptions = new HashMap<String,String>() {{
+    private HashMap<String, String> descriptions = new HashMap<String,String>() {{
         put("Dragonborn", "Dragonborn look very much like dragons standing erect in humanoid form, though they lack wings or a tail.");
         put("Dwarf", "Bold and hardy, dwarves are known as skilled warriors, minors, and workers of stone and metal.");
         put("Gnome", "A gnome's energy and enthusiasm for living shines through every inch of their tiny body.");
@@ -49,7 +49,7 @@ public class CharacterCreatorView extends GamePane {
     private String[] names = new String[135];
     private TextArea raceDescriptionBox = new TextArea();
     private TextArea classDescriptionBox = new TextArea();
-    Button createButton, nameButton;
+    private Button createButton, nameButton;
 
     public CharacterCreatorView() {
         Pane storeView = new Pane();
@@ -162,7 +162,7 @@ public class CharacterCreatorView extends GamePane {
 
     public void getRandomName(){
         if (names[0] == null){
-            String file = "/Users/awildecat/documents/GitHub/1406-Project-dnd/src/com/company/names.txt";
+            String file = System.getProperty("user.dir") + "/src/com/company/names.txt";
             nameBox.setText(getNames(file));
         } else{
             nameBox.setText(chooseName());

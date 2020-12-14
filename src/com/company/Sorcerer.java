@@ -3,39 +3,39 @@ package com.company;
 import java.util.Random;
 
 public class Sorcerer extends MagicUser{
-    static int[][] sorcererTable = {{4,2,2,0,0,0,0,0,0,0,0},
-                                {4,3,3,0,0,0,0,0,0,0,0},
-                                {4,4,4,2,0,0,0,0,0,0,0},
-                                {5,5,4,3,0,0,0,0,0,0,0},
-                                {5,6,4,3,2,0,0,0,0,0,0},
-                                {5,7,4,3,3,0,0,0,0,0,0},
-                                {5,8,4,3,3,1,0,0,0,0,0},
-                                {5,9,4,3,3,2,0,0,0,0,0},
-                                {5,10,4,3,3,3,1,0,0,0,0},
-                                {6,11,4,3,3,3,2,0,0,0,0},
-                                {6,12,4,3,3,3,2,1,0,0,0},
-                                {6,12,4,3,3,3,2,1,0,0,0},
-                                {6,13,4,3,3,3,2,1,1,0,0},
-                                {6,13,4,3,3,3,2,1,1,0,0},
-                                {6,14,4,3,3,3,2,1,1,1,0},
-                                {6,14,4,3,3,3,2,1,1,1,0},
-                                {6,15,4,3,3,3,2,1,1,1,1},
-                                {6,15,4,3,3,3,3,1,1,1,1},
-                                {6,15,4,3,3,3,3,2,1,1,1},
-                                {6,15,4,3,3,3,3,2,2,1,1}};
+    private static int[][] sorcererTable = {{4,2,0,0,0,0,0,0,0,0},
+                                            {4,3,0,0,0,0,0,0,0,0},
+                                            {4,4,2,0,0,0,0,0,0,0},
+                                            {5,4,3,0,0,0,0,0,0,0},
+                                            {5,4,3,2,0,0,0,0,0,0},
+                                            {5,4,3,3,0,0,0,0,0,0},
+                                            {5,4,3,3,1,0,0,0,0,0},
+                                            {5,4,3,3,2,0,0,0,0,0},
+                                            {5,4,3,3,3,1,0,0,0,0},
+                                            {6,4,3,3,3,2,0,0,0,0},
+                                            {6,4,3,3,3,2,1,0,0,0},
+                                            {6,4,3,3,3,2,1,0,0,0},
+                                            {6,4,3,3,3,2,1,1,0,0},
+                                            {6,4,3,3,3,2,1,1,0,0},
+                                            {6,4,3,3,3,2,1,1,1,0},
+                                            {6,4,3,3,3,2,1,1,1,0},
+                                            {6,4,3,3,3,2,1,1,1,1},
+                                            {6,4,3,3,3,3,1,1,1,1},
+                                            {6,4,3,3,3,3,2,1,1,1},
+                                            {6,4,3,3,3,3,2,2,1,1}};
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    static Spell[] allSpells = {new Spell("Chill Touch", "1:8",120, 0, "necrotic"),
+    private static Spell[] allSpells = {new Spell("Chill Touch", "1:8",120, 0, "necrotic"),
                                 new Spell("Mind Spike", 4, 0.5, "3:8", 60, 2, "psychic"),
                                 new Spell("Blight", 2, 0.5, "8:8", 30, 4,"necrotic"),
                                 new Spell("Cone of Cold", 2, 0.5, "8:8", 60, 5, "cold")};
-    Spell[] useableSpells;
+    private Spell[] useableSpells;
 
     public Sorcerer(String chosenRace, String name, int level){
-        super(name, chosenRace, 70, 0, 6, 5, level);
-        useableSpells = new Spell[sorcererTable[getLevel()][1]];
+        super(name, chosenRace, 70, 6, 5, level);
+        useableSpells = new Spell[getLevel() + abilityMods[5]];
         spellSlots = sorcererTable[userLevel];
     }
-    public Sorcerer(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
+    public Sorcerer(String chosenRace, String name, int gold,  int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
         useableSpells = new Spell[sorcererTable[getLevel()][1]];
     }
@@ -47,7 +47,7 @@ public class Sorcerer extends MagicUser{
 
     public int[] getSpellSlots(){return sorcererTable[userLevel];}
     public String getClassName(){return "Sorcerer";}
-    public Spell[] getAllSpells(){return allSpells;};
+    public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
 
 
@@ -55,10 +55,11 @@ public class Sorcerer extends MagicUser{
     public boolean isUseable(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
-            if(curSpell.equals(s)){
+            if(curSpell != null && curSpell.equals(s)){
                 return true;
             }
         }
+        System.out.println("not useable");
         return false;
     }
 
@@ -68,6 +69,15 @@ public class Sorcerer extends MagicUser{
             //this makes sure that the bard is able to cast a spell of this level before learning it
             if(curSpell == null && sorcererTable[userLevel][s.getLevel()+1] != 0){
                 useableSpells[i] = s;
+                break;
+            }
+        }
+    }
+    public void removeSpell(Spell s){
+        for(int i = 0; i < useableSpells.length; i++){
+            Spell curSpell = useableSpells[i];
+            if(curSpell != null && curSpell.equals(s) && s.getLevel() != 0){
+                useableSpells[i] = null;
                 break;
             }
         }
