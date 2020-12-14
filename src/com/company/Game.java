@@ -61,8 +61,11 @@ public class Game {
                     int hitDie = in.readInt();
                     int[] abilityScores = {in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt()};
                     int gold = in.readInt();
-
-                    addPlayer(makePlayer(name, raceName, className, xp, hitDie, abilityScores, gold));
+                    Player p = makePlayer(name, raceName, className, xp, hitDie, abilityScores, gold);
+                    for(int i = 0; i < in.readInt(); i++){
+                        p.addToInventory(Store.getItemFromHashMap(in.readUTF()));
+                    }
+                    addPlayer(p);
                 }
                 catch(EOFException e){
                     EOF = true;
@@ -93,6 +96,11 @@ public class Game {
                 out.writeInt(p.getAbilityScores()[5]);
 
                 out.writeInt(p.getPurse());
+
+                out.writeInt(p.getInventory().size());
+                for(Item item: p.getInventory()){
+                    out.writeUTF(item.getName());
+                }
             }
         }
         catch(FileNotFoundException e){
