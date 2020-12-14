@@ -282,19 +282,16 @@ public abstract class Player {
             //weight += i.getWeight();
         //}
         if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && carryingWeight + newItem.getWeight() <= 15*abilityScores[0]){
-            System.out.println("hi");
             inventory.add(newItem);
             carryingWeight += newItem.getWeight();
             return true;
         }
         else if(playerRace.getSize().equals("Tiny") && carryingWeight + newItem.getWeight() <= (15*abilityScores[0])/2){
-            System.out.println("hi");
             inventory.add(newItem);
             carryingWeight += newItem.getWeight();
             return true;
         }
         else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && carryingWeight + newItem.getWeight() <= 2*15*abilityScores[0]){
-            System.out.println("hi");
             inventory.add(newItem);
             carryingWeight += newItem.getWeight();
             return true;

@@ -321,21 +321,18 @@ public class GameController extends Application {
 
         store.getArmorList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
-                System.out.println("a");
                 store.getMeleeList().getSelectionModel().clearSelection();
                 store.getRangedList().getSelectionModel().clearSelection();
             }
         });
         store.getMeleeList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
-                System.out.println("a");
                 store.getArmorList().getSelectionModel().clearSelection();
                 store.getRangedList().getSelectionModel().clearSelection();
             }
         });
         store.getRangedList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
-                System.out.println("a");
                 store.getMeleeList().getSelectionModel().clearSelection();
                 store.getArmorList().getSelectionModel().clearSelection();
             }
