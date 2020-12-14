@@ -1,4 +1,5 @@
 package com.company;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -94,6 +95,12 @@ public class CharacterCreatorView extends Pane implements GamePane  {
         createButton = new Button("Create Character");
         createButton.relocate(325, 500);
         createButton.setPrefSize(150, 45);
+        BooleanBinding booleanBinding = raceSelection.getSelectionModel().selectedItemProperty().isNull().or(
+                classSelection.getSelectionModel().selectedItemProperty().isNull().or(
+                        nameBox.textProperty().isEmpty().or(
+                                levelSelection.getSelectionModel().selectedItemProperty().isNull()
+                        )));
+        createButton.disableProperty().bind(booleanBinding);
 
         nameButton = new Button("Random");
         nameButton.relocate(200, 300);
@@ -169,11 +176,9 @@ public class CharacterCreatorView extends Pane implements GamePane  {
     public void setRaceDescription(String race){
         raceDescriptionBox.setText(descriptions.get(race));
     }
-
     public void setClassDescription(String dndClass){
         classDescriptionBox.setText(descriptions.get(dndClass));
     }
-
     public Button getCreateButton(){return createButton;}
     public Button getNameButton(){return nameButton;}
     public void update(){
