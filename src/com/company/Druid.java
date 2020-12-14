@@ -38,16 +38,14 @@ public class Druid extends MagicUser{
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
     public void levelUp(){
-        userLevel += 1;
         maxHP += 5;
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
+
     public int[] getSpellSlots(){return druidTable[userLevel - 1];}
     public String getClassName(){return "Druid";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
-
-
 
     public boolean isUseable(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
@@ -76,7 +74,4 @@ public class Druid extends MagicUser{
             }
         }
     }
-
-    public void attack(Player p, Weapon w){}
-
 }

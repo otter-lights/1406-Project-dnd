@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import javafx.scene.control.TextArea;
 
-public class StoreView extends GamePane{
+public class StoreView extends Pane implements GamePane{
     private ListView<String> armorList, meleeList, rangedList, inventoryList;
     private Button purchaseButton, exitButton;
     private TextArea descriptionBox = new TextArea();

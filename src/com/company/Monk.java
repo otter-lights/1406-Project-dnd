@@ -19,12 +19,6 @@ public class Monk extends NonMagicUser{
     public String getClassName(){return "Monk";}
 
     public void levelUp(){
-        userLevel += 1;
         maxHP += 5;
-
-    }
-
-    public void attack(Player p, Weapon w){
-
     }
 }

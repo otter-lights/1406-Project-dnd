@@ -40,10 +40,10 @@ public class Bard extends MagicUser{
         useableSpells = new Spell[bardTable[getLevel()][1]];
     }
     public void levelUp(){
-        userLevel += 1;
+        maxHP += 5;
         useableSpells = new Spell[bardTable[getLevel()][1]];
     }
-    public int[] getSpellSlots(){return bardTable[userLevel - 1];}
+
 
     public boolean isUseable(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
@@ -54,6 +54,8 @@ public class Bard extends MagicUser{
         }
         return false;
     }
+	public int[] getSpellSlots(){return bardTable[userLevel - 1];}
+
     public String getClassName(){return "Bard";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}

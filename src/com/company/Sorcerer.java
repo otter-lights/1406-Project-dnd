@@ -37,11 +37,11 @@ public class Sorcerer extends MagicUser{
     }
     public Sorcerer(String chosenRace, String name, int gold,  int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
-        useableSpells = new Spell[sorcererTable[getLevel()][1]];
+        useableSpells = new Spell[getLevel() + abilityMods[5]];
     }
     public void levelUp(){
-        userLevel += 1;
         maxHP += 4;
+        useableSpells = new Spell[getLevel() + abilityMods[5]];
         spellSlots = sorcererTable[userLevel - 1];
     }
 
@@ -49,7 +49,6 @@ public class Sorcerer extends MagicUser{
     public String getClassName(){return "Sorcerer";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
-
 
 
     public boolean isUseable(Spell s){
@@ -82,7 +81,4 @@ public class Sorcerer extends MagicUser{
             }
         }
     }
-
-    public void attack(Player p, Weapon w){}
-
 }
