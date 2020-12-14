@@ -14,10 +14,10 @@ public class Weapon extends Item{
         this.range = range;
     }
 
-    public Weapon(String name, int cost, double weight, int damage){
-        super(cost, weight, name);
-        this.damage = damage;
-    }
+//    public Weapon(String name, int cost, double weight, int damage){
+//        super(cost, weight, name);
+//        this.damage = damage;
+//    }
 
     public String getDamageType() { return type; }
     public String getTwoHanded() {

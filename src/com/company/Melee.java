@@ -5,9 +5,6 @@ public class Melee extends Weapon{
         super(name, cost, weight, damage, type, twoHanded, 5);
     }
 
-    public Melee(String name, int cost, double weight, int damage){
-        super(name, cost, weight, damage);
-    }
 
     public String toString(){
         if (this.getCost() < 10){

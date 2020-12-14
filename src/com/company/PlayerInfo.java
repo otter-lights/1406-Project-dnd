@@ -7,7 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
 public class PlayerInfo extends Pane{
-    private ListView<Weapon> weapons;
+    private ListView<String> weapons;
     private ListView<Spell> spells;
     private Player p;
     private Game model;
@@ -72,7 +72,7 @@ public class PlayerInfo extends Pane{
         weaponLabel.relocate(10,160);
         weaponLabel.setPrefSize(200,20);
 
-        weapons = new ListView<Weapon>();
+        weapons = new ListView<String>();
         weapons.relocate(10, 180);
         weapons.setPrefSize(200, 150);
 
@@ -95,7 +95,7 @@ public class PlayerInfo extends Pane{
         barbarianPerk.setPrefSize(200,30);
         getChildren().addAll(spells, spellLabel, weapons, weaponLabel, barbarianPerk, fighterPerk);
     }
-    public ListView<Weapon> getWeapons(){return weapons;}
+    public ListView<String> getWeapons(){return weapons;}
     public ListView<Spell> getSpells(){return spells;}
     public Button getBarbarianPerk(){return barbarianPerk;}
     public Button getFighterPerk(){return fighterPerk;}
@@ -104,7 +104,6 @@ public class PlayerInfo extends Pane{
     public void update(Player updated){
         p = updated;
         if(p instanceof MagicUser){
-            System.out.println("test");
             spells.setVisible(true);
             spellLabel.setVisible(true);
             spells.setItems(FXCollections.observableArrayList(((MagicUser) p).getUseableSpellsList()));

@@ -10,13 +10,13 @@ public abstract class MagicUser extends Player{
 
     public MagicUser(String name, String chosenRace, int startingGold, int hitDie, int spellMod, int level){
         super(name, chosenRace, startingGold, hitDie, level);
-        spellSaveDC = 8 + proficencyBonus + abilityMods[spellMod];
+        spellSaveDC = 8 + getProficencyBonus() + getAbilityMods()[spellMod];
         spellCastingType = spellMod;
         spellSlots = getSpellSlots();
     }
     public MagicUser(String name, String chosenRace, int startingGold, int xp, int hitDie, int spellMod, int[] abilityScores){
         super(name, chosenRace, startingGold, hitDie, xp, abilityScores);
-        spellSaveDC = 8 + proficencyBonus + abilityMods[spellMod];
+        spellSaveDC = 8 + getProficencyBonus() + getAbilityMods()[spellMod];
         spellCastingType = spellMod;
         spellSlots = getSpellSlots();
     }
@@ -64,8 +64,8 @@ public abstract class MagicUser extends Player{
 
         if(isUseable(s) && spellSlots[s.getLevel()] != 0){
             System.out.println(p.getPosition());
-            System.out.println(position);
-            if(Math.abs(p.getPosition() - position) <= s.getRange()){
+            System.out.println(getPosition());
+            if(Math.abs(p.getPosition() - getPosition()) <= s.getRange()){
                 // then the player is in range
                 Random rand = new Random();
                 int roll;
@@ -97,7 +97,7 @@ public abstract class MagicUser extends Player{
                 }
                 else{
                     roll = rand.nextInt(20) + 1;
-                    if(roll + proficencyBonus + abilityMods[spellCastingType] >= p.getAC()){
+                    if(roll + getProficencyBonus() + getAbilityMods()[spellCastingType] >= p.getAC()){
                         p.takeDamage(totalDamage);
                         removeSpell(s);
                         return("Attack Hits, it does " + totalDamage + " damage.");

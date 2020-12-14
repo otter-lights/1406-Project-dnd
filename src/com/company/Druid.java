@@ -31,18 +31,28 @@ public class Druid extends MagicUser{
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     public Druid(String chosenRace, String name, int level){
         super(name, chosenRace, 70, 8, 4, level);
-        useableSpells = new Spell[getLevel() + abilityMods[4]];
+        if(getAbilityMods()[4] > 0){
+            useableSpells = new Spell[getLevel() + getAbilityMods()[4]];
+        }
+        else{
+            useableSpells = new Spell[getLevel()];
+        }
     }
     public Druid(String chosenRace, String name, int gold,  int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
-        useableSpells = new Spell[getLevel() + abilityMods[4]];
+        if(getAbilityMods()[4] > 0){
+            useableSpells = new Spell[getLevel() + getAbilityMods()[4]];
+        }
+        else{
+            useableSpells = new Spell[getLevel()];
+        }
     }
     public void levelUp(){
-        maxHP += 5;
-        useableSpells = new Spell[getLevel() + abilityMods[4]];
+        setMaxHP(getMaxHP() + 5);
+        useableSpells = new Spell[getLevel() + getAbilityMods()[4]];
     }
 
-    public int[] getSpellSlots(){return druidTable[userLevel - 1];}
+    public int[] getSpellSlots(){return druidTable[getLevel() - 1];}
     public String getClassName(){return "Druid";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
@@ -59,7 +69,7 @@ public class Druid extends MagicUser{
     public void prepSpell(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
-            if(curSpell == null && druidTable[userLevel - 1][s.getLevel()+1] != 0){
+            if(curSpell == null && druidTable[getLevel() - 1][s.getLevel()+1] != 0){
                 useableSpells[i] = s;
                 break;
             }

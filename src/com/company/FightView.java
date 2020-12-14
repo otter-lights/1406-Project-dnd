@@ -129,13 +129,13 @@ public class FightView extends Pane implements GamePane {
         p1Pane.update(p1);
         p2Pane.update(p2);
 
-        if(p1Pane.getWeapons().getSelectionModel().getSelectedIndex() >= 0 || p1Pane.getSpells().getSelectionModel().getSelectedIndex() >= 0){
+        if(model.canAttack() && (p1Pane.getWeapons().getSelectionModel().getSelectedIndex() >= 0 || p1Pane.getSpells().getSelectionModel().getSelectedIndex() >= 0)){
             p1Attack.setDisable(false);
         }
         else{
             p1Attack.setDisable(true);
         }
-        if(p2Pane.getWeapons().getSelectionModel().getSelectedIndex() >= 0 || p2Pane.getSpells().getSelectionModel().getSelectedIndex() >= 0){
+        if(model.canAttack() && (p2Pane.getWeapons().getSelectionModel().getSelectedIndex() >= 0 || p2Pane.getSpells().getSelectionModel().getSelectedIndex() >= 0)){
             p2Attack.setDisable(false);
         }
         else{

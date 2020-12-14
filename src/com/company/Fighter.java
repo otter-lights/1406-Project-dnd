@@ -36,15 +36,15 @@ public class Fighter extends NonMagicUser{
     }
 
     public void levelUp(){
-        maxHP += 6;
+        setMaxHP(getMaxHP() + 6);
     }
     public void longRest(){
-        int currentLevel = userLevel;
+        int currentLevel = getLevel();
         if(setLevel() > currentLevel){
             //you leveled up
             levelUp();
         }
-        currentHP = maxHP;
+        setCurrentHP(getMaxHP());
         Store generalStore = new Store(4,4,6);
         secondWind = true;
     }

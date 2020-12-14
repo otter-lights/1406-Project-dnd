@@ -5,23 +5,23 @@ import java.util.Collections;
 import java.util.Arrays;
 
 public abstract class Player {
-    protected int currentHP;
-    protected int maxHP;
-    protected int position;
-    protected int userLevel;
-    protected int proficencyBonus;
-    protected int experience;
-    protected int hitDie;
-    protected int armorClass;
-    protected Race playerRace;
-    protected String name;
-    protected int goldPieces;
-    protected ArrayList<Item> inventory;
+    private int currentHP;
+    private int maxHP;
+    private int position;
+    private int userLevel;
+    private int proficencyBonus;
+    private int experience;
+    private int hitDie;
+    private int armorClass;
+    private Race playerRace;
+    private String name;
+    private int goldPieces;
+    private ArrayList<Item> inventory;
     private double carryingWeight = 0;
-
+    private String[] standardItems = {"Padded Armor", "Hide", "Scale Mail", "Ring Mail", "Acrobat's Staff", "Horn Knife", "Bladed-Staff", "Double Scythe", "Bolas", "War Sling", "Boomerang"};
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    protected int[] abilityScores = new int[6];
-    protected int[] abilityMods = new int[6];
+    private int[] abilityScores = new int[6];
+    private int[] abilityMods = new int[6];
 
     public Player(String name, String chosenRace, int gold, int hitDie, int level){
         this.name = name;
@@ -53,6 +53,7 @@ public abstract class Player {
         maxHP = (hitDie + abilityMods[2]) * userLevel;
         currentHP = maxHP;
         position = 0;
+        inventory = new ArrayList<>();
 
         for(int i = 0; i < 6; i++){
             abilityMods[i] = calculateMods(abilityScores[i]);
@@ -63,6 +64,7 @@ public abstract class Player {
     public abstract String getClassName();
 
     public int getPosition(){return position;}
+    public int getProficencyBonus(){return proficencyBonus;}
     public int getLevel(){return userLevel;}
     public int getAC(){return armorClass;}
     public int[] getAbilityMods(){return abilityMods;}
@@ -97,22 +99,36 @@ public abstract class Player {
         longRest();
     }
 
+    public void randomItems(){
+        Random rand = new Random();
+        for(int i = inventory.size(); i < 4; i++){
+            Item it = Store.getItemFromHashMap(standardItems[rand.nextInt(standardItems.length)]);
+            if(!getInventory().contains(it)){
+                addToInventory(it);
+            }
+            else{
+                i--;
+            }
+        }
+    }
 
-    public void attack(Player p, Weapon w){
+
+    public String attack(Player p, Weapon w){
+        System.out.println(w.getRange());
         if(Math.abs(p.getPosition() - position) <= w.getRange()){
             Random rand = new Random();
             int roll = rand.nextInt(20) + 1;
             if(roll >= p.getAC()) {
                 roll = rand.nextInt(w.getDamage()) + 1;
                 p.takeDamage(roll);
-                System.out.println("Attack Hits");
+                return(getName() + " attacks with " + w.getName() + ". Attack Hits, " + p.getName() + " takes " + roll + " damage.\n");
             }
             else{
-                System.out.println("Attack Misses");
+                return(getName() + " attacks with " + w.getName() + ". Attack Misses.\n");
             }
         }
         else{
-            System.out.println("Player not in range");
+            return("Player not in range. \n");
         }
     }
 
@@ -268,10 +284,6 @@ public abstract class Player {
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
     // For now I am ignoring the decrease in speed that comes with higher weights, potentially added at a later date.
     public boolean addToInventory(Item newItem){
-        //int weight = 0;
-        //for(Item i: inventory){
-            //weight += i.getWeight();
-        //}
         if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && carryingWeight + newItem.getWeight() <= 15*abilityScores[0]){
             inventory.add(newItem);
             carryingWeight += newItem.getWeight();
@@ -289,11 +301,11 @@ public abstract class Player {
         }
         return false;
     }
-    public ArrayList<Weapon> getWeapons(){
-        ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+    public ArrayList<String> getWeapons(){
+        ArrayList<String> weapons = new ArrayList<String>();
         for(Item i: inventory){
             if(i instanceof Weapon){
-                weapons.add((Weapon) i);
+                weapons.add(i.getName());
             }
         }
         return weapons;
@@ -322,7 +334,7 @@ public abstract class Player {
         if(inventory!=null){
             for(Item i: inventory){
                 if(i instanceof Armor){
-                    armorClass += ((Armor) i).getArmorClass() + abilityMods[1];
+                    armorClass = ((Armor) i).getArmorClass() + abilityMods[1];
                     wearingArmor = true;
                 }
             }
@@ -395,6 +407,7 @@ public abstract class Player {
 
     public int getCurrentHP(){ return currentHP; }
     public void setCurrentHP(int hp){ currentHP = hp; }
+    public void setMaxHP(int hp){maxHP = hp;}
     public int getMaxHP(){ return maxHP; }
     public String toString(){
         return getName() + ", a level " + getLevel() + " " + getPlayerRace().getRaceName() + ", " + getClassName();
