@@ -39,6 +39,7 @@ public class CharacterCreatorView extends Pane implements GamePane  {
         put("Wizard", "A scholarly magic-user capable of manipulating the structures of reality.");
     }};
 
+    //the things
     private ComboBox raceSelection = new ComboBox(FXCollections.observableArrayList(races));
     private ComboBox classSelection = new ComboBox(FXCollections.observableArrayList(classes));
     private Label nameLabel = new Label("Name");
@@ -50,6 +51,7 @@ public class CharacterCreatorView extends Pane implements GamePane  {
     private Button createButton, nameButton;
 
     public CharacterCreatorView() {
+        //create things
         Pane storeView = new Pane();
         storeView.setStyle("-fx-background-color: white;");
         storeView.setPrefSize(800, 600);
@@ -92,6 +94,7 @@ public class CharacterCreatorView extends Pane implements GamePane  {
         levelSelection.setPrefSize(150, 45);
         levelSelection.relocate(325,400);
 
+        //bind button to all fields
         createButton = new Button("Create Character");
         createButton.relocate(325, 500);
         createButton.setPrefSize(150, 45);
@@ -115,6 +118,7 @@ public class CharacterCreatorView extends Pane implements GamePane  {
     }
 
     public Player createPlayer(){
+        //what it says
         if(classSelection.getValue().equals("Barbarian")){
             return new Barbarian((String)raceSelection.getValue(), nameBox.getText(), (int)levelSelection.getValue());
         }
@@ -165,6 +169,7 @@ public class CharacterCreatorView extends Pane implements GamePane  {
     }
 
     public void getRandomName(){
+        //check if names have been read from the file yet
         if (names[0] == null){
             String file = System.getProperty("user.dir") + "/src/com/company/names.txt";
             nameBox.setText(getNames(file));
@@ -173,6 +178,7 @@ public class CharacterCreatorView extends Pane implements GamePane  {
         }
     }
 
+    //get/set things
     public void setRaceDescription(String race){
         raceDescriptionBox.setText(descriptions.get(race));
     }
@@ -182,7 +188,7 @@ public class CharacterCreatorView extends Pane implements GamePane  {
     public Button getCreateButton(){return createButton;}
     public Button getNameButton(){return nameButton;}
     public void update(){
-
+        //nothing here, doenst need to be updated
     }
     public ComboBox getRaceSelection(){ return raceSelection; }
     public ComboBox getClassSelection(){ return classSelection; }

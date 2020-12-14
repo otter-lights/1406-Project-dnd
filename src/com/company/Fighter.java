@@ -30,6 +30,7 @@ public class Fighter extends NonMagicUser{
 
 
     public String secondWind(){
+        //allows fighter to heal yay
         Random random = new Random();
         if (secondWind){
             secondWind = false;

@@ -17,6 +17,7 @@ public class Rogue extends NonMagicUser{
     public String getClassName(){return "Rouge";}
 
     public void attack(Player p, Weapon w){
+        //override on attack class
         Random random = new Random();
         int iSneakAttack = random.nextInt(3);
         int extraDamage = 0;

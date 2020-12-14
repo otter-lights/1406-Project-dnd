@@ -145,18 +145,22 @@ public class GameController extends Application {
         });
 
         creator.getRaceSelection().setOnAction(e -> {
+            //set description box when a race is selected
             creator.setRaceDescription((String)creator.getRaceSelection().getValue());
         });
 
         creator.getClassSelection().setOnAction(e -> {
+            //set description box when a class is selected
             creator.setClassDescription((String)creator.getClassSelection().getValue());
         });
 
         creator.getNameButton().setOnAction(new EventHandler<ActionEvent>(){
+            //get ze names
             public void handle(ActionEvent actionEvent){
                 creator.getRandomName();
             }
         });
+
         fight.getP1Pane().getWeapons().setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
                 fight.getP1Pane().getSpells().getSelectionModel().clearSelection();
@@ -295,6 +299,7 @@ public class GameController extends Application {
 
         store.getExitButton().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                //exit
                 currentView.getChildren().clear();
                 currentView.getChildren().add(rest);
                 rest.update();
@@ -303,11 +308,14 @@ public class GameController extends Application {
 
         store.getPurchaseButton().setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent actionEvent){
+                //purchase the selected item
+                //checks to find what is selected bc only one item from one
+                // listview is allowed to be selected at a time
                 if (store.getArmorList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
                     if (store.purchase(store.getItem(store.getRangedList().getSelectionModel().getSelectedItem()))){
+                        //checks if purchased
                         store.updateAfterPurchase();
                     }
-
                 } else if (store.getRangedList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
                     if (store.purchase(store.getItem(store.getArmorList().getSelectionModel().getSelectedItem()))){
                         store.updateAfterPurchase();
@@ -323,6 +331,7 @@ public class GameController extends Application {
 
         store.getArmorList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
+                //if armorList clicked, clear selection from other listviews
                 store.getMeleeList().getSelectionModel().clearSelection();
                 store.getRangedList().getSelectionModel().clearSelection();
             }
@@ -341,7 +350,9 @@ public class GameController extends Application {
         });
 
         store.getArmorList().setOnMouseClicked(e -> {
+            //when an item is selected add the description to the box
             if (store.getArmorList().getSelectionModel().getSelectedIndex() > -1){
+                //also check to make sure an item is selected and the listview is not just clicked
                 store.setDescription((String)store.getArmorList().getSelectionModel().getSelectedItem());
             }
         });
@@ -359,6 +370,8 @@ public class GameController extends Application {
         });
 
         store.getInventoryList().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            //not allowed to click on items on inventory list
+            //view only :)
             public void handle(MouseEvent e){
                 e.consume();
             }
