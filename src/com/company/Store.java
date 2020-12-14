@@ -5,8 +5,7 @@ import java.util.Random;
 
 
 public class Store {
-    //String name, int cost, double weight, int armorClass, int modifier, String type, int maxHP
-    //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
+    //item arrays
     private static Armor[] allArmor = new Armor[] {new Armor("Cloth Armor", 1, 2.0, 11, 1, "Light", 20),
                                                    new Armor("Padded Armor", 5, 8.0, 11, 1, "Light", 50),
                                                    new Armor("Assassin's Garb", 120, 6.0, 12, 1,"Light", -1),
@@ -133,7 +132,7 @@ public class Store {
 
     public Store(int numMelee, int numRanged, int numArmor){
         Random rand = new Random();
-
+        //get items
         armor = new Armor[numArmor];
         for(int i = 0; i < numArmor; i++){
             armor[i] = allArmor[rand.nextInt(allArmor.length)];
@@ -155,7 +154,7 @@ public class Store {
                 customer.recieveMoney(item.getPrice());
                 return false;
             } else {
-                return true;
+                return true; //purchased
             }
         }
         return false;

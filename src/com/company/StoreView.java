@@ -9,7 +9,6 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.scene.control.SelectionMode;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import javafx.scene.control.TextArea;
 
 public class StoreView extends Pane implements GamePane{
@@ -67,6 +66,7 @@ public class StoreView extends Pane implements GamePane{
         inventoryList.setPrefSize(250, 325);
         inventoryList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+
         descriptionBox.relocate(20, 455);
         descriptionBox.setPrefSize(490, 125);
         descriptionBox.setEditable(false);
@@ -79,9 +79,7 @@ public class StoreView extends Pane implements GamePane{
         purchaseButton = new Button("Purchase");
         purchaseButton.relocate(530,455);
         purchaseButton.setPrefSize(150,45);
-        //purchaseButton.disableProperty().bind(armorList.getSelectionModel().selectedItemProperty().isNull());
-        //purchaseButton.disableProperty().bind(meleeList.getSelectionModel().selectedItemProperty().isNull());
-        //purchaseButton.disableProperty().bind(rangedList.getSelectionModel().selectedItemProperty().isNull());
+        //binding
         BooleanBinding booleanBinding = armorList.getSelectionModel().selectedItemProperty().isNull().and(
                 rangedList.getSelectionModel().selectedItemProperty().isNull().and(
                         meleeList.getSelectionModel().selectedItemProperty().isNull()));
@@ -103,24 +101,30 @@ public class StoreView extends Pane implements GamePane{
     public ListView<String> getInventoryList() { return inventoryList; }
     public Boolean purchase(Item item){
         if (model.getGeneralStore().purchase(item, model.getPrimaryPlayer())){
-            return true;
+            return true;//if purchased
         } else {
             return false;
         }
     }
 
     public void update(){
+        //when window is reopened
+        armorList.getItems().clear();
+        meleeList.getItems().clear();
+        rangedList.getItems().clear();
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getArmor())), armorList);
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getMeleeWeapons())), meleeList);
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getRangedWeapons())), rangedList);
     }
 
     public void updateAfterPurchase(){
-        setGoldPiecesBox();
+        setGoldPiecesBox(); //update money
+        //update inventory box
         updateInventoryListView(model.getPrimaryPlayer().getInventory().get(model.getPrimaryPlayer().getInventory().size() - 1).getName(), getInventoryList());
     }
 
     protected void updateListView(ArrayList<Item> itemList, ListView<String> listView){
+        //for each item add item from arraylist to listview
         for(Item i: itemList){
             listView.getItems().add(i.getName());
         }
