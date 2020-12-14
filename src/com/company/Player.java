@@ -268,10 +268,6 @@ public abstract class Player {
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
     // For now I am ignoring the decrease in speed that comes with higher weights, potentially added at a later date.
     public boolean addToInventory(Item newItem){
-        //int weight = 0;
-        //for(Item i: inventory){
-            //weight += i.getWeight();
-        //}
         if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && carryingWeight + newItem.getWeight() <= 15*abilityScores[0]){
             inventory.add(newItem);
             carryingWeight += newItem.getWeight();
@@ -304,16 +300,14 @@ public abstract class Player {
         int[] abilityIncrease = playerRace.getAbilityIncrease();
         Random rand = new Random();
         //have to roll a six-sided die 4 times per ability and sum the top 3 rolls
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++){ // one for each ability score
             ArrayList<Integer> rolls = new ArrayList<>();
             for (int n = 0; n < 4; n++){
                 rolls.add(rand.nextInt(6) + 1);
             }
-            rolls.remove(Collections.min(rolls));
+            rolls.remove(Collections.min(rolls)); //just need top 3
 
-            //this is an option if you want to store the stats in an array
-            //it adds the ability increase in this main loop
-            abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum() + abilityIncrease[i];
+            abilityScores[i] = rolls.stream().mapToInt(Integer::intValue).sum() + abilityIncrease[i]; // sum rolls
             abilityMods[i] = calculateMods(abilityScores[i]);
         }
     }
