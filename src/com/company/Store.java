@@ -58,7 +58,7 @@ public class Store {
                                                       new Ranged("Bolas", 1, 2.0, 4, "bludgeoning", false, 20),
                                                       new Ranged("Bowblade", 250, 10.0, 10, "piercing", true, 100),
                                                       new Ranged("Chakri", 5, 0.5, 4, "slashing", false, 20),
-                                                      new Ranged("Crowwbow", 300, 2.0, 6, "piercing", false, 30),
+                                                      new Ranged("Crossbow", 300, 2.0, 6, "piercing", false, 30),
                                                       new Ranged("Greatbow", 65, 5.0, 10, "piercing", true, 200),
                                                       new Ranged("War Sling", 5, 0.5, 8, "bludgeoning", false, 60),
                                                       new Ranged("Spear-thrower", 5, 1.0, 8, "piercing", true, 50),
@@ -87,14 +87,13 @@ public class Store {
             rangedWeapons[i] = allRanged[rand.nextInt(allRanged.length)];
         }
     }
-    public void purchase(Item[] set, int index, Player customer){
-        Item want = set[index];
-        if(want.getPrice() <= customer.getPurse()){
-            customer.spendMoney(want.getPrice());
+    public void purchase(Item item, Player customer){
+        if(item.getPrice() <= customer.getPurse()){
+            customer.spendMoney(item.getPrice());
         }
-        if(!customer.addToInventory(want)){
+        if(!customer.addToInventory(item)){
             //oops you are too weak to carry this item... "can i have my money back"
-            customer.recieveMoney(want.getPrice());
+            customer.recieveMoney(item.getPrice());
         }
     }
 

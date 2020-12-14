@@ -57,7 +57,7 @@ public abstract class Player {
             abilityMods[i] = calculateMods(abilityScores[i]);
         }
     }
-
+    public ArrayList<Item> getInventory(){ return this.inventory; }
     public abstract void levelUp();
     public abstract String getClassName();
 
