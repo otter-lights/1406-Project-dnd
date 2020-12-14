@@ -12,10 +12,11 @@ public class Game {
     public Game(){
         allPlayers = new ArrayList<Player>();
         allPlayers.add(new Druid ("Gnome", "Player 1", 1));
+        allPlayers.add(new Cleric("Dragonborn", "Player 2", 1));
         round = 0;
         generalStore = new Store(5,5,6);
         primaryPlayer = allPlayers.get(0);
-        secondaryPlayer = allPlayers.get(0);
+        secondaryPlayer = allPlayers.get(1);
     }
     public void addPlayer(Player p){allPlayers.add(p);}
     public ArrayList<Player> getAllPlayers(){return allPlayers;}
@@ -28,12 +29,12 @@ public class Game {
     public Store getGeneralStore(){
         return generalStore;
     }
-    public Player turn(){
+    public boolean primeTurn(){
         if(round % 2 == 0){
-            return primaryPlayer;
+            return true;
         }
         else{
-            return secondaryPlayer;
+            return false;
         }
     }
     public void endTurn(){
@@ -41,12 +42,9 @@ public class Game {
     }
 
     public void setPrimaryPlayer(Player p){
-        System.out.println("test");
         primaryPlayer = p;
-        System.out.println(primaryPlayer);
     }
     public void setSecondaryPlayer(Player p){
-        System.out.println("test2");
         secondaryPlayer = p;
     }
 

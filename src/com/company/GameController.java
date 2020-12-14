@@ -20,7 +20,7 @@ import javax.swing.*;
 import java.util.Random;
 
 public class GameController extends Application {
-    Game model;
+    private Game model;
     public void start(Stage primaryStage){
         Game model = new Game();
         this.model = model;
@@ -45,7 +45,6 @@ public class GameController extends Application {
         rest.getEndProgram().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
                 String filename = JOptionPane.showInputDialog("Enter Filename: ");
-                model.addPlayer(new Druid("Gnome", "Gargamel", 1));
                 model.saveCharacters(filename);
                 System.exit(0);
             }
@@ -100,9 +99,15 @@ public class GameController extends Application {
 
                 if(rest.getOption1().isSelected()){
                     characters(classNames[rand.nextInt(9)], raceNames[rand.nextInt(9)], rand.nextInt(20)+1);
+                    if(model.getSecondaryPlayer() instanceof MagicUser){
+                        ((MagicUser) model.getSecondaryPlayer()).randomUseableSpells();
+                    }
                 }
                 else if(rest.getOption2().isSelected()){
-                    characters(rest.getClassOptions().getSelectionModel().getSelectedItem().toString(), raceNames[rand.nextInt(9)], rand.nextInt(20) + 1);
+                    characters(rest.getClassOptions().getSelectionModel().getSelectedItem().toString(), raceNames[rand.nextInt(9)], Integer.parseInt((String)rest.getLevelOptions().getSelectionModel().getSelectedItem()));
+                    if(model.getSecondaryPlayer() instanceof MagicUser){
+                        ((MagicUser) model.getSecondaryPlayer()).randomUseableSpells();
+                    }
                 }
                 else if(rest.getOption3().isSelected()){
                     model.setSecondaryPlayer(rest.getOpponents().getSelectionModel().getSelectedItem());
@@ -117,6 +122,12 @@ public class GameController extends Application {
                 rest.update();
             }
         });
+        rest.getLevelOptions().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                rest.update();
+            }
+        });
+
 
         rest.getOpponents().setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent mouseEvent) {
@@ -144,6 +155,138 @@ public class GameController extends Application {
         creator.getNameButton().setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent actionEvent){
                 creator.getRandomName();
+            }
+        });
+        fight.getP1Pane().getWeapons().setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+                fight.getP1Pane().getSpells().getSelectionModel().clearSelection();
+                fight.update();
+            }
+        });
+
+        fight.getP1Pane().getSpells().setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+                fight.getP1Pane().getWeapons().getSelectionModel().clearSelection();
+                fight.update();
+            }
+        });
+        fight.getP2Pane().getWeapons().setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+                fight.getP2Pane().getSpells().getSelectionModel().clearSelection();
+                model.getPrimaryPlayer().addToInventory(new Melee("Acrobat's Staff", 3, 2.0, 4,"bludgeoning", false));
+                fight.update();
+            }
+        });
+        fight.getP2Pane().getSpells().setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent mouseEvent) {
+                fight.getP2Pane().getWeapons().getSelectionModel().clearSelection();
+                fight.update();
+            }
+        });
+        fight.getP1Pane().getBarbarianPerk().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                fight.getDialogBox().appendText(((Barbarian)model.getPrimaryPlayer()).startRage(model.getSecondaryPlayer()));
+                fight.update();
+            }
+        });
+        fight.getP2Pane().getBarbarianPerk().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                fight.getDialogBox().appendText(((Barbarian)model.getSecondaryPlayer()).startRage(model.getPrimaryPlayer()));
+                fight.update();
+            }
+        });
+        fight.getP1Pane().getFighterPerk().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                fight.getDialogBox().appendText(((Fighter)model.getPrimaryPlayer()).secondWind());
+                fight.update();
+            }
+        });
+        fight.getP2Pane().getFighterPerk().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                fight.getDialogBox().appendText(((Fighter)model.getSecondaryPlayer()).secondWind());
+                fight.update();
+            }
+        });
+        fight.getP1Attack().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                if(fight.getP1Pane().getSpells().getSelectionModel().getSelectedIndex() >= 0){
+                    Spell s = fight.getP1Pane().getSpells().getSelectionModel().getSelectedItem();
+                    String msg = ((MagicUser) model.getPrimaryPlayer()).castSpell(s, model.getSecondaryPlayer());
+                    fight.getDialogBox().appendText(model.getPrimaryPlayer().getName() + " casts " + s.getName() + " " + msg + "\n");
+                }
+                if(fight.getP1Pane().getWeapons().getSelectionModel().getSelectedIndex() >= 0){
+                    //attack with weapon
+                    fight.getP1Pane().getWeapons().getSelectionModel().getSelectedItem();
+                }
+                if(model.getSecondaryPlayer().isAlive() == false){
+                    model.getPrimaryPlayer().winsAgainst(model.getSecondaryPlayer());
+                    model.getSecondaryPlayer().losesAgainst(model.getPrimaryPlayer());
+
+                    model.getPrimaryPlayer().checklvlUp();
+                    model.getSecondaryPlayer().checklvlUp();
+                    fight.getDialogBox().clear();
+                    fight.getDialogBox().setText("Dialog Box");
+
+                    JOptionPane.showMessageDialog(null, model.getSecondaryPlayer().getName() + " has passed out. \n" + model.getPrimaryPlayer().getName() + " is the winner. \n");
+                    currentView.getChildren().clear();
+                    currentView.getChildren().add(rest);
+                }
+                fight.update();
+            }
+        });
+        fight.getP2Attack().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                if(fight.getP2Pane().getSpells().getSelectionModel().getSelectedIndex() >= 0){
+                    Spell s = fight.getP2Pane().getSpells().getSelectionModel().getSelectedItem();
+                    String msg = ((MagicUser) model.getSecondaryPlayer()).castSpell(s, model.getPrimaryPlayer());
+                    fight.getDialogBox().appendText(model.getSecondaryPlayer().getName() + " casts " + s.getName() + " " + msg + "\n");
+                }
+                if(fight.getP1Pane().getWeapons().getSelectionModel().getSelectedIndex() >= 0){
+                    //attack with weapon
+                    fight.getP1Pane().getWeapons().getSelectionModel().getSelectedItem();
+                }
+                if(model.getPrimaryPlayer().isAlive() == false){
+                    model.getSecondaryPlayer().winsAgainst(model.getPrimaryPlayer());
+                    model.getPrimaryPlayer().losesAgainst(model.getSecondaryPlayer());
+
+                    model.getPrimaryPlayer().checklvlUp();
+                    model.getSecondaryPlayer().checklvlUp();
+                    fight.getDialogBox().clear();
+                    fight.getDialogBox().setText("Dialog Box");
+
+                    JOptionPane.showMessageDialog(null, model.getPrimaryPlayer().getName() + " has passed out. \n" + model.getSecondaryPlayer().getName() + " is the winner. \n");
+                    currentView.getChildren().clear();
+                    currentView.getChildren().add(rest);
+
+                    //currentView.getChildren().clear();
+                    //currentView.getChildren().add(rest);
+                }
+                fight.update();
+            }
+        });
+        fight.getP1Move().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+
+            }
+        });
+        fight.getP2Move().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+
+            }
+        });
+
+        fight.getP1EndTurn().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                model.endTurn();
+                fight.getDialogBox().appendText(model.getPrimaryPlayer().getName() + " ends their turn. \n");
+                fight.update();
+            }
+        });
+        fight.getP2EndTurn().setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent actionEvent) {
+                model.endTurn();
+                fight.getDialogBox().appendText(model.getSecondaryPlayer().getName() + " ends their turn. \n");
+                fight.update();
             }
         });
 

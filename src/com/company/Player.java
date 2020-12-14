@@ -15,34 +15,28 @@ public abstract class Player {
     protected int armorClass;
     protected Race playerRace;
     protected String name;
-
+    protected int goldPieces;
+    protected ArrayList<Item> inventory;
 
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     protected int[] abilityScores = new int[6];
     protected int[] abilityMods = new int[6];
 
-    protected int goldPieces; // depends on class
-    protected ArrayList<Item> inventory;
-
-    //The chosen race input will come from the gui/a generation
-    //constructor is currently empty (maybe not the best way to implement?)
-  
-    public Player(String name, String chosenRace, int gold, int xp, int hitDie, int level){
+    public Player(String name, String chosenRace, int gold, int hitDie, int level){
         this.name = name;
         this.playerRace = new Race(chosenRace);
-        this.experience = xp;
         this.hitDie = hitDie;
         this.goldPieces = gold;
-        setExperience(level);
-
-        maxHP = hitDie + abilityMods[2];
-        currentHP = maxHP;
-        position = 0;
-        inventory = new ArrayList<>();
+        this.userLevel = level;
 
         rollAbilityScores();
         setArmorClass();
-        setLevel();
+        setExperience(level);
+
+        maxHP = (hitDie + abilityMods[2]) * userLevel;
+        currentHP = maxHP;
+        position = 0;
+        inventory = new ArrayList<>();
     }
     public Player(String name, String chosenRace, int gold, int xp, int hitDie, int[] abilityScores){
         this.name = name;
@@ -52,30 +46,57 @@ public abstract class Player {
         this.abilityScores = abilityScores;
         this.goldPieces = gold;
 
-        maxHP = hitDie + abilityMods[2];
+        setArmorClass();
+        setLevel();
+
+        maxHP = (hitDie + abilityMods[2]) * userLevel;
         currentHP = maxHP;
         position = 0;
 
         for(int i = 0; i < 6; i++){
             abilityMods[i] = calculateMods(abilityScores[i]);
         }
-
-        setArmorClass();
-        setLevel();
     }
     public ArrayList<Item> getInventory(){ return this.inventory; }
     public abstract void levelUp();
     public abstract String getClassName();
+
+    public int getPosition(){return position;}
+    public int getLevel(){return userLevel;}
+    public int getAC(){return armorClass;}
+    public int[] getAbilityMods(){return abilityMods;}
+    public int[] getAbilityScores(){return abilityScores;}
+    public boolean isAlive(){return currentHP > 0;}
+    public int getPurse(){return goldPieces;}
+    public String getName(){return name;}
+    public int getXP(){return experience;}
+    public int getHitDie(){return hitDie;}
+
+    public void spendMoney(int price){goldPieces -= price;}
+    public void recieveMoney(int gold){goldPieces += gold;}
+
+    public void takeDamage(int damage){
+        currentHP -= damage;
+        if(currentHP < 0){
+            currentHP = 0;
+        }
+    }
+
     public Race getPlayerRace(){
         return playerRace;
     }
-    public void turn(Player otherPlayer){
-        System.out.println(name + " Attack " + otherPlayer.name);
-        //Would get them to chose weapon from inventory, here i selected a random one for testing
-        attack(otherPlayer, (Weapon) new Melee("Horn Knife", 10, 2.0, 4, "piercing", false));
 
-        System.out.println("Move");
-        move(true, 10);
+    public void winsAgainst(Player opponent){
+        experience += 100 * opponent.getLevel();
+        goldPieces += 25;
+        longRest();
+    }
+    public void losesAgainst(Player opponent){
+        experience += 50 * opponent.getLevel();
+        longRest();
+    }
+    public void checklvlUp(){
+
     }
 
 
@@ -110,24 +131,7 @@ public abstract class Player {
 
 
 
-    public int getPosition(){return position;}
-    public int getLevel(){return userLevel;}
-    public int getAC(){return armorClass;}
-    public int[] getAbilityMods(){return abilityMods;}
-    public int[] getAbilityScores(){return abilityScores;}
-    public boolean isAlive(){return currentHP > 0;}
-    public int getPurse(){return goldPieces;}
-    public int getProficencyBonus(){return proficencyBonus;}
-    public String getName(){return name;}
-    public int getXP(){return experience;}
-    public int getHitDie(){return hitDie;}
 
-    public void spendMoney(int price){goldPieces -= price;}
-    public void recieveMoney(int gold){goldPieces += gold;}
-
-    public void takeDamage(int damage){
-        currentHP -= damage;
-    }
 
     public void longRest(){
         int currentLevel = userLevel;
@@ -289,6 +293,15 @@ public abstract class Player {
             return true;
         }
         return false;
+    }
+    public ArrayList<Weapon> getWeapons(){
+        ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+        for(Item i: inventory){
+            if(i instanceof Weapon){
+                weapons.add((Weapon) i);
+            }
+        }
+        return weapons;
     }
 
 

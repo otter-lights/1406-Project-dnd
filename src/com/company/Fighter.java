@@ -29,9 +29,9 @@ public class Fighter extends NonMagicUser{
     //u can use bonus action to regain hit points equal to 1d10 + lvl
     //must short or long rest before use again
     public Fighter(String chosenRace, String name, int level){
-        super(name, chosenRace, 175, 0, 10, level);
+        super(name, chosenRace, 175, 10, level);
     }
-    public Fighter(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
+    public Fighter(String chosenRace, String name, int gold,  int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie, abilityScores);
     }
 
@@ -39,23 +39,38 @@ public class Fighter extends NonMagicUser{
         userLevel += 1;
         maxHP += 6;
     }
+    public void longRest(){
+        int currentLevel = userLevel;
+        if(setLevel() > currentLevel){
+            //you leveled up
+            levelUp();
+        }
+        currentHP = maxHP;
+        Store generalStore = new Store(4,4,6);
+        secondWind = true;
+    }
 
     public void attack(Player p, Weapon w){
 
     }
     public String getClassName(){return "Fighter";}
+    public boolean getSecondWind(){return secondWind;}
 
 
-    public void secondWind(){
+    public String secondWind(){
         Random random = new Random();
         if (secondWind){
+            secondWind = false;
             int addHP = random.nextInt(10) + 1 + this.getLevel();
             if (getCurrentHP() + addHP <= getMaxHP()){
                 setCurrentHP(getCurrentHP() + addHP);
+                return(getName() + " heals " + addHP + " points of damage.");
             } else {
                 setCurrentHP(getMaxHP());
+                return(getName() + " heals to max HP.");
             }
-            secondWind = false;
+
         }
+        return (getName() + " has already used Second Wind.");
     }
 }
