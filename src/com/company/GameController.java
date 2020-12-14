@@ -35,6 +35,7 @@ public class GameController extends Application {
 
         rest.getVisitStore().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
+                model.makeStore();
                 currentView.getChildren().clear();
                 currentView.getChildren().add(store);
                 store.update();
@@ -158,14 +159,11 @@ public class GameController extends Application {
         store.getPurchaseButton().setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent actionEvent){
                 if (store.getArmorList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
-                    Item item = store.getRangedList().getSelectionModel().getSelectedItem();
-                    store.purchase(item);
+                    store.purchase(store.getItem(store.getRangedList().getSelectionModel().getSelectedItem()));
                 } else if (store.getRangedList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
-                    Item item = store.getArmorList().getSelectionModel().getSelectedItem();
-                    store.purchase(item);
+                    store.purchase(store.getItem(store.getArmorList().getSelectionModel().getSelectedItem()));
                 } else if (store.getArmorList().getSelectionModel().isEmpty() && store.getRangedList().getSelectionModel().isEmpty()){
-                    Item item = store.getMeleeList().getSelectionModel().getSelectedItem();
-                    store.purchase(item);
+                    store.purchase(store.getItem(store.getMeleeList().getSelectionModel().getSelectedItem()));
                 }
             }
         });
@@ -188,6 +186,22 @@ public class GameController extends Application {
                 store.getArmorList().getSelectionModel().clearSelection();
             }
         });
+
+        store.getArmorList().setOnMouseClicked(e -> {
+            store.setDescription((String)store.getArmorList().getSelectionModel().getSelectedItem());
+        });
+
+        store.getMeleeList().setOnMouseClicked(e -> {
+            store.setDescription((String)store.getMeleeList().getSelectionModel().getSelectedItem());
+        });
+
+        store.getRangedList().setOnMouseClicked(e -> {
+            store.setDescription((String)store.getRangedList().getSelectionModel().getSelectedItem());
+        });
+
+
+
+
 
 
         primaryStage.setTitle("Encounter Sim");
