@@ -112,9 +112,12 @@ public class StoreView extends Pane implements GamePane{
         armorList.getItems().clear();
         meleeList.getItems().clear();
         rangedList.getItems().clear();
+        inventoryList.getItems().clear();
+
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getArmor())), armorList);
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getMeleeWeapons())), meleeList);
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getRangedWeapons())), rangedList);
+        updateListView(model.getPrimaryPlayer().getInventory(), inventoryList);
     }
 
     public void updateAfterPurchase(){

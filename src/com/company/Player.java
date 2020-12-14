@@ -7,7 +7,8 @@ import java.util.Arrays;
 public abstract class Player {
     private int currentHP;
     private int maxHP;
-    private int position;
+    private int positionX;
+    private int positionY;
     private int userLevel;
     private int proficencyBonus;
     private int experience;
@@ -36,7 +37,8 @@ public abstract class Player {
 
         maxHP = (hitDie + abilityMods[2]) * userLevel;
         currentHP = maxHP;
-        position = 0;
+        positionX = 0;
+        positionY = 0;
         inventory = new ArrayList<>();
     }
     public Player(String name, String chosenRace, int gold, int xp, int hitDie, int[] abilityScores){
@@ -52,7 +54,8 @@ public abstract class Player {
 
         maxHP = (hitDie + abilityMods[2]) * userLevel;
         currentHP = maxHP;
-        position = 0;
+        positionX = 0;
+        positionY = 0;
         inventory = new ArrayList<>();
 
         for(int i = 0; i < 6; i++){
@@ -63,7 +66,8 @@ public abstract class Player {
     public abstract void levelUp();
     public abstract String getClassName();
 
-    public int getPosition(){return position;}
+    //the position is calculated by making a square of the coords.
+    public int getPosition(){return (int)(Math.sqrt(Math.pow(positionX, 2) + Math.pow(positionY, 2)));}
     public int getProficencyBonus(){return proficencyBonus;}
     public int getLevel(){return userLevel;}
     public int getAC(){return armorClass;}
@@ -115,7 +119,7 @@ public abstract class Player {
 
     public String attack(Player p, Weapon w){
         System.out.println(w.getRange());
-        if(Math.abs(p.getPosition() - position) <= w.getRange()){
+        if(Math.abs(p.getPosition() - getPosition()) <= w.getRange()){
             Random rand = new Random();
             int roll = rand.nextInt(20) + 1;
             if(roll >= p.getAC()) {
@@ -131,16 +135,16 @@ public abstract class Player {
             return("Player not in range. \n");
         }
     }
-
-    public void move(boolean foreward, int distance){
-        if(distance <= playerRace.getSpeed()){
-            if(foreward){
-                position += distance;
-            }
-            else{
-                position -= distance;
-            }
+    //the position is calculated by making a square of the coords.
+    public String move(int x, int y){
+        if(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) <= playerRace.getSpeed()){
+            int formerX = positionX;
+            int formerY = positionY;
+            positionX += x;
+            positionY += y;
+            return(getName() + " moves from (" + formerX + "," + formerY + ") to (" + positionX + "," + positionY + "). \n");
         }
+        return(getName() + " cannot move that far. \n");
     }
 
     public void longRest(){
@@ -392,15 +396,6 @@ public abstract class Player {
         else{
             return 10;
         }
-    }
-
-    public int makeHit(){
-        Random rand = new Random();
-        int sum = 0;
-        for(int i = 1; i <= userLevel; i++){
-            sum += rand.nextInt(hitDie) + 1;
-        }
-        return sum;
     }
 
     public int getCurrentHP(){ return currentHP; }
