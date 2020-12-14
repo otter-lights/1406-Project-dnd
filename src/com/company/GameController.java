@@ -308,23 +308,28 @@ public class GameController extends Application {
                 } else if (store.getArmorList().getSelectionModel().isEmpty() && store.getRangedList().getSelectionModel().isEmpty()){
                     store.purchase(store.getItem(store.getMeleeList().getSelectionModel().getSelectedItem()));
                 }
+                store.setGoldPiecesBox();
+                store.updateListView(model.getPrimaryPlayer().getInventory(), store.getInventoryList());
             }
         });
 
-        store.getArmorList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+        store.getArmorList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
+                System.out.println("a");
                 store.getMeleeList().getSelectionModel().clearSelection();
                 store.getRangedList().getSelectionModel().clearSelection();
             }
         });
-        store.getMeleeList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+        store.getMeleeList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
+                System.out.println("a");
                 store.getArmorList().getSelectionModel().clearSelection();
                 store.getRangedList().getSelectionModel().clearSelection();
             }
         });
-        store.getRangedList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+        store.getRangedList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
+                System.out.println("a");
                 store.getMeleeList().getSelectionModel().clearSelection();
                 store.getArmorList().getSelectionModel().clearSelection();
             }

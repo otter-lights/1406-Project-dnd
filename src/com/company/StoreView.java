@@ -17,6 +17,7 @@ public class StoreView extends GamePane{
     private Button purchaseButton, exitButton;
     private TextArea descriptionBox = new TextArea();
     private Game model;
+    private TextField goldPieces = new TextField();
     private HashMap<String, Item> items = new HashMap<String, Item>(){{
         put("Cloth Armor", new Armor("Cloth Armor", 1, 2.0, 11, 1, "Light", 20));
         put("Padded Armor", new Armor("Padded Armor", 5, 8.0, 11, 1, "Light", 50));
@@ -38,7 +39,7 @@ public class StoreView extends GamePane{
         put("Wyvern Bone Armor", new Armor("Wyvern Bone Armor", 600, 40.0, 17, 0, "Heavy", -1));
         put("Acrobat's Staff", new Melee("Acrobat's Staff", 3, 2.0, 4,"bludgeoning", false));
         put("Bladed Knuckle Duster", new Melee("Bladed Knuckle Duster", 2, 1.0, 4, "slashing", false));
-        put("Brandistoc", new Melee("Brandistock", 10, 4.0, 8, "piercing", true));
+        put("Brandistock", new Melee("Brandistock", 10, 4.0, 8, "piercing", true));
         put("Broad Claw", new Melee("Broad Claw", 25, 3.0, 4, "slashing", false));
         put("Horn Knife", new Melee("Horn Knife", 10, 2.0, 4, "piercing", false));
         put("Motherwrench", new Melee("Motherwrench", 6, 10.0, 6, "bludgeoning", false));
@@ -131,7 +132,6 @@ public class StoreView extends GamePane{
         descriptionBox.setEditable(false);
         descriptionBox.setWrapText(true);
 
-        TextField goldPieces = new TextField();
         goldPieces.relocate(675, 395);
         goldPieces.setPrefSize(105, 30);
         goldPieces.setEditable(false);
@@ -160,6 +160,7 @@ public class StoreView extends GamePane{
     public ListView<String> getArmorList() {return armorList;}
     public ListView<String> getMeleeList() {return meleeList;}
     public ListView<String> getRangedList() {return rangedList;}
+    public ListView<String> getInventoryList() { return inventoryList; }
     public void purchase(Item item){ model.getGeneralStore().purchase(item, model.getPrimaryPlayer());}
 
     public void update(){
@@ -169,10 +170,15 @@ public class StoreView extends GamePane{
         updateListView(model.getPrimaryPlayer().getInventory(), inventoryList);
     }
 
-    private void updateListView(ArrayList<Item> itemList, ListView<String> listView){
+    protected void updateListView(ArrayList<Item> itemList, ListView<String> listView){
         for(Item i: itemList){
             listView.getItems().add(i.getName());
         }
+        setGoldPiecesBox();
+    }
+
+    public void setGoldPiecesBox(){
+        goldPieces.setText(String.valueOf(model.getPrimaryPlayer().getPurse()));
     }
 
     public Item getItem(String itemName){ return items.get(itemName); }
