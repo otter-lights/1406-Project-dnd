@@ -38,17 +38,13 @@ public class Cleric extends MagicUser{
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
     public void levelUp(){
-        userLevel += 1;
         maxHP += 5;
         useableSpells = new Spell[getLevel() + abilityMods[4]];
-
     }
     public int[] getSpellSlots(){return clericTable[userLevel];}
     public String getClassName(){return "Cleric";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
-
-
 
     public boolean isUseable(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
@@ -58,15 +54,6 @@ public class Cleric extends MagicUser{
             }
         }
         return false;
-    }
-
-    //Override from player
-    public void longRest(){
-        int currentLevel = userLevel;
-        if(setLevel() > currentLevel){
-            //you leveled up
-            levelUp();
-        }
     }
 
     public void prepSpell(Spell s){
@@ -87,7 +74,4 @@ public class Cleric extends MagicUser{
             }
         }
     }
-
-    public void attack(Player p, Weapon w){}
-
 }

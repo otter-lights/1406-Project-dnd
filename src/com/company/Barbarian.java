@@ -18,7 +18,6 @@ public class Barbarian extends NonMagicUser{
         super(name, chosenRace, gold, hitDie, xp, abilityScores);
     }
     public void levelUp(){
-        userLevel += 1;
         maxHP += 7;
     }
     public void longRest(){

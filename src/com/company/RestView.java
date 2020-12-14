@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class RestView extends GamePane {
+public class RestView extends Pane implements GamePane{
     private ListView<Player> playerOptions, opponents;
     private ListView<Spell> allSpells, useableSpells;
     private Button newCharacter, visitStore, endProgram, changePrimary, startRound, prepSpell;

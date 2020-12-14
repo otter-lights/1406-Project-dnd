@@ -36,7 +36,6 @@ public class Fighter extends NonMagicUser{
     }
 
     public void levelUp(){
-        userLevel += 1;
         maxHP += 6;
     }
     public void longRest(){
@@ -50,9 +49,6 @@ public class Fighter extends NonMagicUser{
         secondWind = true;
     }
 
-    public void attack(Player p, Weapon w){
-
-    }
     public String getClassName(){return "Fighter";}
     public boolean getSecondWind(){return secondWind;}
 

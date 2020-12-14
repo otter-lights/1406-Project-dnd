@@ -21,7 +21,6 @@ public class Rogue extends NonMagicUser{
         super(name, chosenRace, gold, xp, hitDie, abilityScores);
     }
     public void levelUp(){
-        userLevel += 1;
         maxHP += 5;
     }
     public String getClassName(){return "Rouge";}

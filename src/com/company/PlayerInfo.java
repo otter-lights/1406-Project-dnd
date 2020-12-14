@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
-public class PlayerInfo extends Pane {
+public class PlayerInfo extends Pane{
     private ListView<Weapon> weapons;
     private ListView<Spell> spells;
     private Player p;
@@ -93,13 +93,13 @@ public class PlayerInfo extends Pane {
         barbarianPerk = new Button("Use Rage");
         barbarianPerk.relocate(10,360);
         barbarianPerk.setPrefSize(200,30);
-
         getChildren().addAll(spells, spellLabel, weapons, weaponLabel, barbarianPerk, fighterPerk);
     }
     public ListView<Weapon> getWeapons(){return weapons;}
     public ListView<Spell> getSpells(){return spells;}
     public Button getBarbarianPerk(){return barbarianPerk;}
     public Button getFighterPerk(){return fighterPerk;}
+
 
     public void update(Player updated){
         p = updated;
