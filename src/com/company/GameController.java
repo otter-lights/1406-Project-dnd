@@ -341,15 +341,27 @@ public class GameController extends Application {
         });
 
         store.getArmorList().setOnMouseClicked(e -> {
-            store.setDescription((String)store.getArmorList().getSelectionModel().getSelectedItem());
+            if (store.getArmorList().getSelectionModel().getSelectedIndex() > -1){
+                store.setDescription((String)store.getArmorList().getSelectionModel().getSelectedItem());
+            }
         });
 
         store.getMeleeList().setOnMouseClicked(e -> {
-            store.setDescription((String)store.getMeleeList().getSelectionModel().getSelectedItem());
+            if (store.getMeleeList().getSelectionModel().getSelectedIndex() > -1) {
+                store.setDescription((String) store.getMeleeList().getSelectionModel().getSelectedItem());
+            }
         });
 
         store.getRangedList().setOnMouseClicked(e -> {
-            store.setDescription((String)store.getRangedList().getSelectionModel().getSelectedItem());
+            if (store.getRangedList().getSelectionModel().getSelectedIndex() > -1) {
+                store.setDescription((String) store.getRangedList().getSelectionModel().getSelectedItem());
+            }
+        });
+
+        store.getInventoryList().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent e){
+                e.consume();
+            }
         });
 
 

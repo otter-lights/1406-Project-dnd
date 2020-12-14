@@ -68,6 +68,7 @@ public class StoreView extends Pane implements GamePane{
         inventoryList.setPrefSize(250, 325);
         inventoryList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+
         descriptionBox.relocate(20, 455);
         descriptionBox.setPrefSize(490, 125);
         descriptionBox.setEditable(false);
@@ -80,9 +81,6 @@ public class StoreView extends Pane implements GamePane{
         purchaseButton = new Button("Purchase");
         purchaseButton.relocate(530,455);
         purchaseButton.setPrefSize(150,45);
-        //purchaseButton.disableProperty().bind(armorList.getSelectionModel().selectedItemProperty().isNull());
-        //purchaseButton.disableProperty().bind(meleeList.getSelectionModel().selectedItemProperty().isNull());
-        //purchaseButton.disableProperty().bind(rangedList.getSelectionModel().selectedItemProperty().isNull());
         BooleanBinding booleanBinding = armorList.getSelectionModel().selectedItemProperty().isNull().and(
                 rangedList.getSelectionModel().selectedItemProperty().isNull().and(
                         meleeList.getSelectionModel().selectedItemProperty().isNull()));
@@ -111,6 +109,9 @@ public class StoreView extends Pane implements GamePane{
     }
 
     public void update(){
+        armorList.getItems().clear();
+        meleeList.getItems().clear();
+        rangedList.getItems().clear();
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getArmor())), armorList);
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getMeleeWeapons())), meleeList);
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getRangedWeapons())), rangedList);
