@@ -64,26 +64,25 @@ public class Game {
         //get saved characters
         try{
             BufferedReader in = new BufferedReader(new FileReader(filename));
+            String firstLine = in.readLine();
             boolean EOF = false;
-            while(!EOF){
-                try {
-                    String name = in.readLine();
-                    String className = in.readLine();
-                    String raceName = in.readLine();
-                    int xp = Integer.parseInt(in.readLine());
-                    int hitDie = Integer.parseInt(in.readLine());
-                    int[] abilityScores = {Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine())};
-                    int gold = Integer.parseInt(in.readLine());
+            while(firstLine != null){
+                String name = firstLine;
+                String className = in.readLine();
+                String raceName = in.readLine();
+                int xp = Integer.parseInt(in.readLine());
+                int hitDie = Integer.parseInt(in.readLine());
+                int[] abilityScores = {Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine()), Integer.parseInt(in.readLine())};
+                int gold = Integer.parseInt(in.readLine());
 
-                    Player p = makePlayer(name, raceName, className, xp, hitDie, abilityScores, gold);
-                    for(int i = 0; i < in.readInt(); i++){
-                        p.addToInventory(Store.getItemFromHashMap(in.readUTF()));
-                    }
-                    addPlayer(p);
+                Player p = makePlayer(name, raceName, className, xp, hitDie, abilityScores, gold);
+                int numLines = Integer.parseInt(in.readLine());
+                System.out.println(numLines);
+                for(int i = 0; i < numLines; i++){
+                    p.addToInventory(Store.getItemFromHashMap(in.readLine()));
                 }
-                catch(EOFException e){
-                    EOF = true;
-                }
+                addPlayer(p);
+                firstLine = in.readLine();
             }
         }
         catch(FileNotFoundException e){
@@ -112,15 +111,18 @@ public class Game {
 
                 out.println(p.getPurse());
 
-                out.writeInt(p.getInventory().size());
+                out.println(p.getInventory().size());
                 for(Item item: p.getInventory()){
-                    out.writeUTF(item.getName());
+                    out.println(item.getName());
                 }
+                out.flush();
             }
         }
         catch(FileNotFoundException e){
+            System.out.println("test1");
         }
         catch (IOException e){
+            System.out.println("test2");
         }
     }
     public static Player makePlayer(String name, String raceName, String className, int xp, int hitDie, int[] abilityScores, int gold){

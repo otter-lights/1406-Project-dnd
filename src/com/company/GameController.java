@@ -5,6 +5,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
@@ -17,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.beans.value.ObservableValue;
 
 import javax.swing.*;
+import java.io.*;
 import java.util.Random;
 
 public class GameController extends Application {
@@ -25,6 +27,7 @@ public class GameController extends Application {
         Game model = new Game();
         this.model = model;
         Pane currentView = new Pane();
+
 
         StoreView store = new StoreView(model);
         FightView fight = new FightView(model);
@@ -243,7 +246,7 @@ public class GameController extends Application {
                     model.getSecondaryPlayer().longRest();
 
                     fight.getDialogBox().clear();
-                    fight.getDialogBox().setText("Dialog Box");
+                    fight.getDialogBox().setText("Dialog Box\n");
 
                     JOptionPane.showMessageDialog(null, model.getSecondaryPlayer().getName() + " has passed out. \n" + model.getPrimaryPlayer().getName() + " is the winner. \n");
                     model.endRound();
@@ -279,12 +282,13 @@ public class GameController extends Application {
                     model.getSecondaryPlayer().longRest();
 
                     fight.getDialogBox().clear();
-                    fight.getDialogBox().setText("Dialog Box");
+                    fight.getDialogBox().setText("Dialog Box\n");
 
                     JOptionPane.showMessageDialog(null, model.getPrimaryPlayer().getName() + " has passed out. \n" + model.getSecondaryPlayer().getName() + " is the winner. \n");
                     model.endRound();
                     currentView.getChildren().clear();
                     currentView.getChildren().add(rest);
+                    rest.update();
                 }
                 model.setAttacked();
                 fight.update();
@@ -292,12 +296,38 @@ public class GameController extends Application {
         });
         fight.getP1Move().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
-
+                String msg = model.getPrimaryPlayer().move(Integer.parseInt(fight.getP1Right().getText()), Integer.parseInt(fight.getP1Up().getText()));
+                fight.getDialogBox().appendText(msg);
+                model.setMoved();
+                fight.update();
+            }
+        });
+        fight.getP1Right().setOnKeyTyped(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent keyEvent) {
+                fight.update();
+            }
+        });
+        fight.getP1Up().setOnKeyTyped(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent keyEvent) {
+                fight.update();
+            }
+        });
+        fight.getP2Right().setOnKeyTyped(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent keyEvent) {
+                fight.update();
+            }
+        });
+        fight.getP2Up().setOnKeyTyped(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent keyEvent) {
+                fight.update();
             }
         });
         fight.getP2Move().setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent) {
-
+                String msg = model.getSecondaryPlayer().move(Integer.parseInt(fight.getP2Right().getText()), Integer.parseInt(fight.getP2Up().getText()));
+                fight.getDialogBox().appendText(msg);
+                model.setMoved();
+                fight.update();
             }
         });
 

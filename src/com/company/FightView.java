@@ -141,6 +141,18 @@ public class FightView extends Pane implements GamePane {
         else{
             p2Attack.setDisable(true);
         }
+        if(model.canMove() && p1Right.getText().matches("\\d*") && p1Up.getText().matches("\\d*")){
+            p1Move.setDisable(false);
+        }
+        else{
+            p1Move.setDisable(true);
+        }
+        if(model.canMove() && p2Right.getText().matches("\\d*") && p2Up.getText().matches("\\d*")){
+            p2Move.setDisable(false);
+        }
+        else{
+            p2Move.setDisable(true);
+        }
         if(model.primeTurn()){
             p1Attack.setVisible(true);
             p1Move.setVisible(true);
