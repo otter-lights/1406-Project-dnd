@@ -222,8 +222,8 @@ public class GameController extends Application {
                     model.getPrimaryPlayer().winsAgainst(model.getSecondaryPlayer());
                     model.getSecondaryPlayer().losesAgainst(model.getPrimaryPlayer());
 
-                    model.getPrimaryPlayer().checklvlUp();
-                    model.getSecondaryPlayer().checklvlUp();
+                    model.getPrimaryPlayer().longRest();
+                    model.getSecondaryPlayer().longRest();
                     fight.getDialogBox().clear();
                     fight.getDialogBox().setText("Dialog Box");
 
@@ -249,8 +249,8 @@ public class GameController extends Application {
                     model.getSecondaryPlayer().winsAgainst(model.getPrimaryPlayer());
                     model.getPrimaryPlayer().losesAgainst(model.getSecondaryPlayer());
 
-                    model.getPrimaryPlayer().checklvlUp();
-                    model.getSecondaryPlayer().checklvlUp();
+                    model.getPrimaryPlayer().longRest();
+                    model.getSecondaryPlayer().longRest();
                     fight.getDialogBox().clear();
                     fight.getDialogBox().setText("Dialog Box");
 

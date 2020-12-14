@@ -9,7 +9,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 
-public class FightView extends GamePane {
+public class FightView extends Pane implements GamePane {
     private Game model;
     private Player p1;
     private Player p2;

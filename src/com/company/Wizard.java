@@ -39,8 +39,8 @@ public class Wizard extends MagicUser{
         useableSpells = new Spell[getLevel() + abilityMods[3]];
     }
     public void levelUp(){
-        userLevel += 1;
         maxHP += 4;
+        useableSpells = new Spell[getLevel() + abilityMods[3]];
     }
     public int[] getSpellSlots(){return wizardTable[userLevel];}
     public String getClassName(){return "Wizard";}
@@ -76,7 +76,4 @@ public class Wizard extends MagicUser{
             }
         }
     }
-
-    public void attack(Player p, Weapon w){}
-
 }

@@ -95,9 +95,6 @@ public abstract class Player {
         experience += 50 * opponent.getLevel();
         longRest();
     }
-    public void checklvlUp(){
-
-    }
 
 
     public void attack(Player p, Weapon w){
@@ -129,18 +126,12 @@ public abstract class Player {
         }
     }
 
-
-
-
-
     public void longRest(){
         int currentLevel = userLevel;
         if(setLevel() > currentLevel){
-            //you leveled up
             levelUp();
         }
         currentHP = maxHP;
-        Store generalStore = new Store(4,4,6);
     }
     public void addXP(int xp){
         experience += xp;

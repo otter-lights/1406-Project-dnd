@@ -18,17 +18,14 @@ public class Barbarian extends NonMagicUser{
         super(name, chosenRace, gold, hitDie, xp, abilityScores);
     }
     public void levelUp(){
-        userLevel += 1;
         maxHP += 7;
     }
     public void longRest(){
         int currentLevel = userLevel;
         if(setLevel() > currentLevel){
-            //you leveled up
             levelUp();
         }
         currentHP = maxHP;
-        Store generalStore = new Store(4,4,6);
         ragesUsed = 0;
     }
     public String getClassName(){return "Barbarian";}

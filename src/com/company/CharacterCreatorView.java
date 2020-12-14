@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class CharacterCreatorView extends GamePane {
+public class CharacterCreatorView extends Pane implements GamePane  {
     private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "HalfElf", "HalfOrc", "Halfling", "Human", "Tiefling"};
     private String[] classes = new String[] {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rogue", "Sorcerer", "Wizard"};
     private Integer[] level = new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};

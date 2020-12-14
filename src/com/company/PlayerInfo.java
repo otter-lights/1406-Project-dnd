@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 
-public class PlayerInfo extends Pane {
+public class PlayerInfo extends Pane{
     private ListView<Weapon> weapons;
     private ListView<Spell> spells;
     private Player p;
@@ -100,6 +100,7 @@ public class PlayerInfo extends Pane {
     public ListView<Spell> getSpells(){return spells;}
     public Button getBarbarianPerk(){return barbarianPerk;}
     public Button getFighterPerk(){return fighterPerk;}
+
 
     public void update(Player updated){
         p = updated;
