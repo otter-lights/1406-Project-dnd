@@ -42,7 +42,7 @@ public class Druid extends MagicUser{
         maxHP += 5;
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
-    public int[] getSpellSlots(){return druidTable[userLevel];}
+    public int[] getSpellSlots(){return druidTable[userLevel - 1];}
     public String getClassName(){return "Druid";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
@@ -61,7 +61,7 @@ public class Druid extends MagicUser{
     public void prepSpell(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
-            if(curSpell == null && druidTable[userLevel][s.getLevel()+1] != 0){
+            if(curSpell == null && druidTable[userLevel - 1][s.getLevel()+1] != 0){
                 useableSpells[i] = s;
                 break;
             }

@@ -33,7 +33,7 @@ public class Sorcerer extends MagicUser{
     public Sorcerer(String chosenRace, String name, int level){
         super(name, chosenRace, 70, 6, 5, level);
         useableSpells = new Spell[getLevel() + abilityMods[5]];
-        spellSlots = sorcererTable[userLevel];
+        spellSlots = sorcererTable[userLevel - 1];
     }
     public Sorcerer(String chosenRace, String name, int gold,  int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie,5, abilityScores);
@@ -42,10 +42,10 @@ public class Sorcerer extends MagicUser{
     public void levelUp(){
         userLevel += 1;
         maxHP += 4;
-        spellSlots = sorcererTable[userLevel];
+        spellSlots = sorcererTable[userLevel - 1];
     }
 
-    public int[] getSpellSlots(){return sorcererTable[userLevel];}
+    public int[] getSpellSlots(){return sorcererTable[userLevel - 1];}
     public String getClassName(){return "Sorcerer";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
@@ -67,7 +67,7 @@ public class Sorcerer extends MagicUser{
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
             //this makes sure that the bard is able to cast a spell of this level before learning it
-            if(curSpell == null && sorcererTable[userLevel][s.getLevel()+1] != 0){
+            if(curSpell == null && sorcererTable[userLevel - 1][s.getLevel()+1] != 0){
                 useableSpells[i] = s;
                 break;
             }

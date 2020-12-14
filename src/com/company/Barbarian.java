@@ -45,7 +45,7 @@ public class Barbarian extends NonMagicUser{
             Random rand = new Random();
             int roll = rand.nextInt(20) + 1;
             if(roll >= p.getAC()) {
-                roll = rand.nextInt(12) + 1  + rageDamage[userLevel];
+                roll = rand.nextInt(12) + 1  + rageDamage[userLevel - 1];
                 p.takeDamage(roll);
                 return("Rage Attack Hits, " + p.getName() + " takes " + roll + " damage. \n");
             }

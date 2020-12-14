@@ -28,11 +28,12 @@ public class Rogue extends NonMagicUser{
 
     public void attack(Player p, Weapon w){
         Random random = new Random();
-        int sneakAttack = random.nextInt(3);
-        if (sneakAttack == 0) {
+        int iSneakAttack = random.nextInt(3);
+        if (iSneakAttack == 0) {
             //yes sneak attack
             //damage(?) idk += roll however many times u need for your lvl^^ sneakAttack
             //attack:
+            //sneakAttack[userLevel - 1]
         }
     }
 }
