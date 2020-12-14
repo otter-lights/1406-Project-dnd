@@ -15,11 +15,11 @@ public class RestView extends GamePane {
     private ListView<Spell> allSpells, useableSpells;
     private Button newCharacter, visitStore, endProgram, changePrimary, startRound, prepSpell;
     private Game model;
-    private ComboBox classOptions;
+    private ComboBox classOptions, levelOptions;
     private ToggleGroup opponentOptions;
     private RadioButton o1, o2, o3;
     private Player p;
-    Label name, playerClass, playerRace, playerLevel, health, armorClass, strScore, dexScore, conScore, intScore, wisScore, chaScore, allSpellLabel, preparedSpellsLabel;
+    private Label name, playerClass, playerRace, playerLevel, health, armorClass, strScore, dexScore, conScore, intScore, wisScore, chaScore, allSpellLabel, preparedSpellsLabel;
 
 
     public RestView(Game model){
@@ -88,16 +88,22 @@ public class RestView extends GamePane {
 
         opponentOptions.selectToggle(o1);
 
-        o2 = new RadioButton("Opponent with Class Specified");
+        o2 = new RadioButton("Opponent from Class and Level");
         o2.setToggleGroup(opponentOptions);
         o2.relocate(540, 250);
 
 
-        ObservableList<String> options = FXCollections.observableArrayList("Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rouge", "Sorcerer", "Wizard");
-        classOptions = new ComboBox(options);
+        ObservableList<String> coptions = FXCollections.observableArrayList("Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rouge", "Sorcerer", "Wizard");
+        classOptions = new ComboBox(coptions);
         classOptions.relocate(560, 280);
-        classOptions.setPrefSize(200,20);
+        classOptions.setPrefSize(95,20);
         getChildren().add(classOptions);
+
+        ObservableList<String> loptions = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20");
+        levelOptions = new ComboBox(loptions);
+        levelOptions.relocate(665, 280);
+        levelOptions.setPrefSize(95,20);
+        getChildren().add(levelOptions);
 
         o3 = new RadioButton("Opponent from Character Options");
         o3.setToggleGroup(opponentOptions);
@@ -126,6 +132,7 @@ public class RestView extends GamePane {
     public ListView<Spell> getAllSpells(){return allSpells;}
     public ToggleGroup getOpponentOptions(){return opponentOptions;}
     public ComboBox getClassOptions(){return classOptions;}
+    public ComboBox getLevelOptions(){return levelOptions;}
     public ListView<Player> getOpponents(){return opponents;}
     public RadioButton getOption1(){return o1;}
     public RadioButton getOption2(){return o2;}
@@ -155,7 +162,7 @@ public class RestView extends GamePane {
             startRound.setDisable(false);
         }
         else if(opponentOptions.getSelectedToggle().equals(o2)){
-            if(classOptions.getSelectionModel().getSelectedIndex() >= 0){
+            if(classOptions.getSelectionModel().getSelectedIndex() >= 0 && levelOptions.getSelectionModel().getSelectedIndex() >= 0 ){
                 startRound.setDisable(false);
             }
             else{

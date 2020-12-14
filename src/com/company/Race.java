@@ -130,7 +130,6 @@ public class Race {
     }
     public int getSpeed(){return baseSpeed;}
     public String getRaceName(){return raceName;}
-  
     //Strength, Dex, Con, Int, Wis, Charisma
     public int[] getAbilityIncrease() {return abilityIncrease;}
 

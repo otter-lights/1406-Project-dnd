@@ -46,7 +46,7 @@ public class CharacterCreatorView extends GamePane {
     private String[] names = new String[135];
     private TextArea raceDescriptionBox = new TextArea();
     private TextArea classDescriptionBox = new TextArea();
-    Button createButton, nameButton;
+    private Button createButton, nameButton;
 
     public CharacterCreatorView() {
         Pane storeView = new Pane();
@@ -159,7 +159,7 @@ public class CharacterCreatorView extends GamePane {
 
     public void getRandomName(){
         if (names[0] == null){
-            String file = "/Users/awildecat/documents/GitHub/1406-Project-dnd/src/com/company/names.txt";
+            String file = System.getProperty("user.dir") + "/src/com/company/names.txt";
             nameBox.setText(getNames(file));
         } else{
             nameBox.setText(chooseName());

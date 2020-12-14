@@ -3,15 +3,15 @@ package com.company;
 import java.util.Objects;
 
 public class Spell {
-    String name;
-    boolean hasSave;
-    int savingThrow;
-    double save;
-    String damageDie;
-    int range;
+    private String name;
+    private boolean hasSave;
+    private int savingThrow;
+    private double save;
+    private String damageDie;
+    private int range;
     //cantrip is level 0
-    int level;
-    String damageType;
+    private int level;
+    private String damageType;
 
     public Spell(String name, int savingThrow, double save, String damageDie, int range, int level, String type){
         this.name = name;
@@ -62,4 +62,5 @@ public class Spell {
         String[] damage = damageDie.split(":");
         return name + ": Level " + level + " spell, " + damage[0] + "d" + damage[1]  + " " + damageType + " damage.";
     }
+    public String getName(){return name;}
 }

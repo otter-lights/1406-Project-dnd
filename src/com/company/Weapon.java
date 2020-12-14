@@ -5,6 +5,7 @@ public class Weapon extends Item{
     private boolean twoHanded;
     private String type;
     private int range;
+
     public Weapon(String name, int cost, double weight, int damage, String type, boolean twoHanded, int range){
         super(cost, weight, name);
         this.damage = damage;

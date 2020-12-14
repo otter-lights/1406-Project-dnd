@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Rogue extends NonMagicUser{
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
-    String[] sneakAttack = new String[] {"1d6", "1d6", "2d6", "2d6", "3d6", "3d6", "4d6", "4d6", "5d6", "5d6", "6d6", "6d6", "7d6", "7d6", "8d6", "8d6", "9d6", "9d6", "10d6", "10d6"};
+    private static String[] sneakAttack = new String[] {"1d6", "1d6", "2d6", "2d6", "3d6", "3d6", "4d6", "4d6", "5d6", "5d6", "6d6", "6d6", "7d6", "7d6", "8d6", "8d6", "9d6", "9d6", "10d6", "10d6"};
     /*
     SNEAK ATTACK
 
@@ -15,7 +15,7 @@ public class Rogue extends NonMagicUser{
      */
 
     public Rogue(String chosenRace, String name, int level){
-        super(name, chosenRace, 140, 0, 8, level);
+        super(name, chosenRace, 140, 8, level);
     }
     public Rogue(String chosenRace, String name, int gold, int xp, int hitDie, int[] abilityScores){
         super(name, chosenRace, gold, xp, hitDie, abilityScores);
