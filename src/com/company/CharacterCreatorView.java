@@ -5,10 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.ListView;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.TilePane;
 import java.util.Random;
 
 import java.io.IOException;
@@ -20,7 +17,7 @@ public class CharacterCreatorView extends GamePane {
     private String[] races = new String[] {"Dragonborn", "Dwarf", "Gnome", "Elf", "HalfElf", "HalfOrc", "Halfling", "Human", "Tiefling"};
     private String[] classes = new String[] {"Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Rogue", "Sorcerer", "Wizard"};
     private Integer[] level = new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-    HashMap<String, String> descriptions = new HashMap<String,String>() {{
+    private HashMap<String, String> descriptions = new HashMap<String,String>() {{
         put("Dragonborn", "Dragonborn look very much like dragons standing erect in humanoid form, though they lack wings or a tail.");
         put("Dwarf", "Bold and hardy, dwarves are known as skilled warriors, minors, and workers of stone and metal.");
         put("Gnome", "A gnome's energy and enthusiasm for living shines through every inch of their tiny body.");

@@ -8,7 +8,7 @@ public class Armor extends Item{
     private String type;
 
     public Armor(String name, int cost, double weight, int armorClass, int modifier, String type, int maxHP){
-        super(cost, weight);
+        super(cost, weight, name);
         this.name = name;
         this.armorClass = armorClass;
         this.modifier = modifier;

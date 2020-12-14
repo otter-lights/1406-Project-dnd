@@ -58,7 +58,7 @@ public class Store {
                                                       new Ranged("Bolas", 1, 2.0, 4, "bludgeoning", false, 20),
                                                       new Ranged("Bowblade", 250, 10.0, 10, "piercing", true, 100),
                                                       new Ranged("Chakri", 5, 0.5, 4, "slashing", false, 20),
-                                                      new Ranged("Crowwbow", 300, 2.0, 6, "piercing", false, 30),
+                                                      new Ranged("Crossbow", 300, 2.0, 6, "piercing", false, 30),
                                                       new Ranged("Greatbow", 65, 5.0, 10, "piercing", true, 200),
                                                       new Ranged("War Sling", 5, 0.5, 8, "bludgeoning", false, 60),
                                                       new Ranged("Spear-thrower", 5, 1.0, 8, "piercing", true, 50),
