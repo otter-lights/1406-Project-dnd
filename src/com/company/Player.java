@@ -17,6 +17,7 @@ public abstract class Player {
     protected String name;
     protected int goldPieces;
     protected ArrayList<Item> inventory;
+    private double carryingWeight = 0;
 
     //strength = 0, dexterity = 1, constitution = 2, intelligence = 3, wisdom = 4, charisma = 5
     protected int[] abilityScores = new int[6];
@@ -267,20 +268,23 @@ public abstract class Player {
     // A players carrying capacity depends on the size of their Race, this function allows the item to be added to inventory as long as the total weight of the items is under their carrying capacity
     // For now I am ignoring the decrease in speed that comes with higher weights, potentially added at a later date.
     public boolean addToInventory(Item newItem){
-        int weight = 0;
-        for(Item i: inventory){
-            weight += i.getWeight();
-        }
-        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && weight + newItem.getWeight() <= 15*abilityScores[0]){
+        //int weight = 0;
+        //for(Item i: inventory){
+            //weight += i.getWeight();
+        //}
+        if((playerRace.getSize().equals("Small") || playerRace.getSize().equals("Medium")) && carryingWeight + newItem.getWeight() <= 15*abilityScores[0]){
             inventory.add(newItem);
+            carryingWeight += newItem.getWeight();
             return true;
         }
-        else if(playerRace.getSize().equals("Tiny") && weight + newItem.getWeight() <= (15*abilityScores[0])/2){
+        else if(playerRace.getSize().equals("Tiny") && carryingWeight + newItem.getWeight() <= (15*abilityScores[0])/2){
             inventory.add(newItem);
+            carryingWeight += newItem.getWeight();
             return true;
         }
-        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && weight + newItem.getWeight() <= 2*15*abilityScores[0]){
+        else if((playerRace.getSize().equals("Large") || playerRace.getSize().equals("Huge") || playerRace.getSize().equals("Gargantuan")) && carryingWeight + newItem.getWeight() <= 2*15*abilityScores[0]){
             inventory.add(newItem);
+            carryingWeight += newItem.getWeight();
             return true;
         }
         return false;

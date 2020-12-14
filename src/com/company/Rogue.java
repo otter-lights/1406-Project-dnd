@@ -27,11 +27,28 @@ public class Rogue extends NonMagicUser{
 
     public void attack(Player p, Weapon w){
         Random random = new Random();
-        int sneakAttack = random.nextInt(3);
-        if (sneakAttack == 0) {
-            //yes sneak attack
-            //damage(?) idk += roll however many times u need for your lvl^^ sneakAttack
-            //attack:
+        int iSneakAttack = random.nextInt(3);
+        int extraDamage = 0;
+        if (iSneakAttack == 0) {
+            for (Integer i = 0; i <= sneakAttack[userLevel - 1].charAt(0); i++){
+                extraDamage += random.nextInt(sneakAttack[userLevel - 1].charAt(2));
+            }
+        }
+        if(Math.abs(p.getPosition() - position) <= w.getRange()){
+            Random rand = new Random();
+            int roll = rand.nextInt(20) + 1;
+            if(roll >= p.getAC()) {
+                roll = rand.nextInt(w.getDamage()) + 1;
+                p.takeDamage(roll + extraDamage);
+                System.out.println("Attack Hits");
+            }
+            else{
+                System.out.println("Attack Misses");
+            }
+        }
+        else{
+            System.out.println("Player not in range");
         }
     }
+
 }

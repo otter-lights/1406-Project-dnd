@@ -42,7 +42,7 @@ public class Wizard extends MagicUser{
         maxHP += 4;
         useableSpells = new Spell[getLevel() + abilityMods[3]];
     }
-    public int[] getSpellSlots(){return wizardTable[userLevel];}
+    public int[] getSpellSlots(){return wizardTable[userLevel - 1];}
     public String getClassName(){return "Wizard";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
@@ -61,7 +61,7 @@ public class Wizard extends MagicUser{
     public void prepSpell(Spell s){
         for(int i = 0; i < useableSpells.length; i++){
             Spell curSpell = useableSpells[i];
-            if(curSpell == null && wizardTable[userLevel][s.getLevel()+1] != 0){
+            if(curSpell == null && wizardTable[userLevel - 1][s.getLevel()+1] != 0){
                 useableSpells[i] = s;
                 break;
             }

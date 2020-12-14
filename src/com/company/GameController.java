@@ -304,28 +304,36 @@ public class GameController extends Application {
         store.getPurchaseButton().setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent actionEvent){
                 if (store.getArmorList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
-                    store.purchase(store.getItem(store.getRangedList().getSelectionModel().getSelectedItem()));
+                    if (store.purchase(store.getItem(store.getRangedList().getSelectionModel().getSelectedItem()))){
+                        store.updateAfterPurchase();
+                    }
+
                 } else if (store.getRangedList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
-                    store.purchase(store.getItem(store.getArmorList().getSelectionModel().getSelectedItem()));
+                    if (store.purchase(store.getItem(store.getArmorList().getSelectionModel().getSelectedItem()))){
+                        store.updateAfterPurchase();
+                    }
                 } else if (store.getArmorList().getSelectionModel().isEmpty() && store.getRangedList().getSelectionModel().isEmpty()){
-                    store.purchase(store.getItem(store.getMeleeList().getSelectionModel().getSelectedItem()));
+                    if (store.purchase(store.getItem(store.getMeleeList().getSelectionModel().getSelectedItem()))) {
+                        store.updateAfterPurchase();
+                    }
                 }
+
             }
         });
 
-        store.getArmorList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+        store.getArmorList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
                 store.getMeleeList().getSelectionModel().clearSelection();
                 store.getRangedList().getSelectionModel().clearSelection();
             }
         });
-        store.getMeleeList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+        store.getMeleeList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
                 store.getArmorList().getSelectionModel().clearSelection();
                 store.getRangedList().getSelectionModel().clearSelection();
             }
         });
-        store.getRangedList().setOnMouseClicked(new EventHandler<MouseEvent>(){
+        store.getRangedList().setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent e){
                 store.getMeleeList().getSelectionModel().clearSelection();
                 store.getArmorList().getSelectionModel().clearSelection();

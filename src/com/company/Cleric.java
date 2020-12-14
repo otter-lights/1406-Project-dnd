@@ -41,7 +41,7 @@ public class Cleric extends MagicUser{
         maxHP += 5;
         useableSpells = new Spell[getLevel() + abilityMods[4]];
     }
-    public int[] getSpellSlots(){return clericTable[userLevel];}
+    public int[] getSpellSlots(){return clericTable[userLevel - 1];}
     public String getClassName(){return "Cleric";}
     public Spell[] getAllSpells(){return allSpells;}
     public Spell[] getUseableSpells(){return useableSpells;}
