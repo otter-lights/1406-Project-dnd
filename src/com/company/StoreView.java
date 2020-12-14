@@ -18,7 +18,7 @@ public class StoreView extends GamePane{
     private TextArea descriptionBox = new TextArea();
     private Game model;
     private TextField goldPieces = new TextField();
-    private HashMap<String, Item> items = new HashMap<String, Item>(){{
+    private static HashMap<String, Item> items = new HashMap<String, Item>(){{
         put("Cloth Armor", new Armor("Cloth Armor", 1, 2.0, 11, 1, "Light", 20));
         put("Padded Armor", new Armor("Padded Armor", 5, 8.0, 11, 1, "Light", 50));
         put("Assassin's Garb", new Armor("Assassin's Garb", 120, 6.0, 12, 1,"Light", -1));
@@ -161,7 +161,13 @@ public class StoreView extends GamePane{
     public ListView<String> getMeleeList() {return meleeList;}
     public ListView<String> getRangedList() {return rangedList;}
     public ListView<String> getInventoryList() { return inventoryList; }
-    public void purchase(Item item){ model.getGeneralStore().purchase(item, model.getPrimaryPlayer());}
+    public Boolean purchase(Item item){
+        if (model.getGeneralStore().purchase(item, model.getPrimaryPlayer())){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public void update(){
         updateListView(new ArrayList<Item>(Arrays.asList(model.getGeneralStore().getArmor())), armorList);
@@ -170,11 +176,20 @@ public class StoreView extends GamePane{
         updateListView(model.getPrimaryPlayer().getInventory(), inventoryList);
     }
 
+    public void updateAfterPurchase(){
+        setGoldPiecesBox();
+        updateInventoryListView(model.getPrimaryPlayer().getInventory().get(model.getPrimaryPlayer().getInventory().size() - 1).getName(), getInventoryList());
+    }
+
     protected void updateListView(ArrayList<Item> itemList, ListView<String> listView){
         for(Item i: itemList){
             listView.getItems().add(i.getName());
         }
         setGoldPiecesBox();
+    }
+
+    protected void updateInventoryListView(String name, ListView<String> listView){
+        listView.getItems().add(name);
     }
 
     public void setGoldPiecesBox(){
@@ -186,4 +201,6 @@ public class StoreView extends GamePane{
     public void setDescription(String item){
         descriptionBox.setText(items.get(item).toString());
     }
+
+    //public static HashMap<String, Item> getItemFromHashMap()
 }

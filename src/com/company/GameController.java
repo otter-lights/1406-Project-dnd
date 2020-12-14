@@ -302,14 +302,20 @@ public class GameController extends Application {
         store.getPurchaseButton().setOnAction(new EventHandler<ActionEvent>(){
             public void handle(ActionEvent actionEvent){
                 if (store.getArmorList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
-                    store.purchase(store.getItem(store.getRangedList().getSelectionModel().getSelectedItem()));
+                    if (store.purchase(store.getItem(store.getRangedList().getSelectionModel().getSelectedItem()))){
+                        store.updateAfterPurchase();
+                    }
+
                 } else if (store.getRangedList().getSelectionModel().isEmpty() && store.getMeleeList().getSelectionModel().isEmpty()){
-                    store.purchase(store.getItem(store.getArmorList().getSelectionModel().getSelectedItem()));
+                    if (store.purchase(store.getItem(store.getArmorList().getSelectionModel().getSelectedItem()))){
+                        store.updateAfterPurchase();
+                    }
                 } else if (store.getArmorList().getSelectionModel().isEmpty() && store.getRangedList().getSelectionModel().isEmpty()){
-                    store.purchase(store.getItem(store.getMeleeList().getSelectionModel().getSelectedItem()));
+                    if (store.purchase(store.getItem(store.getMeleeList().getSelectionModel().getSelectedItem()))) {
+                        store.updateAfterPurchase();
+                    }
                 }
-                store.setGoldPiecesBox();
-                store.updateListView(model.getPrimaryPlayer().getInventory(), store.getInventoryList());
+
             }
         });
 
